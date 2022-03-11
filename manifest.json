@@ -16,7 +16,7 @@
       "resources": ["resources/*"]
     }, {
       "matches": ["<all_urls>"],
-      "resources": ["content-scripts/*"]
+      "resources": ["content-scripts/*/*.svg"]
     }],
     "content_scripts": [{
       "matches": ["*://znanija.com/*", "*://brainly.com/*"],

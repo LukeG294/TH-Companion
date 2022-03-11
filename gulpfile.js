@@ -14,6 +14,15 @@ gulp.task("manifest", function(done){
     gulp.src("manifest.json")
         .pipe(gulp.dest("dist/"));
     done();
+});
+gulp.task("resources", function(done){
+    gulp.src("resources/*/*.svg")
+        .pipe(gulp.dest("dist/resources/"));
+    done();
 })
 
-gulp.task("default", gulp.parallel("sass", "manifest"));
+gulp.task("default", gulp.parallel(
+    "sass", 
+    "manifest", 
+    "resources"
+    ));
