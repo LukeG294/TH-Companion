@@ -10,10 +10,6 @@
       "resolveJsonModule": true,
       "lib": ["ES5", "ES6", "DOM"]
     },
-    "files":[
-        "src/scripts/app.ts"
-    ],
-    "scripts":{
-      "build": "webpack",
-    },
+    "exclude": ["node_modules", "dist"],
+    "include": ["src"]
   }
