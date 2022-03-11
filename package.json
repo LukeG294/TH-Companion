@@ -33,6 +33,7 @@
     "eslint": "^8.10.0",
     "gulp-watch": "^5.0.1",
     "moment": "^2.29.1",
-    "node-sass": "^7.0.1"
+    "node-sass": "^7.0.1",
+    "react": "^17.0.2"
   }
 }
