@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+      "jsx": "react-jsx",
+      "allowJs": true,
+      "baseUrl": "./src",
+      "target": "es6",
+      "module": "commonjs",
+      "outDir": "/dist",
+      "esModuleInterop": true,
+      "resolveJsonModule": true,
+      "lib": ["ES5", "ES6", "DOM"]
+    },
+    "files":[
+        "src/scripts/app.ts"
+    ],
+    "scripts":{
+      "build": "webpack",
+    },
+  }
