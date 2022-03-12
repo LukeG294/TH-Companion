@@ -21,8 +21,10 @@ gulp.task("resources", function(done){
         .pipe(gulp.dest("dist/resources/"));
     done();
 });
+
+//watching while development
 gulp.task("watch", function(done){
-    watch(["./src/styles/*/*.scss"], gulp.series("sass"));
+    watch(["./src/scss/*.scss"], gulp.series("sass"));
 });
 
 //calling all tasks on "gulp"
