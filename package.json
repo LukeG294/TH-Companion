@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "watch": "concurrently -n w: npm:watch:* \"gulp manifest assets sass\"",
+    "watch": "concurrently -n w: npm:watch:* \"gulp manifest sass\"",
     "watch:webpack": "webpack -w --mode=\"development\"",
     "watch:gulp": "gulp watch",
     "build": "gulp && npm run webpack:build",
@@ -11,6 +11,11 @@
   },
   "devDependencies": {
     "@types/react": "^17.0.40",
+    "@babel/register": "^7.17.0",
+    "@types/react-dom": "^17.0.11",
+    "@types/webextension-polyfill": "^0.8.2",
+    "@typescript-eslint/eslint-plugin": "^5.13.0",
+    "@typescript-eslint/parser": "^5.13.0",
     "babel": "^6.23.0",
     "babel-cli": "^6.26.0",
     "babel-loader": "^8.2.3",

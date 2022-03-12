@@ -19,7 +19,10 @@ gulp.task("resources", function(done){
     gulp.src("resources/*/*.svg")
         .pipe(gulp.dest("dist/resources/"));
     done();
-})
+});
+gulp.task("watch", function(done){
+    watch(["./src/styles/*/*.scss"], gulp.series("sass"));
+});
 
 gulp.task("default", gulp.parallel(
     "sass", 

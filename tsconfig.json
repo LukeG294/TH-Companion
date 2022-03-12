@@ -8,8 +8,11 @@
       "outDir": "/dist",
       "esModuleInterop": true,
       "resolveJsonModule": true,
-      "lib": ["ES5", "ES6", "DOM"]
+      "lib": ["ES5", "ES6", "DOM"],
+      "paths": {
+        "@src": ["./scripts/*.ts"]
+      },
     },
     "exclude": ["node_modules", "dist"],
-    "include": ["src"]
+    "include": ["src/scripts"]
   }
