@@ -3,6 +3,7 @@ const sass = require("gulp-sass")(require("node-sass"));
 const watch = require("gulp-watch");
 const concat = require("gulp-concat");
 
+//defining tasks
 gulp.task('sass', function(done){
     gulp.src('src/scss/*.scss')
         .pipe(sass({ outputStyle: "compressed" }).on("error", sass.logError))
@@ -24,6 +25,7 @@ gulp.task("watch", function(done){
     watch(["./src/styles/*/*.scss"], gulp.series("sass"));
 });
 
+//calling all tasks on "gulp"
 gulp.task("default", gulp.parallel(
     "sass", 
     "manifest", 
