@@ -5,14 +5,20 @@
       "baseUrl": "./src",
       "target": "es6",
       "module": "commonjs",
-      "outDir": "/dist",
+      "outDir": "/dist/content-scripts/js",
       "esModuleInterop": true,
       "resolveJsonModule": true,
       "lib": ["ES5", "ES6", "DOM"],
       "paths": {
-        "@src": ["./scripts/*.ts"]
+        "@src": ["./scripts/*.ts"],
+        "@locales": ["./locales"],
+        "@lib/*": ["./lib/*"]
       },
     },
     "exclude": ["node_modules", "dist"],
-    "include": ["src/scripts"]
+    "include": [
+      "src/scripts",
+      "src/locales",
+      "src/lib"
+    ]
   }

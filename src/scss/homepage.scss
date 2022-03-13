@@ -1,17 +1,41 @@
-$font-stack: Helvetica, sans-serif;
-$primary-color: #60d399;
-$primary-text: #ffffff;
-
+*{
+  --primary-color: #60d399;
+  --primary-text: #ffffff;
+}
 div[class ^= 'Header-module'], div[class ^= 'brn-header-placeholder'], .brn-footer, #html .mint .mint-header, #moderate-functions-panel .covering-text{
-  background-color:$primary-color!important;
-  border-bottom-color: $primary-color!important;
+  background-color:var(--primary-color)!important;
+  border-bottom-color: var(--primary-color)!important;
 }
 #moderate-functions-panel .text, .menu-list a:before, a[data-testid = 'navigation_add_question'] > span, div[class ^= 'Header-module__subnav'] span, div[class ^= 'Header-module__subnav'] a, button[aria-label = 'notification center'] svg, .brn-footer-legal-section div, .brn-footer-legal-section p, .brn-footer__container a, .brn-footer__container span, .brn-footer__container h3{
-  color: $primary-text!important;
+  color: var(--primary-text)!important;
 }
 div.brn-placeholder__animation{
   background:none!important;
 }
 #moderate-functions-panel .icon, div[data-testid = 'game_box_badges']{
   display:none!important;
+}
+.brn-feed-item__points .brn-feed-item__grid-gap-bottom{
+  display:flex;
+
+  .mod-button{
+    background: transparent;
+    border: none;
+    border-radius: 100%;
+    height: 32px;
+    width: 32px;
+    margin-left:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:black;
+
+    svg{
+      fill:white;
+    }
+    > div{
+      height:20px;
+      width:20px;
+    }
+  }
 }
