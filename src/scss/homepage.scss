@@ -39,3 +39,35 @@ div.brn-placeholder__animation{
     }
   }
 }
+
+.modal_back{
+  position:fixed;
+  z-index:900;
+  background: rgba($color: #4fc3f6, $alpha: 0.8);
+  height:100%;
+  width:100%;
+  top:0;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+
+  .modal{
+    background:white;
+    border-radius:10px;
+    height:400px;
+    width:400px;
+    padding:24px;
+    position:relative;
+
+    .modal_close{
+      right:12px;
+      top:12px;
+      position:absolute;
+    }
+
+    > h2{
+      font-size:18px;
+      line-height:20px;
+    }
+  }
+}
