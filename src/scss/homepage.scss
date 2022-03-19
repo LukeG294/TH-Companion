@@ -15,30 +15,6 @@ div.brn-placeholder__animation{
 #moderate-functions-panel .icon, div[data-testid = 'game_box_badges']{
   display:none!important;
 }
-.brn-feed-item__points .brn-feed-item__grid-gap-bottom{
-  display:flex;
-
-  .mod-button{
-    background: transparent;
-    border: none;
-    border-radius: 100%;
-    height: 32px;
-    width: 32px;
-    margin-left:12px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:black;
-
-    svg{
-      fill:white;
-    }
-    > div{
-      height:20px;
-      width:20px;
-    }
-  }
-}
 
 .modal_back{
   position:fixed;
@@ -68,6 +44,46 @@ div.brn-placeholder__animation{
     > h2{
       font-size:18px;
       line-height:20px;
+    }
+  }
+}
+.brn-feed-item__footer{
+  >div{
+    display:flex;
+  }
+  .sg-actions-list__hole--to-right{
+    display:flex;
+    margin-right:4px!important;
+    .sg-button--outline{
+      background-color:black!important;
+      width:32px;
+      height:32px;
+      padding:8px 8px 8px 8px!important;
+      border-radius:100%;
+
+      >div{
+        max-height:24px!important;
+        max-width:24px!important;
+      }
+    }
+  }
+  .mod-button{
+    width:32px;
+    height:32px;
+    padding:8px 8px 8px 8px!important;
+    border-radius:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#fbbe2e!important;
+    border-color: #fbbe2e!important;
+
+    svg{
+      fill:white;
+    }
+    > div{
+      height:20px;
+      width:20px;
     }
   }
 }
