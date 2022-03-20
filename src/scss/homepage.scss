@@ -30,11 +30,35 @@ div.brn-placeholder__animation{
   .modal{
     background:white;
     border-radius:10px;
-    height:400px;
-    width:400px;
+    height:90%;
+    width:800px;
     padding:24px;
     position:relative;
-
+    display: flex;
+    flex-direction: column;
+    >h1{
+      line-height: 1.5rem;
+      font-size: 1.5rem;
+    }
+    .preview-content{
+      display:flex;
+      flex-direction: row;
+      flex:1;
+      .sg-spinner-container{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        display:none;
+      }
+      .question{
+        flex:1;
+      }
+      .answers{
+        flex:1;
+      }
+    }
     .modal_close{
       right:12px;
       top:12px;
@@ -47,19 +71,34 @@ div.brn-placeholder__animation{
     }
   }
 }
+
+.brn-feed-item__points .brn-points-on-feed{
+  display:flex;
+  align-items:center;
+  .repflag{
+    background:transparent;
+    height:24px;
+    width:24px;
+    margin-right:4px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    >div{
+      fill:#ff341a!important;
+      max-height:24px;
+      max-width:24px;
+    }
+  }
+}
 .brn-feed-item__footer{
   >div{
     display:flex;
   }
+  
   .sg-actions-list__hole--to-right{
     display:flex;
     margin-right:4px!important;
     .sg-button--outline{
-      background-color:black!important;
-      width:32px;
-      height:32px;
-      padding:8px 8px 8px 8px!important;
-      border-radius:100%;
 
       >div{
         max-height:24px!important;
@@ -67,11 +106,14 @@ div.brn-placeholder__animation{
       }
     }
   }
-  .mod-button{
-    width:32px;
-    height:32px;
+  .sg-button--outline{
+    background-color:black!important;
+    width:36px;
+    height:36px;
     padding:8px 8px 8px 8px!important;
     border-radius:100%;
+  }
+  .mod-button{
     display:flex;
     align-items:center;
     justify-content:center;
