@@ -57,6 +57,18 @@ div.brn-placeholder__animation{
       flex-direction: row;
       flex:1;
       position:relative;
+      .removedq{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+        >img{
+          width:80%;
+        }
+        h1{
+          color:#323c45;
+        }
+      }
       .sg-spinner-container{
         position: absolute;
         width: 100%;
@@ -107,6 +119,7 @@ div.brn-placeholder__animation{
         padding:8px;
         overflow-x:hidden;
       }
+
       .q-content{
         margin-top:8px;
         text-overflow:ellipsis;
@@ -170,13 +183,30 @@ div.brn-placeholder__animation{
           }
         }
       }
+      .primary-items{ 
+        margin-top:8px;
+        border-top: 1px solid #c3d1dd;
+        padding: 8px 0px;
+        border-bottom: 1px solid #c3d1dd;
+        > label{
+          padding:0px 8px; 
+          &:nth-child(2n+1){
+            border-right:1px solid #c3d1dd;
+          }
+          > span:last-child{
+            margin-left:8px;
+          }
+        }
+      }
       .attach-list{
         display:flex;
         img{
           height: 64px;
           padding: 0px 8px;
           cursor:pointer;
-          border-right: 1px solid #c3d1dd;
+          &:not(:last-child){
+            border-right: 1px solid #c3d1dd;
+          }
         }
       }
       .user-info, .text-user, .text-subj{

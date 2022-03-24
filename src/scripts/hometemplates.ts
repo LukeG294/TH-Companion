@@ -1,7 +1,7 @@
 import { find, runtime} from "webextension-polyfill";
 import BrainlyApi from "./BrainlyApi"
-let noanswer = runtime.getURL("resources/Compositions/Brainly_Plus_Jump.svg")
-console.log(noanswer)
+let noanswer = runtime.getURL("resources/Compositions/Brainly_Plus_Jump.svg");
+let removedq = runtime.getURL("resources/Compositions/Ladies@Brainly.svg");
 let answer_template = /*html*/ `
 <div class="answer"></div>
 `
@@ -62,6 +62,10 @@ export function ticket(){
             <button class="qdel three">3</button>
             <div class="delete"><div class="sg-icon sg-icon--dark sg-icon--x32"><svg class="sg-icon__svg"><use xlink:href="#icon-trash"></use></svg></div></div>
           </div>
+          <div class="delmenu">
+            <div class="primary-items"></div>
+            <div class="secondary-items"></div>
+          </div>
         </div>
       </div>
   
@@ -85,57 +89,68 @@ export async function insertdata_ticket(id){
   }).then(data => data.json())
   let d_reference = await fetch('https://brainly.com/api/28/api_config/desktop_view', {method: "GET"}).then(data => data.json());
   document.querySelector(".sg-spinner-container").classList.add("remove");
-  console.log(d_reference);
-  try{
-    let q_data = res.data.task;
-    let a_data = res.data.responses;
-    let q_elem = document.querySelector(".qdata");
-    console.log(res);
-    document.querySelector(".q-content").innerHTML = q_data.content;
-    document.querySelector(".text-subj > div:nth-child(2)").innerHTML = d_reference.data.grades.find(({id}) => id === q_data.grade_id).name;
-    document.querySelector(".text-subj > div:nth-child(1)").innerHTML = d_reference.data.subjects.find(({id}) => id === q_data.subject_id).name;
-    let asker = res.users_data.find(({id}) => id === q_data.user.id);
-    if(q_data.report){
-      let report_elem = document.querySelector(".report")
-      let reporter = res.users_data.find(({id}) => id === q_data.report.user.id)
-      report_elem.querySelector(".report-info div").innerHTML = q_data.report?.abuse.name; 
-      document.querySelector(".content-item.question").classList.add("reported");
+  let q_data = res.data.task;
+  let a_data = res.data.responses;
+  let q_elem = document.querySelector(".qdata");
+  console.log(res);
+  document.querySelector(".q-content").innerHTML = q_data.content;
+  document.querySelector(".text-subj > div:nth-child(2)").innerHTML = d_reference.data.grades.find(({id}) => id === q_data.grade_id).name;
+  document.querySelector(".text-subj > div:nth-child(1)").innerHTML = d_reference.data.subjects.find(({id}) => id === q_data.subject_id).name;
+  let asker = res.users_data.find(({id}) => id === q_data.user.id);
+  if(q_data.report){
+    let report_elem = document.querySelector(".report")
+    let reporter = res.users_data.find(({id}) => id === q_data.report.user.id)
+    report_elem.querySelector(".report-info div").innerHTML = q_data.report?.abuse.name; 
+    document.querySelector(".content-item.question").classList.add("reported");
 
-      report_elem.querySelector(".username").innerHTML = reporter.nick;
-      report_elem.querySelector(".rank").innerHTML = reporter.ranks.names[0];
-      report_elem.querySelector(".rank").setAttribute("style", `color: ${reporter.ranks.color}`)
-    }
-    if(asker.avatar !== null){
-      q_elem.querySelector(".pfp").innerHTML = /*html*/`
-        <img src=${asker.avatar[64]} alt="">
-        `
-    }
-    q_elem.querySelector(".text-user .username").innerHTML = asker.nick;
-    q_elem.querySelector(".text-user .rank").innerHTML = asker.ranks.names[0];
-    q_elem.querySelector(".text-user .rank").setAttribute("style", `color: ${asker.ranks.color}`);
-    if(q_data.attachments.length !== 0){
-      let rotation = 0;
-      q_elem.querySelector(".rotate").addEventListener("click", function(){
-        q_elem.querySelector(".q-attachment > img").setAttribute("style", `transform: rotate(${rotation+90}deg)`)
-        rotation += 90;
-      });
-      q_elem.querySelector(".newtab").addEventListener("click", function(){
-        window.open(q_elem.querySelector(".q-attachment > img").getAttribute("src"),"_blank");
-      });
+    report_elem.querySelector(".username").innerHTML = reporter.nick;
+    report_elem.querySelector(".rank").innerHTML = reporter.ranks.names[0];
+    report_elem.querySelector(".rank").setAttribute("style", `color: ${reporter.ranks.color}`)
+  }
+  if(asker.avatar !== null){
+    q_elem.querySelector(".pfp").innerHTML = /*html*/`
+      <img src=${asker.avatar[64]} alt="">
+      `
+  }
+  q_elem.querySelector(".text-user .username").innerHTML = asker.nick;
+  q_elem.querySelector(".text-user .rank").innerHTML = asker.ranks.names[0];
+  q_elem.querySelector(".text-user .rank").setAttribute("style", `color: ${asker.ranks.color}`);
+  if(q_data.attachments.length !== 0){
+    let rotation = 0;
+    q_elem.querySelector(".rotate").addEventListener("click", function(){
+      q_elem.querySelector(".q-attachment > img").setAttribute("style", `transform: rotate(${rotation+90}deg)`)
+      rotation += 90;
+    });
+    q_elem.querySelector(".newtab").addEventListener("click", function(){
+      window.open(q_elem.querySelector(".q-attachment > img").getAttribute("src"),"_blank");
+    });
 
-      if(q_data.attachments[0].extension === "png" || q_data.attachments[0].extension === "jpg" || q_data.attachments[0].extension === "jpeg"){
-        q_elem.querySelector(".q-attachment").classList.add("show");
-      q_elem.querySelector(".q-attachment").insertAdjacentHTML("beforeend",/*html*/`
-      <img src=${JSON.stringify(q_data.attachments[0].full)}>
-      `)
-      if(q_data.attachments.length > 1){
-        for(let i = 0; i < q_data.attachments.length; i++){
-          q_elem.querySelector(".attach-list").insertAdjacentHTML("beforeend",/*html*/`
-            <img src=${JSON.stringify(q_data.attachments[i].thumbnail)} id = "img${i}" onclick = 'document.querySelector(".q-attachment > img").setAttribute("src", "${q_data.attachments[i].full}")'>
-          `)
-        }
+    if(q_data.attachments[0].extension === "png" || q_data.attachments[0].extension === "jpg" || q_data.attachments[0].extension === "jpeg"){
+      q_elem.querySelector(".q-attachment").classList.add("show");
+    q_elem.querySelector(".q-attachment").insertAdjacentHTML("beforeend",/*html*/`
+    <img src=${JSON.stringify(q_data.attachments[0].full)}>
+    `)
+    if(q_data.attachments.length > 1){
+      for(let i = 0; i < q_data.attachments.length; i++){
+        q_elem.querySelector(".attach-list").insertAdjacentHTML("beforeend",/*html*/`
+          <img src=${JSON.stringify(q_data.attachments[i].thumbnail)} id = "img${i}" onclick = 'document.querySelector(".q-attachment > img").setAttribute("src", "${q_data.attachments[i].full}")'>
+        `)
       }
     }
-    }
-  }catch(err){}
+  }
+  }
+  let q_del_rsn = res.data.delete_reasons.task;
+  for(let i = 0; q_del_rsn.length; i++){
+    q_elem.querySelector(".primary-items").insertAdjacentHTML("beforeend",/*html*/`
+      <label class="sg-radio sg-radio--xxs" for="${q_del_rsn[i].id}">
+        <input type="radio" class="sg-radio__element" name="group1" id="${q_del_rsn[i].id}">
+        <span class="sg-radio__ghost" aria-hidden="true"></span>
+        <span class="sg-text sg-text--small sg-text--bold sg-radio__label">${q_del_rsn[i].text}</span>
+      </label>`
+    )
+  
+  //q_elem.querySelector(".primary-items").addEventListener("input", function(){
+  //  console.log(q_del_rsn.find(({id}) => id === q_elem.querySelector(".primary-items input:checked").getAttribute("id")));
+  //});
+  }
 }
