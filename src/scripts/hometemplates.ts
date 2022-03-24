@@ -1,6 +1,7 @@
-import { find } from "webextension-polyfill";
+import { find, runtime} from "webextension-polyfill";
 import BrainlyApi from "./BrainlyApi"
-//let noanswer = browser.runtime.geturl("Compositions/Layer 2.svg")
+let noanswer = runtime.getURL("resources/Compositions/Brainly_Plus_Jump.svg")
+console.log(noanswer)
 let answer_template = /*html*/ `
 <div class="answer"></div>
 `
@@ -41,7 +42,6 @@ export function ticket(){
               </div>
               <div class="text-subj">
                 <div class = "sg-text sg-text--xsmall rightdot">Subject</div>
-                <div class = "sg-text sg-text--xsmall rightdot">Time</div>
                 <div class = "sg-text sg-text--xsmall">Middle School</div>
               </div>
             </div>
@@ -57,13 +57,16 @@ export function ticket(){
           </div>
           <div class="attach-list"></div>
           <div class="actions">
+            <button class="qdel one">1</button>
+            <button class="qdel two">2</button>
+            <button class="qdel three">3</button>
             <div class="delete"><div class="sg-icon sg-icon--dark sg-icon--x32"><svg class="sg-icon__svg"><use xlink:href="#icon-trash"></use></svg></div></div>
           </div>
         </div>
       </div>
   
       <div class = "answers">
-        
+        <img src = '${noanswer}'>
       </div>
     </div>
   `)
@@ -80,54 +83,59 @@ export async function insertdata_ticket(id){
       "schema":"moderation.content.get"
     }`)
   }).then(data => data.json())
+  let d_reference = await fetch('https://brainly.com/api/28/api_config/desktop_view', {method: "GET"}).then(data => data.json());
   document.querySelector(".sg-spinner-container").classList.add("remove");
-  let q_data = res.data.task;
-  let a_data = res.data.responses;
-  let q_elem = document.querySelector(".qdata");
-  console.log(res);
-  document.querySelector(".q-content").innerHTML = q_data.content;
-  let asker = res.users_data.find(({id}) => id === q_data.user.id);
-  if(q_data.report){
-    let report_elem = document.querySelector(".report")
-    let reporter = res.users_data.find(({id}) => id === q_data.report.user.id)
-    report_elem.querySelector(".report-info div").innerHTML = q_data.report?.abuse.name; 
-    document.querySelector(".content-item.question").classList.add("reported");
-    
-    report_elem.querySelector(".username").innerHTML = reporter.nick;
-    report_elem.querySelector(".rank").innerHTML = reporter.ranks.names[0];
-    report_elem.querySelector(".rank").setAttribute("style", `color: ${reporter.ranks.color}`)
-  }
-  if(asker.avatar !== null){
-    q_elem.querySelector(".pfp").innerHTML = /*html*/`
-      <img src=${asker.avatar[64]} alt="">
-      `
-  }
-  q_elem.querySelector(".text-user .username").innerHTML = asker.nick;
-  q_elem.querySelector(".text-user .rank").innerHTML = asker.ranks.names[0];
-  q_elem.querySelector(".text-user .rank").setAttribute("style", `color: ${asker.ranks.color}`);
-  if(q_data.attachments.length !== 0){
-    let rotation = 0;
-    q_elem.querySelector(".rotate").addEventListener("click", function(){
-      q_elem.querySelector(".q-attachment > img").setAttribute("style", `transform: rotate(${rotation+90}deg)`)
-      rotation += 90;
-    });
-    q_elem.querySelector(".newtab").addEventListener("click", function(){
-      window.open(q_elem.querySelector(".q-attachment > img").getAttribute("src"),"_blank");
-    });
-    
-    if(q_data.attachments[0].extension === "png" || q_data.attachments[0].extension === "jpg" || q_data.attachments[0].extension === "jpeg"){
-      q_elem.querySelector(".q-attachment").classList.add("show");
-    q_elem.querySelector(".q-attachment").insertAdjacentHTML("beforeend",/*html*/`
-    <img src=${JSON.stringify(q_data.attachments[0].full)}>
-    `)
-    if(q_data.attachments.length > 1){
-      for(let i = 0; i < q_data.attachments.length; i++){
-        q_elem.querySelector(".attach-list").insertAdjacentHTML("beforeend",/*html*/`
-          <img src=${JSON.stringify(q_data.attachments[i].thumbnail)} id = "img${i}">
-        `)
+  console.log(d_reference);
+  try{
+    let q_data = res.data.task;
+    let a_data = res.data.responses;
+    let q_elem = document.querySelector(".qdata");
+    console.log(res);
+    document.querySelector(".q-content").innerHTML = q_data.content;
+    document.querySelector(".text-subj > div:nth-child(2)").innerHTML = d_reference.data.grades.find(({id}) => id === q_data.grade_id).name;
+    document.querySelector(".text-subj > div:nth-child(1)").innerHTML = d_reference.data.subjects.find(({id}) => id === q_data.subject_id).name;
+    let asker = res.users_data.find(({id}) => id === q_data.user.id);
+    if(q_data.report){
+      let report_elem = document.querySelector(".report")
+      let reporter = res.users_data.find(({id}) => id === q_data.report.user.id)
+      report_elem.querySelector(".report-info div").innerHTML = q_data.report?.abuse.name; 
+      document.querySelector(".content-item.question").classList.add("reported");
+
+      report_elem.querySelector(".username").innerHTML = reporter.nick;
+      report_elem.querySelector(".rank").innerHTML = reporter.ranks.names[0];
+      report_elem.querySelector(".rank").setAttribute("style", `color: ${reporter.ranks.color}`)
+    }
+    if(asker.avatar !== null){
+      q_elem.querySelector(".pfp").innerHTML = /*html*/`
+        <img src=${asker.avatar[64]} alt="">
+        `
+    }
+    q_elem.querySelector(".text-user .username").innerHTML = asker.nick;
+    q_elem.querySelector(".text-user .rank").innerHTML = asker.ranks.names[0];
+    q_elem.querySelector(".text-user .rank").setAttribute("style", `color: ${asker.ranks.color}`);
+    if(q_data.attachments.length !== 0){
+      let rotation = 0;
+      q_elem.querySelector(".rotate").addEventListener("click", function(){
+        q_elem.querySelector(".q-attachment > img").setAttribute("style", `transform: rotate(${rotation+90}deg)`)
+        rotation += 90;
+      });
+      q_elem.querySelector(".newtab").addEventListener("click", function(){
+        window.open(q_elem.querySelector(".q-attachment > img").getAttribute("src"),"_blank");
+      });
+
+      if(q_data.attachments[0].extension === "png" || q_data.attachments[0].extension === "jpg" || q_data.attachments[0].extension === "jpeg"){
+        q_elem.querySelector(".q-attachment").classList.add("show");
+      q_elem.querySelector(".q-attachment").insertAdjacentHTML("beforeend",/*html*/`
+      <img src=${JSON.stringify(q_data.attachments[0].full)}>
+      `)
+      if(q_data.attachments.length > 1){
+        for(let i = 0; i < q_data.attachments.length; i++){
+          q_elem.querySelector(".attach-list").insertAdjacentHTML("beforeend",/*html*/`
+            <img src=${JSON.stringify(q_data.attachments[i].thumbnail)} id = "img${i}" onclick = 'document.querySelector(".q-attachment > img").setAttribute("src", "${q_data.attachments[i].full}")'>
+          `)
+        }
       }
     }
-  }
-  }
-
+    }
+  }catch(err){}
 }

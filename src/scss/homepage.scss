@@ -77,6 +77,10 @@ div.brn-placeholder__animation{
         &.reported{
           .report{
             display:flex;
+            .report-info>div{
+              font-size:1rem;
+              line-height:1.2rem;
+            }
           }
           .qdata{
             border-color:#ff7968!important;
@@ -169,10 +173,10 @@ div.brn-placeholder__animation{
       .attach-list{
         display:flex;
         img{
-          border-radius: 10px;
           height: 64px;
           padding: 0px 8px;
-          border-right:1px solid #c3d1dd;
+          cursor:pointer;
+          border-right: 1px solid #c3d1dd;
         }
       }
       .user-info, .text-user, .text-subj{
@@ -191,8 +195,38 @@ div.brn-placeholder__animation{
       .question{
         flex:1;
       }
+      .actions{
+        display:flex;
+        margin-top:8px;
+      }
+      .actions > button, .actions > div{
+        margin:0px 4px;
+      }
+
+      .qdel{
+        border:none;
+        border-radius:100%;
+        height:40px;
+        font-weight:600;
+        width:40px;
+        background:#fbbe2e;
+        color:white;
+        display:flex;
+        align-items: center;
+        justify-content:center;
+      }
       .answers{
         flex:1;
+        max-width:50%;
+        display:flex;
+        justify-content: center;
+        position: relative;
+        align-items: baseline;
+        >img{
+          width:80%;
+          position: sticky;
+          top: 15%;
+        }
       }
     }
 
