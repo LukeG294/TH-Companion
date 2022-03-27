@@ -3,6 +3,33 @@ import BrainlyApi from "./BrainlyApi"
 let noanswer = runtime.getURL("resources/Compositions/Brainly_Plus_Jump.svg");
 let removedq = runtime.getURL("resources/Compositions/Ladies@Brainly.svg");
 
+function add_attachments(item, elem){
+  if(item.attachments.length !== 0){
+    let rotation = 0;
+    elem.querySelector(".rotate").addEventListener("click", function(){
+      elem.querySelector(".a-attachment > img").setAttribute("style", `transform: rotate(${rotation+90}deg)`)
+      rotation += 90;
+    });
+    elem.querySelector(".newtab").addEventListener("click", function(){
+      window.open(elem.querySelector(".a-attachment > img").getAttribute("src"),"_blank");
+    });
+    
+    if(item.attachments[0].extension === "png" || item.attachments[0].extension === "jpg" || item.attachments[0].extension === "jpeg"){
+      elem.querySelector(".a-attachment").classList.add("show");
+    elem.querySelector(".a-attachment").insertAdjacentHTML("beforeend",/*html*/`
+    <img src=${JSON.stringify(item.attachments[0].full)}>
+    `)
+    if(item.attachments.length > 1){
+      for(let i = 0; i < item.attachments.length; i++){
+        elem.querySelector(".attach-list").insertAdjacentHTML("beforeend",/*html*/`
+          <img src=${JSON.stringify(item.attachments[i].thumbnail)} id = "img${i}" onclick = 'document.querySelector(".a-attachment > img").setAttribute("src", "${item.attachments[i].full}")'>
+        `)
+      }
+    }
+  }
+  }
+}
+
 function add_answer(ans,res,a){
   let answerer = res.users_data.find(({id}) => id === ans.user.id);
   let answer_elem = /*html*/`
@@ -59,35 +86,18 @@ function add_answer(ans,res,a){
   document.querySelector(".answers").insertAdjacentHTML("beforeend",answer_elem);
   let this_ans = document.querySelector(`.answer${a}`);
 
+  if(answerer.avatar !== null){
+    this_ans.querySelector(".pfp").innerHTML = /*html*/`
+      <img src=${answerer.avatar[64]} alt="">
+      `
+  }
+
   this_ans.querySelector(".text-user .username").innerHTML = answerer.nick;
   this_ans.querySelector(".text-user .rank").innerHTML = answerer.ranks.names[0];
   this_ans.querySelector(".text-user .rank").setAttribute("style", `color: ${answerer.ranks.color}`)
   this_ans.querySelector(".a-content").innerHTML = ans.content;
 
-  if(ans.attachments.length !== 0){
-    let rotation = 0;
-    this_ans.querySelector(".rotate").addEventListener("click", function(){
-      this_ans.querySelector(".a-attachment > img").setAttribute("style", `transform: rotate(${rotation+90}deg)`)
-      rotation += 90;
-    });
-    this_ans.querySelector(".newtab").addEventListener("click", function(){
-      window.open(ans.querySelector(".a-attachment > img").getAttribute("src"),"_blank");
-    });
-    
-    if(ans.attachments[0].extension === "png" || ans.attachments[0].extension === "jpg" || ans.attachments[0].extension === "jpeg"){
-      this_ans.querySelector(".a-attachment").classList.add("show");
-    this_ans.querySelector(".a-attachment").insertAdjacentHTML("beforeend",/*html*/`
-    <img src=${JSON.stringify(ans.attachments[0].full)}>
-    `)
-    if(ans.attachments.length > 1){
-      for(let i = 0; i < ans.attachments.length; i++){
-        this_ans.querySelector(".attach-list").insertAdjacentHTML("beforeend",/*html*/`
-          <img src=${JSON.stringify(ans.attachments[i].thumbnail)} id = "img${i}" onclick = 'document.querySelector(".a-attachment > img").setAttribute("src", "${ans.attachments[i].full}")'>
-        `)
-      }
-    }
-  }
-  }
+  add_attachments(ans, this_ans);
 }
 function add_question_data(res, d_reference){
   let q_data = res.data.task;
@@ -115,30 +125,9 @@ function add_question_data(res, d_reference){
   q_elem.querySelector(".text-user .username").innerHTML = asker.nick;
   q_elem.querySelector(".text-user .rank").innerHTML = asker.ranks.names[0];
   q_elem.querySelector(".text-user .rank").setAttribute("style", `color: ${asker.ranks.color}`);
-  if(q_data.attachments.length !== 0){
-    let rotation = 0;
-    q_elem.querySelector(".rotate").addEventListener("click", function(){
-      q_elem.querySelector(".q-attachment > img").setAttribute("style", `transform: rotate(${rotation+90}deg)`)
-      rotation += 90;
-    });
-    q_elem.querySelector(".newtab").addEventListener("click", function(){
-      window.open(q_elem.querySelector(".q-attachment > img").getAttribute("src"),"_blank");
-    });
+  
+  add_attachments(q_data, q_elem);
 
-    if(q_data.attachments[0].extension === "png" || q_data.attachments[0].extension === "jpg" || q_data.attachments[0].extension === "jpeg"){
-      q_elem.querySelector(".q-attachment").classList.add("show");
-    q_elem.querySelector(".q-attachment").insertAdjacentHTML("beforeend",/*html*/`
-    <img src=${JSON.stringify(q_data.attachments[0].full)}>
-    `)
-    if(q_data.attachments.length > 1){
-      for(let i = 0; i < q_data.attachments.length; i++){
-        q_elem.querySelector(".attach-list").insertAdjacentHTML("beforeend",/*html*/`
-          <img src=${JSON.stringify(q_data.attachments[i].thumbnail)} id = "img${i}" onclick = 'document.querySelector(".q-attachment > img").setAttribute("src", "${q_data.attachments[i].full}")'>
-        `)
-      }
-    }
-  }
-  }
   let q_del_rsn = res.data.delete_reasons.task;
   for(let i = 0; i < q_del_rsn.length; i++){
     q_elem.querySelector(".primary-items").insertAdjacentHTML("beforeend",/*html*/`
