@@ -1,4 +1,5 @@
-import {ticket, insertdata_ticket} from "./hometemplates"
+import {insertdata_ticket} from "./ticket_functions"
+import {ticket} from "./ticket_exp"
 function appendModerationButtons() {
   const questions = document.querySelectorAll(".brn-feed-items > div[data-testid = 'feed-item']");
   for (let questionBox of Array.from(questions)) {

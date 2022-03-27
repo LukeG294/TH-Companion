@@ -5,9 +5,8 @@ const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 
 module.exports = {
     entry: [
-      "./src/scripts/homemod.ts",
-      "./src/scripts/background.ts",
-      "./src/scripts/gamebox.ts"
+      "./src/scripts/homepage/homemod.ts",
+      "./src/scripts/background.ts"
     ],
     mode:"development",
     module: {
