@@ -49,7 +49,7 @@ div.brn-placeholder__animation{
         background: #f5f8fa;
         border-radius: 100%;
         padding: 8px;
-        top:-40px;
+        top:-50px;
       }
     }
     .preview-content{
@@ -82,10 +82,12 @@ div.brn-placeholder__animation{
         }
       }
       .content-item{
+        margin-bottom:8px;
         border:1px solid #e1eaf1;
         border-radius:5px;
         padding:8px;
-        max-width:50%;
+        width:100%;
+        height:max-content;
         &.reported{
           .report{
             display:flex;
@@ -96,6 +98,38 @@ div.brn-placeholder__animation{
           }
           .qdata{
             border-color:#ff7968!important;
+          }
+        }
+        .actions{
+          display: flex;
+          justify-content: flex-end;
+          .delete{
+            width: 40px;
+            cursor: pointer;
+            height: 40px;
+            border: 2px solid #ff341a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 100%;
+            >div{
+              fill: #ff341a;
+              height: 26px;
+              width: 26px;
+            }
+          
+          }
+          .qdel, .adel{
+            border:none;
+            border-radius:100%;
+            height:40px;
+            font-weight:600;
+            width:40px;
+            background:#fbbe2e;
+            color:white;
+            display:flex;
+            align-items: center;
+            justify-content:center;
           }
         }
       }
@@ -114,17 +148,17 @@ div.brn-placeholder__animation{
           margin-right:8px;
         }
       }
-      .qdata{
+      .qdata,.adata{
         border-radius:5px;
         padding:8px;
         overflow-x:hidden;
       }
 
-      .q-content{
+      .q-content,.a-content{
         margin-top:8px;
         text-overflow:ellipsis;
       }
-      .q-attachment{
+      .q-attachment,.a-attachment{
         margin-top: 8px;
         margin-bottom:8px;
         justify-content: center;
@@ -145,24 +179,8 @@ div.brn-placeholder__animation{
           border-radius: 10px;
         }
       }
-      .actions{
-        display: flex;
-        justify-content: flex-end;
-        .delete{
-          width: 40px;
-          cursor: pointer;
-          height: 40px;
-          border: 2px solid #ff341a;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          border-radius: 100%;
-          >div{
-            fill: #ff341a;
-            height: 26px;
-            width: 26px;
-          }
-        }
+      .delmenu{
+        display:none;
       }
       .attachment-tools{
         position: absolute;
@@ -232,30 +250,22 @@ div.brn-placeholder__animation{
       .actions > button, .actions > div{
         margin:0px 4px;
       }
-
-      .qdel{
-        border:none;
-        border-radius:100%;
-        height:40px;
-        font-weight:600;
-        width:40px;
-        background:#fbbe2e;
-        color:white;
-        display:flex;
-        align-items: center;
-        justify-content:center;
-      }
       .answers{
         flex:1;
         max-width:50%;
+        margin-left:8px;
         display:flex;
-        justify-content: center;
+        flex-direction: column;
+        justify-content: flex-start;
         position: relative;
         align-items: baseline;
         >img{
           width:80%;
           position: sticky;
           top: 15%;
+        }
+        .content-item{
+          flex:0;
         }
       }
     }
