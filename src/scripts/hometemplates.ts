@@ -29,7 +29,18 @@ function add_attachments(item, elem){
   }
   }
 }
+function user_content_data(user, elem, item){
+  if(user.avatar !== null){
+    elem.querySelector(".pfp").innerHTML = /*html*/`
+      <img src=${user.avatar[64]} alt="">
+      `
+  }
 
+  elem.querySelector(".text-user .username").innerHTML = user.nick;
+  elem.querySelector(".text-user .rank").innerHTML = user.ranks.names[0];
+  elem.querySelector(".text-user .rank").setAttribute("style", `color: ${user.ranks.color}`)
+  elem.querySelector(".content").innerHTML = item.content;
+}
 function add_answer(ans,res,a){
   let answerer = res.users_data.find(({id}) => id === ans.user.id);
   let answer_elem = /*html*/`
@@ -60,7 +71,7 @@ function add_answer(ans,res,a){
           </div>
         </div>
       </div>
-      <div class="a-content sg-text">
+      <div class="content sg-text">
         Content
       </div>
       <div class="a-attachment">
@@ -86,24 +97,13 @@ function add_answer(ans,res,a){
   document.querySelector(".answers").insertAdjacentHTML("beforeend",answer_elem);
   let this_ans = document.querySelector(`.answer${a}`);
 
-  if(answerer.avatar !== null){
-    this_ans.querySelector(".pfp").innerHTML = /*html*/`
-      <img src=${answerer.avatar[64]} alt="">
-      `
-  }
-
-  this_ans.querySelector(".text-user .username").innerHTML = answerer.nick;
-  this_ans.querySelector(".text-user .rank").innerHTML = answerer.ranks.names[0];
-  this_ans.querySelector(".text-user .rank").setAttribute("style", `color: ${answerer.ranks.color}`)
-  this_ans.querySelector(".a-content").innerHTML = ans.content;
-
+  user_content_data(answerer, this_ans, ans);
   add_attachments(ans, this_ans);
 }
 function add_question_data(res, d_reference){
   let q_data = res.data.task;
   let q_elem = document.querySelector(".qdata");
   console.log(res);
-  document.querySelector(".q-content").innerHTML = q_data.content;
   document.querySelector(".text-subj > div:nth-child(2)").innerHTML = d_reference.data.grades.find(({id}) => id === q_data.grade_id).name;
   document.querySelector(".text-subj > div:nth-child(1)").innerHTML = d_reference.data.subjects.find(({id}) => id === q_data.subject_id).name;
   let asker = res.users_data.find(({id}) => id === q_data.user.id);
@@ -117,15 +117,7 @@ function add_question_data(res, d_reference){
     report_elem.querySelector(".rank").innerHTML = reporter.ranks.names[0];
     report_elem.querySelector(".rank").setAttribute("style", `color: ${reporter.ranks.color}`)
   }
-  if(asker.avatar !== null){
-    q_elem.querySelector(".pfp").innerHTML = /*html*/`
-      <img src=${asker.avatar[64]} alt="">
-      `
-  }
-  q_elem.querySelector(".text-user .username").innerHTML = asker.nick;
-  q_elem.querySelector(".text-user .rank").innerHTML = asker.ranks.names[0];
-  q_elem.querySelector(".text-user .rank").setAttribute("style", `color: ${asker.ranks.color}`);
-  
+  user_content_data(asker, q_elem, q_data);
   add_attachments(q_data, q_elem);
 
   let q_del_rsn = res.data.delete_reasons.task;
@@ -185,7 +177,7 @@ export function ticket(){
               </div>
             </div>
           </div>
-          <div class="q-content sg-text">
+          <div class="content sg-text">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
           </div>
           <div class="q-attachment">
