@@ -30,7 +30,8 @@ div.brn-placeholder__animation{
   .modal{
     background:white;
     border-radius:10px;
-    height:90%;
+    height:max-content;
+    max-height:90%;
     width:900px;
     padding:24px;
     position:relative;
