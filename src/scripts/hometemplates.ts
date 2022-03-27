@@ -148,12 +148,12 @@ function add_question_data(res, d_reference){
         <span class="sg-text sg-text--small sg-text--bold sg-radio__label">${q_del_rsn[i].text}</span>
       </label>`
     )
-
+  }
   q_elem.querySelector(".primary-items").addEventListener("change", function(){
     let selected_index = q_elem.querySelector(".primary-items input:checked").getAttribute("index");
     console.log(q_del_rsn[selected_index]);
   });
-  }
+  
 }
 export function ticket(){
   
