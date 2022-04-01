@@ -30,9 +30,8 @@ div.brn-placeholder__animation{
   .modal{
     background:white;
     border-radius:10px;
-    height:max-content;
     max-height:90%;
-    width:900px;
+    width:600px;
     padding:24px;
     position:relative;
     display: flex;
@@ -55,7 +54,7 @@ div.brn-placeholder__animation{
     }
     .preview-content{
       display:flex;
-      flex-direction: row;
+      flex-direction: column;
       flex:1;
       position:relative;
       .removedq{
@@ -80,6 +79,19 @@ div.brn-placeholder__animation{
         z-index:999;
         &.remove{
           display:none;
+        }
+      }
+      .log{
+        .log-item{
+          display:flex;
+          .content{
+            margin-top:0px;
+          }
+          .user{
+            color: #413bff;
+            margin-right: 4px;
+            font-weight: 600;
+          }
         }
       }
       .content-item{
@@ -182,6 +194,22 @@ div.brn-placeholder__animation{
       }
       .delmenu{
         display:none;
+        &.show{
+          display:flex;
+          flex-direction:column;
+        }
+        .primary-items, .secondary-items{ 
+          margin-top:8px;
+          padding: 8px 0px;
+          border-bottom: 1px solid #c3d1dd;
+          > label{
+            padding:0px 8px;
+            border-right:1px solid #c3d1dd;
+            > span:last-child{
+              margin-left:8px;
+            }
+          }
+        }
       }
       .attachment-tools{
         position: absolute;
@@ -199,21 +227,6 @@ div.brn-placeholder__animation{
             height: 26px;
             fill: #323c45;
             width: 26px;
-          }
-        }
-      }
-      .primary-items{ 
-        margin-top:8px;
-        border-top: 1px solid #c3d1dd;
-        padding: 8px 0px;
-        border-bottom: 1px solid #c3d1dd;
-        > label{
-          padding:0px 8px; 
-          &:nth-child(2n+1){
-            border-right:1px solid #c3d1dd;
-          }
-          > span:last-child{
-            margin-left:8px;
           }
         }
       }
@@ -253,18 +266,12 @@ div.brn-placeholder__animation{
       }
       .answers{
         flex:1;
-        max-width:50%;
-        margin-left:8px;
+        max-width:100%;
         display:flex;
         flex-direction: column;
         justify-content: flex-start;
         position: relative;
         align-items: baseline;
-        >img{
-          width:80%;
-          position: sticky;
-          top: 15%;
-        }
         .content-item{
           flex:0;
         }

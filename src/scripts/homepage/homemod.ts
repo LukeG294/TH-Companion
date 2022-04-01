@@ -1,10 +1,25 @@
 import {insertdata_ticket} from "./ticket_functions"
 import {ticket} from "./ticket_exp"
-function appendModerationButtons() {
+import {subscribe} from "./livemod"
+import { storage } from "webextension-polyfill";
+
+async function appendModerationButtons() {
   const questions = document.querySelectorAll(".brn-feed-items > div[data-testid = 'feed-item']");
+  function saveUser(){
+    let data = JSON.parse(document.querySelector("head meta[name='user_data']").getAttribute("content"));
+    storage.local.set({
+      "uid": data.id,
+      "nick": data.nick,
+      "gender": data.gender,
+      "avatar": data.avatar,
+      "auth_hash": data.cometAuthHash
+    });
+  }
+  saveUser();
   for (let questionBox of Array.from(questions)) {
     let qid = questionBox.querySelector("a[data-test = 'feed-item-link']").getAttribute("href").replace("/question/","").split("?")[0];
     
+    //check if the answer button is available
     try{
     let actionlist = questionBox.querySelector(".sg-actions-list__hole.sg-actions-list__hole--to-right");
     if (questionBox.querySelector(".mod-button")) continue;
@@ -17,21 +32,13 @@ function appendModerationButtons() {
       }
     }
 
-  var xhr = new XMLHttpRequest();
-  xhr.withCredentials = true;
-
-  xhr.addEventListener("readystatechange", function() {
-    if(this.readyState === 4) {
-      if(JSON.parse(this.responseText).data.task.settings.is_marked_abuse === true){
-        questionBox.querySelector(".brn-feed-item__points .brn-points-on-feed").insertAdjacentHTML("afterbegin",`<div class = "repflag"><div class="sg-icon sg-icon--dark sg-icon--x32"><svg class="sg-icon__svg"><use xlink:href="#icon-report_flag"></use></svg></div></div>`)
-      }
+    //check if the question has been reported + add the report flag
+    let bdata = await fetch("https://brainly.com/api/28/api_tasks/main_view/"+qid, {method: "GET"}).then(data => data.json());
+    if(bdata.data.task.settings.is_marked_abuse === true){
+      questionBox.querySelector(".brn-feed-item__points .brn-points-on-feed").insertAdjacentHTML("afterbegin",`<div class = "repflag"><div class="sg-icon sg-icon--dark sg-icon--x32"><svg class="sg-icon__svg"><use xlink:href="#icon-report_flag"></use></svg></div></div>`)
     }
-  });
 
-  xhr.open("GET", "https://brainly.com/api/28/api_tasks/main_view/"+qid);
-
-  xhr.send();
-
+    //mod ticket event listeners
     questionBox.querySelector(" .mod-button").addEventListener("click", async function(){
       document.body.insertAdjacentHTML("beforeend", <string>ticket())
       insertdata_ticket(qid)
@@ -39,8 +46,11 @@ function appendModerationButtons() {
       document.querySelector(".modal_close").addEventListener("click", async function(){
         document.querySelector(".modal_back").remove()
         await fetch(`https://brainly.com/api/28/moderate_tickets/expire`,{method: "POST", body:`{"model_id":${qid},"model_type_id":1,"schema":"moderation.ticket.expire"}`})
-    })
-    })
+      });
+    });
+    //livemod call
+    //questionBox.querySelector(".brn-feed-item").setAttribute("task-id", qid);
+    //subscribe()
   }
 }
   

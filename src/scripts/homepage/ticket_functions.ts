@@ -1,6 +1,28 @@
 import {find, runtime} from "webextension-polyfill";
 let removedq = runtime.getURL("resources/Compositions/Ladies@Brainly.svg");
+function add_log(log){
+  for(let i = 0; i < log.data.length; i++){
+    let user = log.users_data.find(({id}) => id === log.data[i].user_id).nick;
+    console.log(user);
+  document.querySelector(".log").insertAdjacentHTML("beforeend",/*html*/`
+    <div class="log-item">
+      <div class = "user">${user}</div><div class = "content">${log.data[i].text.replace('%1$s',"")}</div>
+    </div>
+  `
+  );}
+}
+function add_report(data, item, elem){
+  if(item.report){
+    let report_elem = elem.querySelector(".report")
+    let reporter = data.users_data.find(({id}) => id === item.report.user.id)
+    report_elem.querySelector(".report-info div").innerHTML = item.report?.abuse.name; 
+    elem.classList.add("reported");
 
+    report_elem.querySelector(".username").innerHTML = reporter.nick;
+    report_elem.querySelector(".rank").innerHTML = reporter.ranks.names[0];
+    report_elem.querySelector(".rank").setAttribute("style", `color: ${reporter.ranks.color}`)
+  }
+}
 function add_attachments(item, elem){
   if(item.attachments.length !== 0){
     let rotation = 0;
@@ -20,7 +42,7 @@ function add_attachments(item, elem){
     if(item.attachments.length > 1){
       for(let i = 0; i < item.attachments.length; i++){
         elem.querySelector(".attach-list").insertAdjacentHTML("beforeend",/*html*/`
-          <img src=${JSON.stringify(item.attachments[i].thumbnail)} id = "img${i}" onclick = 'document.querySelector(".a-attachment > img").setAttribute("src", "${item.attachments[i].full}")'>
+          <img src=${JSON.stringify(item.attachments[i].thumbnail)} id = "img${i}" onclick = 'document.querySelector(".attachments > img").setAttribute("src", "${item.attachments[i].full}")'>
         `)
       }
     }
@@ -97,6 +119,7 @@ function add_answer(ans,res,a){
 
   user_content_data(answerer, this_ans, ans);
   add_attachments(ans, this_ans);
+  add_report(res,ans,this_ans)
 }
 function add_question_data(res, d_reference){
   let q_data = res.data.task;
@@ -105,16 +128,7 @@ function add_question_data(res, d_reference){
   document.querySelector(".text-subj > div:nth-child(2)").innerHTML = d_reference.data.grades.find(({id}) => id === q_data.grade_id).name;
   document.querySelector(".text-subj > div:nth-child(1)").innerHTML = d_reference.data.subjects.find(({id}) => id === q_data.subject_id).name;
   let asker = res.users_data.find(({id}) => id === q_data.user.id);
-  if(q_data.report){
-    let report_elem = document.querySelector(".report")
-    let reporter = res.users_data.find(({id}) => id === q_data.report.user.id)
-    report_elem.querySelector(".report-info div").innerHTML = q_data.report?.abuse.name; 
-    document.querySelector(".content-item.question").classList.add("reported");
-
-    report_elem.querySelector(".username").innerHTML = reporter.nick;
-    report_elem.querySelector(".rank").innerHTML = reporter.ranks.names[0];
-    report_elem.querySelector(".rank").setAttribute("style", `color: ${reporter.ranks.color}`)
-  }
+  add_report(res, q_data, q_elem);
   user_content_data(asker, q_elem, q_data);
   add_attachments(q_data, q_elem);
 
@@ -128,24 +142,61 @@ function add_question_data(res, d_reference){
       </label>`
     )
   }
-  q_elem.querySelector(".primary-items").addEventListener("change", function(){
+  q_elem.querySelector(".delete").addEventListener("click", () => {
+    q_elem.querySelector(".delmenu").classList.toggle("show");
+  })
+  q_elem.querySelector(".primary-items").addEventListener("change", async function(){
     let selected_index = q_elem.querySelector(".primary-items input:checked").getAttribute("index");
-    console.log(q_del_rsn[selected_index]);
+    console.log(q_del_rsn[selected_index].subcategories);
+    let selected_subcats = q_del_rsn[selected_index].subcategories;
+    q_elem.querySelector(".secondary-items").innerHTML = '';
+    for(let i = 0; i < selected_subcats.length; i++){
+      q_elem.querySelector(".secondary-items").insertAdjacentHTML("beforeend",/*html*/`
+        <label class="sg-radio sg-radio--xxs" for="${selected_subcats[i].id}">
+          <input type="radio" class="sg-radio__element" name="group2" id="${selected_subcats[i].id}">
+          <span class="sg-radio__ghost" aria-hidden="true"></span>
+          <span class="sg-text sg-text--small sg-text--bold sg-radio__label">${selected_subcats[i].title}</span>
+        </label>`
+      )
+    }
+    //await fetch("https://brainly.com/api/28/moderation_new/delete_task_content", {
+    //  method: "POST",
+    //  body:`
+    //  {
+    //    "reason_id":2,
+    //    "reason":"",
+    //    "give_warning":false,
+    //    "take_points":true,
+    //    "schema":"moderation.task.delete",
+    //    "model_type_id":2,
+    //    "model_id":
+    //  }`
+    //})
   });
   
 }
 export async function insertdata_ticket(id){
-  let res = await fetch(`https://brainly.com/api/28/moderation_new/get_content`, { method: "POST",body: (`{"model_type_id":1,"model_id":${id},"schema":"moderation.content.get"}`)}).then(data => data.json())
-  let d_reference = await fetch('https://brainly.com/api/28/api_config/desktop_view', {method: "GET"}).then(data => data.json());
   let basic_data = await fetch(`https://brainly.com/api/28/api_tasks/main_view/${id}`, {method: "GET"}).then(data => data.json());
-  //console.log(basic_data.data.task.settings.is_deleted);
-  document.querySelector(".sg-spinner-container").classList.add("remove");
+  if(basic_data.data.task.settings.is_deleted){
+    document.querySelector(".preview-content").innerHTML = /*html*/`
+    <div class="removedq">
+      <img src="${removedq}" alt="">
+    </div>
+    `
+  }else{
+    let res = await fetch(`https://brainly.com/api/28/moderation_new/get_content`, { method: "POST",body: (`{"model_type_id":1,"model_id":${id},"schema":"moderation.content.get"}`)}).then(data => data.json())
+    let d_reference = await fetch('https://brainly.com/api/28/api_config/desktop_view', {method: "GET"}).then(data => data.json());
+    let log = await fetch(`https://brainly.com/api/28/api_task_lines/big/${id}`, {method: "GET"}).then(data => data.json());
+    
+    document.querySelector(".sg-spinner-container").classList.add("remove");
 
-  add_question_data(res,d_reference);
-  if(res.data.responses.length !== 0){
-    document.querySelector(".answers").innerHTML = '';
-  }
-  for(let a = 0; a < res.data.responses.length; a++){
-    add_answer(res.data.responses[a],res, a);
+    add_question_data(res,d_reference);
+    if(res.data.responses.length !== 0){
+      document.querySelector(".answers").innerHTML = '';
+    }
+    for(let a = 0; a < res.data.responses.length; a++){
+      add_answer(res.data.responses[a],res, a);
+    }
+    add_log(log);
   }
 }

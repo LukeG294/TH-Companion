@@ -23,7 +23,7 @@ module.exports = {
 		]
     },
     output: {
-        filename: 'bundle.js',
+        filename: 'homepage.js',
         path: path.resolve(__dirname, 'dist/content-scripts/js'),
       },
 }

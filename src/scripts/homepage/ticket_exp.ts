@@ -65,8 +65,8 @@ export function ticket(){
         </div>
     
         <div class = "answers">
-          <img src = '${noanswer}'>
         </div>
+        <div class="log"></div>
       </div>
     `)
   }
