@@ -3,13 +3,29 @@ let removedq = runtime.getURL("resources/Compositions/Ladies@Brainly.svg");
 function add_log(log){
   for(let i = 0; i < log.data.length; i++){
     let user = log.users_data.find(({id}) => id === log.data[i].user_id).nick;
-    console.log(user);
   document.querySelector(".log").insertAdjacentHTML("beforeend",/*html*/`
     <div class="log-item">
       <div class = "user">${user}</div><div class = "content">${log.data[i].text.replace('%1$s',"")}</div>
     </div>
   `
   );}
+}
+async function delete_content(type:string, id:string, reason:string, warn:boolean, take_point:boolean){
+  let model_type_id = 0;
+  if(type === "task") {model_type_id = 1;}
+  if(type === "response") {model_type_id = 2;}
+  await fetch(`https://brainly.com/api/28/moderation_new/delete_${type}_content`, {
+      method: "POST",
+      body:JSON.stringify({
+        "reason_id":2,
+        "reason":reason,
+        "give_warning":warn,
+        "take_points": take_point,
+        "schema":`moderation.${type}.delete`,
+        "model_type_id":model_type_id,
+        "model_id":id,
+      })
+    })
 }
 function add_report(data, item, elem){
   if(item.report){
@@ -144,34 +160,28 @@ function add_question_data(res, d_reference){
   }
   q_elem.querySelector(".delete").addEventListener("click", () => {
     q_elem.querySelector(".delmenu").classList.toggle("show");
+    //delete_content("task", res.data.task.id, "Your question violates our Community Guidelines, so we had to take it down. Please review the guidelines here: https://faq.brainly.com/hc/en-us/articles/360014661139. Thanks for being a team player!", false, false)
   })
   q_elem.querySelector(".primary-items").addEventListener("change", async function(){
+    q_elem.querySelector(".delmenu").classList.add("secondary");
     let selected_index = q_elem.querySelector(".primary-items input:checked").getAttribute("index");
-    console.log(q_del_rsn[selected_index].subcategories);
     let selected_subcats = q_del_rsn[selected_index].subcategories;
+    console.log(selected_subcats);
     q_elem.querySelector(".secondary-items").innerHTML = '';
     for(let i = 0; i < selected_subcats.length; i++){
       q_elem.querySelector(".secondary-items").insertAdjacentHTML("beforeend",/*html*/`
         <label class="sg-radio sg-radio--xxs" for="${selected_subcats[i].id}">
-          <input type="radio" class="sg-radio__element" name="group2" id="${selected_subcats[i].id}">
+          <input type="radio" class="sg-radio__element" name="group2" id="${selected_subcats[i].id}" index = "${i}">
           <span class="sg-radio__ghost" aria-hidden="true"></span>
           <span class="sg-text sg-text--small sg-text--bold sg-radio__label">${selected_subcats[i].title}</span>
         </label>`
       )
     }
-    //await fetch("https://brainly.com/api/28/moderation_new/delete_task_content", {
-    //  method: "POST",
-    //  body:`
-    //  {
-    //    "reason_id":2,
-    //    "reason":"",
-    //    "give_warning":false,
-    //    "take_points":true,
-    //    "schema":"moderation.task.delete",
-    //    "model_type_id":2,
-    //    "model_id":
-    //  }`
-    //})
+    q_elem.querySelector(".secondary-items").addEventListener("change", function(){
+      let selected_reason = selected_subcats[q_elem.querySelector(".secondary-items input:checked").getAttribute("index")]
+      console.log(selected_reason);
+      (<HTMLInputElement>q_elem.querySelector("textarea.deletion-reason")).value = selected_reason.text;
+    });
   });
   
 }

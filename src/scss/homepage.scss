@@ -194,9 +194,17 @@ div.brn-placeholder__animation{
       }
       .delmenu{
         display:none;
+        .secondary-items, .deletion-reason{
+          display:none;
+        }
         &.show{
           display:flex;
           flex-direction:column;
+        }
+        &.secondary{
+          .secondary-items, .deletion-reason{
+            display:block;
+          }
         }
         .primary-items, .secondary-items{ 
           margin-top:8px;
@@ -209,6 +217,9 @@ div.brn-placeholder__animation{
               margin-left:8px;
             }
           }
+        }
+        .deletion-reason{
+          margin-top:8px;
         }
       }
       .attachment-tools{

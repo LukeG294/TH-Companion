@@ -60,6 +60,7 @@ export function ticket(){
             <div class="delmenu">
               <div class="primary-items"></div>
               <div class="secondary-items"></div>
+              <textarea placeholder="Reason" class=" deletion-reason sg-textarea sg-textarea--tall"></textarea>
             </div>
           </div>
         </div>

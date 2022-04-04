@@ -1,19 +1,23 @@
 import {insertdata_ticket} from "./ticket_functions"
 import {ticket} from "./ticket_exp"
 import {subscribe} from "./livemod"
-import { storage } from "webextension-polyfill";
+import chrome from "webextension-polyfill";
 
 async function appendModerationButtons() {
   const questions = document.querySelectorAll(".brn-feed-items > div[data-testid = 'feed-item']");
   function saveUser(){
     let data = JSON.parse(document.querySelector("head meta[name='user_data']").getAttribute("content"));
-    storage.local.set({
-      "uid": data.id,
+    chrome.storage.local.set({
+    "user":{
+      "id": data.id,
       "nick": data.nick,
+      "auth":{
+        "hash": data.cometAuthHash,
+        "avatar_url": data.avatar,
+      },
       "gender": data.gender,
-      "avatar": data.avatar,
-      "auth_hash": data.cometAuthHash
-    });
+    }
+  });
   }
   saveUser();
   for (let questionBox of Array.from(questions)) {

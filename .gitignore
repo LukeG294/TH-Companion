@@ -127,3 +127,4 @@ dist/resources/Objects/Pawn.svg
 dist/resources/Objects/q_shape_globe.svg
 dist/resources/Objects/rocket.svg
 src/scripts/ticket.html
+dist/content-scripts/js/homepage.js
