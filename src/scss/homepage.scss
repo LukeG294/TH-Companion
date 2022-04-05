@@ -221,6 +221,24 @@ div.brn-placeholder__animation{
         .deletion-reason{
           margin-top:8px;
         }
+        .del-options{
+          display: flex;
+          align-items: center;
+          margin-top: 8px;
+          justify-content: space-between;
+          button{
+            height: 36px;
+            padding: 0.2rem 1rem;
+          }
+          .warnpts{
+            label{
+              margin-right:8px;
+              span{
+                margin-left:4px!important;
+              }
+            }
+          }
+        }
       }
       .attachment-tools{
         position: absolute;

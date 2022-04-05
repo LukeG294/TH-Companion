@@ -182,6 +182,17 @@ function add_question_data(res, d_reference){
       console.log(selected_reason);
       (<HTMLInputElement>q_elem.querySelector("textarea.deletion-reason")).value = selected_reason.text;
     });
+    q_elem.querySelector(".confirmdel button").addEventListener("click", function(){
+      let warnuser = false;
+      let takepts = false;
+      if((<HTMLInputElement>document.querySelector("input#warn")).value === "on"){
+        warnuser = true;
+      }
+      if((<HTMLInputElement>document.querySelector("input#pts")).value === "on"){
+        takepts = true;
+      }
+      delete_content("task", res.data.task.id, (<HTMLInputElement>q_elem.querySelector("textarea.deletion-reason")).value, warnuser, takepts)
+    });
   });
   
 }
