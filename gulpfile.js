@@ -2,6 +2,9 @@ const gulp = require("gulp");
 const sass = require("gulp-sass")(require("node-sass"));
 const watch = require("gulp-watch");
 const concat = require("gulp-concat");
+const ts = require("gulp-typescript");
+const tslint = require("gulp-tslint");
+
 
 //defining tasks
 gulp.task('sass', function(done){
@@ -21,7 +24,6 @@ gulp.task("resources", function(done){
         .pipe(gulp.dest("dist/resources/"));
     done();
 });
-
 //watching while development
 gulp.task("watch", function(done){
     watch(["./src/scss/*.scss"], gulp.series("sass"));

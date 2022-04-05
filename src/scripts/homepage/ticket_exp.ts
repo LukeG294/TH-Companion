@@ -1,4 +1,4 @@
-import {runtime} from "webextension-polyfill"
+import {runtime} from "webextension-polyfill";
 let noanswer = runtime.getURL("resources/Compositions/Brainly_Plus_Jump.svg");
 export function ticket(){
   
@@ -61,6 +61,7 @@ export function ticket(){
               <div class="primary-items"></div>
               <div class="secondary-items"></div>
               <textarea placeholder="Reason" class=" deletion-reason sg-textarea sg-textarea--tall"></textarea>
+              
             </div>
           </div>
         </div>
