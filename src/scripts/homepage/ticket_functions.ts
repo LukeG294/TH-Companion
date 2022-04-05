@@ -157,7 +157,7 @@ function add_answer(ans,res,a){
         <div class="pfp"><div class="sg-avatar"><div class="sg-avatar__image sg-avatar__image--icon"><div class="sg-icon sg-icon--gray-light sg-icon--x32 sg-avatar__icon"><svg class="sg-icon__svg"><use xlink:href="#icon-profile"></use></svg></div></div></div></div>
         <div class="adata-info-txt">
           <div class="text-user">
-            <div class="username sg-text sg-text--gray sg-text--bold sg-text--small rightdot">username</div>
+            <a class="username sg-text sg-text--gray sg-text--bold sg-text--small rightdot">username</a>
             <div class="rank sg-text sg-text--small">Ambitious</div>
           </div>
           <div class="text-subj">
