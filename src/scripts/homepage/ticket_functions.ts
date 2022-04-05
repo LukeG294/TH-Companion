@@ -31,8 +31,8 @@ function add_deletion(del_rsn, elem, tid, type:string){
     elem.querySelector(".secondary-items").innerHTML = '';
     for(let i = 0; i < selected_subcats.length; i++){
       elem.querySelector(".secondary-items").insertAdjacentHTML("beforeend",/*html*/`
-        <label class="sg-radio sg-radio--xxs" for="${selected_subcats[i].id}">
-          <input type="radio" class="sg-radio__element" name="group2" id="${selected_subcats[i].id}" index = "${i}">
+        <label class="sg-radio sg-radio--xxs" for="${selected_subcats[i].id}${tid}">
+          <input type="radio" class="sg-radio__element" name="group2" id="${selected_subcats[i].id}${tid}" index = "${i}">
           <span class="sg-radio__ghost" aria-hidden="true"></span>
           <span class="sg-text sg-text--small sg-text--bold sg-radio__label">${selected_subcats[i].title}</span>
         </label>`
@@ -46,10 +46,10 @@ function add_deletion(del_rsn, elem, tid, type:string){
     elem.querySelector(".confirmdel button").addEventListener("click", function(){
       let warnuser = false;
       let takepts = false;
-      if((<HTMLInputElement>elem.querySelector("input#warn")).value === "on"){
+      if((<HTMLInputElement>elem.querySelector("input[id ^= 'warn']")).value === "on"){
         warnuser = true;
       }
-      if((<HTMLInputElement>elem.querySelector("input#pts")).value === "on"){
+      if((<HTMLInputElement>elem.querySelector("input[id ^= 'pts']")).value === "on"){
         takepts = true;
       }
       delete_content(type, tid, (<HTMLInputElement>elem.querySelector("textarea.deletion-reason")).value, warnuser, takepts);
@@ -186,16 +186,16 @@ function add_answer(ans,res,a){
               <textarea placeholder="Reason" class=" deletion-reason sg-textarea sg-textarea--tall"></textarea>
               <div class="sg-space-x-m del-options">
                 <div class="warnpts">
-                  <label class="sg-checkbox" for="warn">
-                    <input type="checkbox" class="sg-checkbox__element" id="warn">
+                  <label class="sg-checkbox" for="warn${a}">
+                    <input type="checkbox" class="sg-checkbox__element" id="warn${a}">
                     <div class="sg-checkbox__ghost" aria-hidden="true">
                       <div class="sg-icon sg-icon--adaptive sg-icon--x16"><svg class="sg-icon__svg"><use xlink:href="#icon-check"></use></svg></div>
                     </div>
                     <span class="sg-text sg-text--small sg-text--bold sg-checkbox__label">warn user</span>
                   </label>
 
-                  <label class="sg-checkbox" for="pts">
-                    <input type="checkbox" class="sg-checkbox__element" id="pts">
+                  <label class="sg-checkbox" for="pts${a}">
+                    <input type="checkbox" class="sg-checkbox__element" id="pts${a}">
                     <div class="sg-checkbox__ghost" aria-hidden="true">
                       <div class="sg-icon sg-icon--adaptive sg-icon--x16"><svg class="sg-icon__svg"><use xlink:href="#icon-check"></use></svg></div>
                     </div>
