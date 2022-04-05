@@ -205,6 +205,9 @@ div.brn-placeholder__animation{
           .secondary-items, .deletion-reason{
             display:block;
           }
+          .del-options{
+            display:flex;
+          }
         }
         .primary-items, .secondary-items{ 
           margin-top:8px;
@@ -212,7 +215,6 @@ div.brn-placeholder__animation{
           border-bottom: 1px solid #c3d1dd;
           > label{
             padding:0px 8px;
-            border-right:1px solid #c3d1dd;
             > span:last-child{
               margin-left:8px;
             }
@@ -222,7 +224,7 @@ div.brn-placeholder__animation{
           margin-top:8px;
         }
         .del-options{
-          display: flex;
+          display:none;
           align-items: center;
           margin-top: 8px;
           justify-content: space-between;
@@ -287,7 +289,7 @@ div.brn-placeholder__animation{
         flex:1;
         transition-duration:150ms;
         &.deleted{
-          background:#ffc7bf;
+          background:#ffe8e5;
         }
       }
       .actions{
