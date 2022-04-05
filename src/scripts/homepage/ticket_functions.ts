@@ -13,8 +13,8 @@ function add_log(log){
 function add_deletion(del_rsn, elem, tid, type:string){
   for(let i = 0; i < del_rsn.length; i++){
     elem.querySelector(".primary-items").insertAdjacentHTML("beforeend",/*html*/`
-      <label class="sg-radio sg-radio--xxs" for="${del_rsn[i].id}">
-        <input type="radio" class="sg-radio__element" name="group1" id="${del_rsn[i].id}" index = "${i}">
+      <label class="sg-radio sg-radio--xxs" for="${del_rsn[i].id}${tid}">
+        <input type="radio" class="sg-radio__element" name="group1" id="${del_rsn[i].id}${tid}" index = "${i}">
         <span class="sg-radio__ghost" aria-hidden="true"></span>
         <span class="sg-text sg-text--small sg-text--bold sg-radio__label">${del_rsn[i].text}</span>
       </label>`
@@ -231,7 +231,7 @@ function add_question_data(res, d_reference){
   document.querySelector(".text-subj > div:nth-child(2)").innerHTML = d_reference.data.grades.find(({id}) => id === q_data.grade_id).name;
   document.querySelector(".text-subj > div:nth-child(1)").innerHTML = d_reference.data.subjects.find(({id}) => id === q_data.subject_id).name;
   let asker = res.users_data.find(({id}) => id === q_data.user.id);
-  add_report(res, q_data, q_elem);
+  add_report(res, q_data, document.querySelector(".question"));
   user_content_data(asker, q_elem, q_data);
   add_attachments(q_data, q_elem);
 
