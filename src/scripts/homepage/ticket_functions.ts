@@ -130,6 +130,8 @@ function user_content_data(user, elem, item){
   }
 
   elem.querySelector(".text-user .username").innerHTML = user.nick;
+  elem.querySelector(".text-user .username").setAttribute("href", `https://brainly.com/profile/${user.nick}-${user.id}`);
+  elem.querySelector(".text-user .username").setAttribute("target", `_blank`);
   elem.querySelector(".text-user .rank").innerHTML = user.ranks.names[0];
   elem.querySelector(".text-user .rank").setAttribute("style", `color: ${user.ranks.color}`)
   elem.querySelector(".content").innerHTML = item.content;
@@ -142,7 +144,7 @@ function add_answer(ans,res,a){
       <div class="sg-icon sg-icon--dark sg-icon--x32"><svg class="sg-icon__svg"><use xlink:href="#icon-report_flag"></use></svg></div>
       <div class="text-rep">
         <div class="user-info">
-          <div class="username sg-text sg-text--gray sg-text--bold sg-text--small rightdot">LoremIpsum</div>
+          <a class="username sg-text sg-text--gray sg-text--bold sg-text--small rightdot">LoremIpsum</a>
           <div class="rank sg-text sg-text--small">Helping Hand</div>
         </div>
         <div class="report-info">

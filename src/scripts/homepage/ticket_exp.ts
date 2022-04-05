@@ -19,7 +19,7 @@ export function ticket(){
           <div class="sg-icon sg-icon--dark sg-icon--x32"><svg class="sg-icon__svg"><use xlink:href="#icon-report_flag"></use></svg></div>
           <div class="text-rep">
             <div class="user-info">
-              <div class="username sg-text sg-text--gray sg-text--bold sg-text--small rightdot">LoremIpsum</div>
+              <a class="username sg-text sg-text--gray sg-text--bold sg-text--small rightdot">LoremIpsum</a>
               <div class="rank sg-text sg-text--small">Helping Hand</div>
             </div>
             <div class="report-info">
@@ -32,7 +32,7 @@ export function ticket(){
               <div class="pfp"><div class="sg-avatar"><div class="sg-avatar__image sg-avatar__image--icon"><div class="sg-icon sg-icon--gray-light sg-icon--x32 sg-avatar__icon"><svg class="sg-icon__svg"><use xlink:href="#icon-profile"></use></svg></div></div></div></div>
               <div class="qdata-info-txt">
                 <div class="text-user">
-                  <div class="username sg-text sg-text--gray sg-text--bold sg-text--small rightdot">JohnDoe</div>
+                  <a class="username sg-text sg-text--gray sg-text--bold sg-text--small rightdot">JohnDoe</a>
                   <div class="rank sg-text sg-text--small">Ambitious</div>
                 </div>
                 <div class="text-subj">
