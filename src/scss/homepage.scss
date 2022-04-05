@@ -285,7 +285,7 @@ div.brn-placeholder__animation{
       .text-subj > div{
         color:#687b86;
       }
-      .question{
+      .question, [class^= "answer"]{
         flex:1;
         transition-duration:150ms;
         &.deleted{
@@ -309,6 +309,9 @@ div.brn-placeholder__animation{
         align-items: baseline;
         .content-item{
           flex:0;
+          &.deleted{
+            background:#ffe8e5;
+          }
         }
       }
     }

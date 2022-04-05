@@ -46,16 +46,19 @@ function add_deletion(del_rsn, elem, tid, type:string){
     elem.querySelector(".confirmdel button").addEventListener("click", function(){
       let warnuser = false;
       let takepts = false;
-      if((<HTMLInputElement>document.querySelector("input#warn")).value === "on"){
+      if((<HTMLInputElement>elem.querySelector("input#warn")).value === "on"){
         warnuser = true;
       }
-      if((<HTMLInputElement>document.querySelector("input#pts")).value === "on"){
+      if((<HTMLInputElement>elem.querySelector("input#pts")).value === "on"){
         takepts = true;
       }
       delete_content(type, tid, (<HTMLInputElement>elem.querySelector("textarea.deletion-reason")).value, warnuser, takepts);
-      document.querySelector(".question").classList.add("deleted");
       elem.querySelector(".delmenu").classList.remove("show");
-      if(type === "question"){
+      if(type === "response"){
+        elem.classList.add("deleted");
+      }
+      if(type === "task"){
+        document.querySelector(".question").classList.add("deleted");
         setTimeout(async () => {
           document.querySelector(".modal_back").remove()
           await fetch(`https://brainly.com/api/28/moderate_tickets/expire`,{method: "POST", body:`{"model_id":${tid},"model_type_id":1,"schema":"moderation.ticket.expire"}`})
