@@ -285,6 +285,10 @@ div.brn-placeholder__animation{
       }
       .question{
         flex:1;
+        transition-duration:150ms;
+        &.deleted{
+          background:#ffc7bf;
+        }
       }
       .actions{
         display:flex;

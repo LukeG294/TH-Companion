@@ -191,7 +191,13 @@ function add_question_data(res, d_reference){
       if((<HTMLInputElement>document.querySelector("input#pts")).value === "on"){
         takepts = true;
       }
-      delete_content("task", res.data.task.id, (<HTMLInputElement>q_elem.querySelector("textarea.deletion-reason")).value, warnuser, takepts)
+      delete_content("task", res.data.task.id, (<HTMLInputElement>q_elem.querySelector("textarea.deletion-reason")).value, warnuser, takepts);
+      document.querySelector(".question").classList.add("deleted");
+      q_elem.querySelector(".delmenu").classList.remove("show");
+      setTimeout(async () => {
+        document.querySelector(".modal_back").remove()
+        await fetch(`https://brainly.com/api/28/moderate_tickets/expire`,{method: "POST", body:`{"model_id":${res.data.task.id},"model_type_id":1,"schema":"moderation.ticket.expire"}`})
+      }, 1000);
     });
   });
   
