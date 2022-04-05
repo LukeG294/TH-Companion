@@ -1,7 +1,6 @@
 const path = require('path');
 const webpack = require("webpack");
 const TerserPlugin = require("terser-webpack-plugin");
-const webExt = require("webextension-polyfill");
 const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 
 module.exports = {
