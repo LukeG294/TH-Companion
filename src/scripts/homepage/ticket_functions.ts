@@ -10,6 +10,60 @@ function add_log(log){
   `
   );}
 }
+function add_deletion(del_rsn, elem, tid, type:string){
+  for(let i = 0; i < del_rsn.length; i++){
+    elem.querySelector(".primary-items").insertAdjacentHTML("beforeend",/*html*/`
+      <label class="sg-radio sg-radio--xxs" for="${del_rsn[i].id}">
+        <input type="radio" class="sg-radio__element" name="group1" id="${del_rsn[i].id}" index = "${i}">
+        <span class="sg-radio__ghost" aria-hidden="true"></span>
+        <span class="sg-text sg-text--small sg-text--bold sg-radio__label">${del_rsn[i].text}</span>
+      </label>`
+    )
+  }
+  elem.querySelector(".delete").addEventListener("click", () => {
+    elem.querySelector(".delmenu").classList.toggle("show");
+  })
+  elem.querySelector(".primary-items").addEventListener("change", async function(){
+    elem.querySelector(".delmenu").classList.add("secondary");
+    let selected_index = elem.querySelector(".primary-items input:checked").getAttribute("index");
+    let selected_subcats = del_rsn[selected_index].subcategories;
+    console.log(selected_subcats);
+    elem.querySelector(".secondary-items").innerHTML = '';
+    for(let i = 0; i < selected_subcats.length; i++){
+      elem.querySelector(".secondary-items").insertAdjacentHTML("beforeend",/*html*/`
+        <label class="sg-radio sg-radio--xxs" for="${selected_subcats[i].id}">
+          <input type="radio" class="sg-radio__element" name="group2" id="${selected_subcats[i].id}" index = "${i}">
+          <span class="sg-radio__ghost" aria-hidden="true"></span>
+          <span class="sg-text sg-text--small sg-text--bold sg-radio__label">${selected_subcats[i].title}</span>
+        </label>`
+      )
+    }
+    elem.querySelector(".secondary-items").addEventListener("change", function(){
+      let selected_reason = selected_subcats[elem.querySelector(".secondary-items input:checked").getAttribute("index")]
+      console.log(selected_reason);
+      (<HTMLInputElement>elem.querySelector("textarea.deletion-reason")).value = selected_reason.text;
+    });
+    elem.querySelector(".confirmdel button").addEventListener("click", function(){
+      let warnuser = false;
+      let takepts = false;
+      if((<HTMLInputElement>document.querySelector("input#warn")).value === "on"){
+        warnuser = true;
+      }
+      if((<HTMLInputElement>document.querySelector("input#pts")).value === "on"){
+        takepts = true;
+      }
+      delete_content(type, tid, (<HTMLInputElement>elem.querySelector("textarea.deletion-reason")).value, warnuser, takepts);
+      document.querySelector(".question").classList.add("deleted");
+      elem.querySelector(".delmenu").classList.remove("show");
+      if(type === "question"){
+        setTimeout(async () => {
+          document.querySelector(".modal_back").remove()
+          await fetch(`https://brainly.com/api/28/moderate_tickets/expire`,{method: "POST", body:`{"model_id":${tid},"model_type_id":1,"schema":"moderation.ticket.expire"}`})
+        }, 1000);
+      }
+    });
+  });
+}
 async function delete_content(type:string, id:string, reason:string, warn:boolean, take_point:boolean){
   let model_type_id = 0;
   if(type === "task") {model_type_id = 1;}
@@ -124,18 +178,46 @@ function add_answer(ans,res,a){
         <div class="delete"><div class="sg-icon sg-icon--dark sg-icon--x32"><svg class="sg-icon__svg"><use xlink:href="#icon-trash"></use></svg></div></div>
       </div>
       <div class="delmenu">
-        <div class="primary-items"></div>
-        <div class="secondary-items"></div>
-      </div>
+              <div class="primary-items"></div>
+              <div class="secondary-items"></div>
+              <textarea placeholder="Reason" class=" deletion-reason sg-textarea sg-textarea--tall"></textarea>
+              <div class="sg-space-x-m del-options">
+                <div class="warnpts">
+                  <label class="sg-checkbox" for="warn">
+                    <input type="checkbox" class="sg-checkbox__element" id="warn">
+                    <div class="sg-checkbox__ghost" aria-hidden="true">
+                      <div class="sg-icon sg-icon--adaptive sg-icon--x16"><svg class="sg-icon__svg"><use xlink:href="#icon-check"></use></svg></div>
+                    </div>
+                    <span class="sg-text sg-text--small sg-text--bold sg-checkbox__label">warn user</span>
+                  </label>
+
+                  <label class="sg-checkbox" for="pts">
+                    <input type="checkbox" class="sg-checkbox__element" id="pts">
+                    <div class="sg-checkbox__ghost" aria-hidden="true">
+                      <div class="sg-icon sg-icon--adaptive sg-icon--x16"><svg class="sg-icon__svg"><use xlink:href="#icon-check"></use></svg></div>
+                    </div>
+                    <span class="sg-text sg-text--small sg-text--bold sg-checkbox__label">take points</span>
+                  </label>
+                </div>
+                <div class="confirmdel">
+                <button class="sg-button sg-button--m sg-button--outline"><span class="sg-button__text">confirm</span></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
     </div>
   </div>
   `
   document.querySelector(".answers").insertAdjacentHTML("beforeend",answer_elem);
   let this_ans = document.querySelector(`.answer${a}`);
+  let a_del_rsn = res.data.delete_reasons.response;
+  let answer_id = res.data.responses[a].id
 
   user_content_data(answerer, this_ans, ans);
   add_attachments(ans, this_ans);
   add_report(res,ans,this_ans)
+  add_deletion(a_del_rsn, this_ans, answer_id, "response")
 }
 function add_question_data(res, d_reference){
   let q_data = res.data.task;
@@ -149,57 +231,8 @@ function add_question_data(res, d_reference){
   add_attachments(q_data, q_elem);
 
   let q_del_rsn = res.data.delete_reasons.task;
-  for(let i = 0; i < q_del_rsn.length; i++){
-    q_elem.querySelector(".primary-items").insertAdjacentHTML("beforeend",/*html*/`
-      <label class="sg-radio sg-radio--xxs" for="${q_del_rsn[i].id}">
-        <input type="radio" class="sg-radio__element" name="group1" id="${q_del_rsn[i].id}" index = "${i}">
-        <span class="sg-radio__ghost" aria-hidden="true"></span>
-        <span class="sg-text sg-text--small sg-text--bold sg-radio__label">${q_del_rsn[i].text}</span>
-      </label>`
-    )
-  }
-  q_elem.querySelector(".delete").addEventListener("click", () => {
-    q_elem.querySelector(".delmenu").classList.toggle("show");
-    //delete_content("task", res.data.task.id, "Your question violates our Community Guidelines, so we had to take it down. Please review the guidelines here: https://faq.brainly.com/hc/en-us/articles/360014661139. Thanks for being a team player!", false, false)
-  })
-  q_elem.querySelector(".primary-items").addEventListener("change", async function(){
-    q_elem.querySelector(".delmenu").classList.add("secondary");
-    let selected_index = q_elem.querySelector(".primary-items input:checked").getAttribute("index");
-    let selected_subcats = q_del_rsn[selected_index].subcategories;
-    console.log(selected_subcats);
-    q_elem.querySelector(".secondary-items").innerHTML = '';
-    for(let i = 0; i < selected_subcats.length; i++){
-      q_elem.querySelector(".secondary-items").insertAdjacentHTML("beforeend",/*html*/`
-        <label class="sg-radio sg-radio--xxs" for="${selected_subcats[i].id}">
-          <input type="radio" class="sg-radio__element" name="group2" id="${selected_subcats[i].id}" index = "${i}">
-          <span class="sg-radio__ghost" aria-hidden="true"></span>
-          <span class="sg-text sg-text--small sg-text--bold sg-radio__label">${selected_subcats[i].title}</span>
-        </label>`
-      )
-    }
-    q_elem.querySelector(".secondary-items").addEventListener("change", function(){
-      let selected_reason = selected_subcats[q_elem.querySelector(".secondary-items input:checked").getAttribute("index")]
-      console.log(selected_reason);
-      (<HTMLInputElement>q_elem.querySelector("textarea.deletion-reason")).value = selected_reason.text;
-    });
-    q_elem.querySelector(".confirmdel button").addEventListener("click", function(){
-      let warnuser = false;
-      let takepts = false;
-      if((<HTMLInputElement>document.querySelector("input#warn")).value === "on"){
-        warnuser = true;
-      }
-      if((<HTMLInputElement>document.querySelector("input#pts")).value === "on"){
-        takepts = true;
-      }
-      delete_content("task", res.data.task.id, (<HTMLInputElement>q_elem.querySelector("textarea.deletion-reason")).value, warnuser, takepts);
-      document.querySelector(".question").classList.add("deleted");
-      q_elem.querySelector(".delmenu").classList.remove("show");
-      setTimeout(async () => {
-        document.querySelector(".modal_back").remove()
-        await fetch(`https://brainly.com/api/28/moderate_tickets/expire`,{method: "POST", body:`{"model_id":${res.data.task.id},"model_type_id":1,"schema":"moderation.ticket.expire"}`})
-      }, 1000);
-    });
-  });
+  let q_id = res.data.task.id;
+  add_deletion(q_del_rsn, q_elem, q_id, "task");
   
 }
 export async function insertdata_ticket(id){
