@@ -67,4 +67,5 @@ const addObserverIfFeedAvailable = () => {
   observer.observe(target, { attributes: true, childList: true, characterData: true, subtree: true });
   appendModerationButtons();
 };
+add_admin()
 addObserverIfFeedAvailable();

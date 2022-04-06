@@ -14,7 +14,12 @@
   "content_scripts": [{
     "matches": ["*://znanija.com/*", "*://brainly.com/*"],
     "js": ["content-scripts/js/homepage.js"],
-    "css": ["content-scripts/css/main.css"],
-    "run_at": "document_start"
-  }]
+    "css": ["content-scripts/css/homepage.css"]
+  },
+  {
+    "matches": ["*://brainly.com/profile/*"],
+    "js": ["content-scripts/js/old_profile.js", "content-scripts/js/icons.js"],
+    "css": ["content-scripts/css/old_profile.css"]
+  }
+]
 }

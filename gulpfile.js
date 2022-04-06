@@ -8,9 +8,15 @@ const tslint = require("gulp-tslint");
 
 //defining tasks
 gulp.task('sass', function(done){
-    gulp.src('src/scss/*.scss')
+    gulp.src('src/scss/homepage.scss')
         .pipe(sass({ outputStyle: "compressed" }).on("error", sass.logError))
-        .pipe(concat("main.css"))
+        .pipe(concat("homepage.css"))
+        .pipe(gulp.dest("dist/content-scripts/css/"));
+    gulp.src('src/scss/old_profile.scss')
+        .pipe(sass({ outputStyle: "compressed" }).on("error", sass.logError))
+        .pipe(concat("old_profile.css"))
+        .pipe(gulp.dest("dist/content-scripts/css/"));
+    gulp.src('src/scss/styleguide.css')
         .pipe(gulp.dest("dist/content-scripts/css/"));
     done();
 });
