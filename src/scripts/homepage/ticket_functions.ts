@@ -46,10 +46,10 @@ function add_deletion(del_rsn, elem, tid, type:string){
     elem.querySelector(".confirmdel button").addEventListener("click", function(){
       let warnuser = false;
       let takepts = false;
-      if((<HTMLInputElement>elem.querySelector("input[id ^= 'warn']")).value === "on"){
+      if((<HTMLInputElement>elem.querySelector("input[id ^= 'warn']")).checked){
         warnuser = true;
       }
-      if((<HTMLInputElement>elem.querySelector("input[id ^= 'pts']")).value === "on"){
+      if((<HTMLInputElement>elem.querySelector("input[id ^= 'pts']")).checked){
         takepts = true;
       }
       delete_content(type, tid, (<HTMLInputElement>elem.querySelector("textarea.deletion-reason")).value, warnuser, takepts);
