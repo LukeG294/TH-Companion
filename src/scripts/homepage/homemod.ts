@@ -2,6 +2,7 @@ import {insertdata_ticket} from "./ticket_functions"
 import {ticket} from "./ticket_exp"
 import {subscribe} from "./livemod"
 import chrome from "webextension-polyfill";
+import {add_admin} from "./homepage_admin"
 
 async function appendModerationButtons() {
   const questions = document.querySelectorAll(".brn-feed-items > div[data-testid = 'feed-item']");
