@@ -12,10 +12,10 @@ async function HomepageButtons() {
     
     //check if the answer button is available
     try{
-    let actionlist = questionBox.querySelector(".sg-actions-list__hole.sg-actions-list__hole--to-right");
-    if (questionBox.querySelector(".mod-button")) continue;
-    actionlist.insertAdjacentHTML("afterend", `<button class="mod-button sg-button--outline"><div class="sg-icon sg-icon--dark sg-icon--x32"><svg class="sg-icon__svg"><use xlink:href="#icon-shield"></use></svg></div></button>`);
-    actionlist.querySelector("a").innerHTML = '<div class="sg-icon sg-icon--dark sg-icon--x32"><svg class="sg-icon__svg"><use xlink:href="#icon-plus"></use></svg></div>'
+      let actionlist = questionBox.querySelector(".sg-actions-list__hole.sg-actions-list__hole--to-right");
+      if (questionBox.querySelector(".mod-button")) continue;
+      actionlist.insertAdjacentHTML("afterend", `<button class="mod-button sg-button--outline"><div class="sg-icon sg-icon--dark sg-icon--x32"><svg class="sg-icon__svg"><use xlink:href="#icon-shield"></use></svg></div></button>`);
+      actionlist.querySelector("a").innerHTML = '<div class="sg-icon sg-icon--dark sg-icon--x32"><svg class="sg-icon__svg"><use xlink:href="#icon-plus"></use></svg></div>'
     }catch(err){
       if(questionBox.id !== "noanswer"){
       questionBox.id = 'noanswer'

@@ -394,7 +394,9 @@ div.brn-placeholder__animation{
 .ryv-notif{
   background: #e3f7ed;
     position: fixed;
-    height: 400px;
+    height: 300px;
+    display: flex;
+    align-items: center;
     padding: 12px;
     right: 12px;
     width: 300px;
@@ -414,7 +416,7 @@ div.brn-placeholder__animation{
       }
     }
     >img{
-      width:100%;
+      width:70%;
     }
     >h1{
       text-align:center;
