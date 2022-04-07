@@ -392,7 +392,7 @@ div.brn-placeholder__animation{
   }
 }
 .ryv-notif{
-  background: #e3f7ed;
+  background: #f5f8fa;
     position: fixed;
     height: 300px;
     display: flex;
@@ -406,19 +406,32 @@ div.brn-placeholder__animation{
     z-index: 999;
     flex-direction: column;
     justify-content: space-around;
+    >.sg-flex{
+      flex-direction: column;
+      width: 90%;
+      flex: 1;
+      align-items: center;
+      justify-content: space-evenly;
+      >div{
+        width: 100%;
+        margin-right: 0px;
+      }
+    }
     .notif_close{
       position: absolute;
       top: 12px;
       right: 12px;
       cursor:pointer;
-      >svg{
-        fill:white;
+      svg{
+        fill:#323c45!important;
       }
     }
     >img{
       width:70%;
     }
-    >h1{
+    h1{
       text-align:center;
+      color:#323c45;
+      font-size:2rem;
     }
 }

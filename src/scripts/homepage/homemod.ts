@@ -1,6 +1,6 @@
 import {insertdata_ticket} from "./ticket_functions"
 import {ticket} from "./ticket_exp"
-import {ryver_notification} from "../common/ryver_modal"
+import {ryver_notification, login_form} from "../common/ryver_modal"
 import {subscribe} from "./livemod"
 import chrome from "webextension-polyfill";
 import {add_admin} from "./homepage_admin"
@@ -59,5 +59,10 @@ window.addEventListener("load", function(){
   document.querySelector("body").insertAdjacentHTML("afterbegin", ryver_notification())
   document.querySelector(".notif_close").addEventListener("click", async function(){
     document.querySelector(".ryv-notif").remove()
+  });
+  document.querySelector(".ryv-notif > h1").addEventListener("click", function(){
+    document.querySelector(".ryv-notif > h1").remove();
+    document.querySelector(".ryv-notif > img").remove();
+    document.querySelector(".ryv-notif").insertAdjacentHTML("beforeend",<string>login_form() )
   });
 })

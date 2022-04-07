@@ -1,15 +1,14 @@
 import {runtime} from "webextension-polyfill"
-function modal_str(){
+export function login_form(){
     return(/*html*/`
-        <div class="modal_back">
-            <div class="modal-ryv">
-                <div class = "modal_close">
-                    <div class="sg-icon sg-icon--dark sg-icon--x32">
-                        <svg class="sg-icon__svg"><use xlink:href="#icon-close"></use></svg>
-                    </div>
-                </div>
-                <h1 class="sg-text-bit--gray-secondary sg-headline sg-headline--xlarge sg-headline--extra-bold" style = "color:#323c45; margin-bottom:8px;">Login with Ryver</h1>
+        <div class="sg-flex">
+        <h1 class="sg-text-bit sg-text-bit--mint-primary">ryver login</h1>
+            <div class="sg-flex sg-flex--column sg-flex--margin-right-l">
+                <input type="text" placeholder="username" class="sg-input">
+                <br>
+                <input type="text" placeholder="password" class="sg-input">
             </div>
+            <button class="sg-button sg-button--m sg-button--outline"><span class="sg-button__text">login</span></button>
         </div>
     `)
 }
