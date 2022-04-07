@@ -4,11 +4,41 @@
 .modal-accdel{
     background: white;
     padding: 12px;
+    height: 300px;
+    display: flex;
+    width: 350px;
+    flex-direction: column;
     border-radius: 10px;
     position:relative;
     >h1{
         font-size:1.5rem;
         line-height:2rem;
         font-weight:900!important;
+    }
+    .modal_close{
+        position: absolute;
+        cursor:pointer;
+        right: 12px;
+        top: 12px;
+        height: 26px;
+        width: 26px;
+        >div{
+            height:26px;
+            width:26px;
+        }
+    }
+    .content{
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        >textarea{
+            flex:1;
+        }
+        >button{
+            margin-top:16px;
+            width:100%;
+            background-color: #ff7968;
+            color:white;
+        }
     }
 }

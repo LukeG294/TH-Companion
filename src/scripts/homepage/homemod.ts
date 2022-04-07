@@ -4,23 +4,8 @@ import {subscribe} from "./livemod"
 import chrome from "webextension-polyfill";
 import {add_admin} from "./homepage_admin"
 
-async function appendModerationButtons() {
+async function HomepageButtons() {
   const questions = document.querySelectorAll(".brn-feed-items > div[data-testid = 'feed-item']");
-  function saveUser(){
-    let data = JSON.parse(document.querySelector("head meta[name='user_data']").getAttribute("content"));
-    chrome.storage.local.set({
-    "user":{
-      "id": data.id,
-      "nick": data.nick,
-      "auth":{
-        "hash": data.cometAuthHash,
-        "avatar_url": data.avatar,
-      },
-      "gender": data.gender,
-    }
-  });
-  }
-  saveUser();
   for (let questionBox of Array.from(questions)) {
     let qid = questionBox.querySelector("a[data-test = 'feed-item-link']").getAttribute("href").replace("/question/","").split("?")[0];
     
@@ -59,13 +44,12 @@ async function appendModerationButtons() {
   }
 }
   
-const observer = new MutationObserver(appendModerationButtons);
+const observer = new MutationObserver(HomepageButtons);
 const addObserverIfFeedAvailable = () => {
   let target = document.querySelector(".sg-layout__content");
   if(!target) return setTimeout(addObserverIfFeedAvailable, 500);
   
   observer.observe(target, { attributes: true, childList: true, characterData: true, subtree: true });
-  appendModerationButtons();
+  HomepageButtons();
 };
-add_admin()
 addObserverIfFeedAvailable();
