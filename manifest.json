@@ -29,6 +29,7 @@
   {
     "matches": ["*://brainly.com/question/*"],
     "js": ["content-scripts/js/question_page.js"]
+   
   }
 ]
 }
