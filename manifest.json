@@ -25,6 +25,11 @@
     "matches": ["*://brainly.com/profile/*"],
     "js": ["content-scripts/js/styleguide.js"],
     "run_at": "document_start"
+  },
+  {
+    "matches": ["*://brainly.com/question/*"],
+    "js": ["content-scripts/js/question_page.js"]
+   
   }
 ]
 }
