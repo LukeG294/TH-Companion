@@ -15,4 +15,4 @@ function insert_data(){
         });
     });
 }
-window.addEventListener("load", function(){insert_data()})
+insert_data()

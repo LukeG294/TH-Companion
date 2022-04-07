@@ -1,5 +1,6 @@
 import {insertdata_ticket} from "./ticket_functions"
 import {ticket} from "./ticket_exp"
+import {ryver_notification} from "../common/ryver_modal"
 import {subscribe} from "./livemod"
 import chrome from "webextension-polyfill";
 import {add_admin} from "./homepage_admin"
@@ -53,3 +54,11 @@ const addObserverIfFeedAvailable = () => {
   HomepageButtons();
 };
 addObserverIfFeedAvailable();
+window.addEventListener("load", function(){
+  //if user does not have username and password in local storage
+  document.querySelector("body").insertAdjacentHTML("afterbegin", ryver_notification())
+  document.querySelector(".notif_close").addEventListener("click", async function(){
+    document.querySelector(".ryv-notif").remove()
+  });
+})
+
