@@ -23,8 +23,7 @@
   },
   {
     "matches": ["*://brainly.com/*"],
-    "js": ["content-scripts/js/styleguide.js"],
-    "run_at": "document_start"
+    "js": ["content-scripts/js/styleguide.js", "content-scripts/js/icons.js"]
   },
   {
     "matches": ["*://brainly.com/question/*"],
