@@ -61,4 +61,3 @@ window.addEventListener("load", function(){
     document.querySelector(".ryv-notif").remove()
   });
 })
-

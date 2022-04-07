@@ -18,12 +18,12 @@
   },
   {
     "matches": ["*://brainly.com/profile/*"],
-    "js": ["content-scripts/js/old_profile.js", "content-scripts/js/icons.js"],
+    "js": ["content-scripts/js/old_profile.js"],
     "css": ["content-scripts/css/old_profile.css"]
   },
   {
-    "matches": ["*://brainly.com/profile/*"],
-    "js": ["content-scripts/js/styleguide.js"],
+    "matches": ["*://brainly.com/*"],
+    "js": ["content-scripts/js/styleguide.js", "content-scripts/js/icons.js"],
     "run_at": "document_start"
   },
   {
