@@ -412,6 +412,19 @@ div.brn-placeholder__animation{
       flex: 1;
       align-items: center;
       justify-content: space-evenly;
+      >.spinner-container{
+        display:none;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        background: rgba(255,255,255,0.6);
+        z-index: 999;
+        justify-content: center;
+        align-items: center;
+        &.show{
+          display:flex!important;
+        }
+      }
       >div{
         width: 100%;
         margin-right: 0px;

@@ -1,9 +1,5 @@
-function encodeUser(username:string, password:string){    
-    let userString = `${username}:${password}`
-    var encodedStringBtoA = btoa(userString);
-    console.log(encodedStringBtoA);
-    return(encodedStringBtoA);
-}
+import {login_form} from "../common/ryver_modal"
+import chrome from "webextension-polyfill"
 function log_deletion(authToken:string){
     fetch("https://brainlyus.ryver.com/api/1/odata.svc/workrooms(1000125)/Chat.PostMessage()", {
         body: `
@@ -22,13 +18,47 @@ function log_deletion(authToken:string){
         method: "POST"
     })
 }
-function test_user(username:string, password:string){
+function encodeUser(username:string, password:string){    
+    let userString = `${username}:${password}`
+    var encodedStringBtoA = btoa(userString);
+    console.log(encodedStringBtoA);
+    return(encodedStringBtoA);
+}
+export function test_user(username:string, password:string){
     let token = encodeUser(username, password)
-    let response = fetch("https://brainlyus.ryver.com/api/1/odata.svc/workrooms(1197750)/members?$select=role, member/id, member/username&$expand=member", {
-        headers: {
-        Accept: "application/json",
-        Authorization: `Basic ${token}`
+   
+    var xhr = new XMLHttpRequest();
+    xhr.withCredentials = false;
+    
+    xhr.addEventListener("readystatechange", function() {
+      if(this.readyState === 4) {
+        if (this.status === 200){
+            alert("Found user")
+        } else {
+            alert("False credentials")
         }
+      }
     });
-    console.log(response)
+    
+    xhr.open("GET", "https://brainlyus.ryver.com/api/1/odata.svc/users");
+    xhr.setRequestHeader("Authorization", "Basic "+token);
+    
+    
+    xhr.send();
+}
+export function login_run(){
+    document.querySelector(".notif_close").addEventListener("click", async function(){
+        document.querySelector(".ryv-notif").remove()
+      });
+      document.querySelector(".ryv-notif > h1").addEventListener("click", function(){
+        document.querySelector(".ryv-notif > h1").remove();
+        document.querySelector(".ryv-notif > img").remove();
+        document.querySelector(".ryv-notif").insertAdjacentHTML("beforeend",<string>login_form())
+        document.querySelector(".check-user").addEventListener("click", async function(){
+          let inputUser = (<HTMLInputElement>document.querySelector(".ryv-notif .username")).value;
+          let inputPass = (<HTMLInputElement>document.querySelector(".ryv-notif .password")).value;
+          test_user(inputUser, inputPass);
+        });
+      });
+
 }

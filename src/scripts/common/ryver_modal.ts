@@ -2,13 +2,14 @@ import {runtime} from "webextension-polyfill"
 export function login_form(){
     return(/*html*/`
         <div class="sg-flex">
+        <div class="spinner-container"><div class="sg-spinner sg-spinner--gray-900 sg-spinner--small"></div></div>
         <h1 class="sg-text-bit sg-text-bit--mint-primary">ryver login</h1>
             <div class="sg-flex sg-flex--column sg-flex--margin-right-l">
-                <input type="text" placeholder="username" class="sg-input">
+                <input type="text" placeholder="username" class="sg-input username">
                 <br>
-                <input type="text" placeholder="password" class="sg-input">
+                <input type="text" placeholder="password" class="sg-input password">
             </div>
-            <button class="sg-button sg-button--m sg-button--outline"><span class="sg-button__text">login</span></button>
+            <button class="sg-button sg-button--m sg-button--outline check-user"><span class="sg-button__text">login</span></button>
         </div>
     `)
 }
