@@ -3,7 +3,6 @@ const sass = require("gulp-sass")(require("node-sass"));
 const watch = require("gulp-watch");
 const concat = require("gulp-concat");
 const ts = require("gulp-typescript");
-const tslint = require("gulp-tslint");
 
 
 //defining tasks
