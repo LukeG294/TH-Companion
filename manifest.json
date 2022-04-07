@@ -19,7 +19,12 @@
   {
     "matches": ["*://brainly.com/profile/*"],
     "js": ["content-scripts/js/old_profile.js", "content-scripts/js/icons.js"],
-    "css": ["content-scripts/css/old_profile.css", "content-scripts/css/styleguide.css"]
+    "css": ["content-scripts/css/old_profile.css"]
+  },
+  {
+    "matches": ["*://brainly.com/profile/*"],
+    "js": ["content-scripts/js/styleguide.js"],
+    "run_at": "document_start"
   }
 ]
 }

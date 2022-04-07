@@ -1,0 +1,14 @@
+.header,#profile{
+    display:flex!important;
+}
+.modal-accdel{
+    background: white;
+    padding: 12px;
+    border-radius: 10px;
+    position:relative;
+    >h1{
+        font-size:1.5rem;
+        line-height:2rem;
+        font-weight:900!important;
+    }
+}
