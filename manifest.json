@@ -29,6 +29,12 @@
     "matches": ["*://brainly.com/question/*"],
     "js": ["content-scripts/js/question_page.js"]
    
+  },
+  {
+    "matches": ["*://brainly.com/users/user_content*"],
+    "js": ["content-scripts/js/content_page.js"]
+   
   }
+  
 ]
 }
