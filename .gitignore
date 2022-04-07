@@ -1,5 +1,8 @@
 node_modules
 dist/manifest.json
+dist/content-scripts/*
+dist/content/scripts/*/**
+dist/***
 dist/content-scripts/css/main.css
 dist/content-scripts/js/bundle.js
 dist/resources/Compositions/AMP Connections.svg
@@ -128,3 +131,9 @@ dist/resources/Objects/q_shape_globe.svg
 dist/resources/Objects/rocket.svg
 src/scripts/ticket.html
 dist/content-scripts/js/homepage.js
+dist/content-scripts/css/homepage.css
+dist/content-scripts/css/old_profile.css
+dist/content-scripts/js/icons.js
+dist/content-scripts/js/old_profile.js
+dist/content-scripts/js/question_page.js
+dist/content-scripts/js/serviceWorker.js
