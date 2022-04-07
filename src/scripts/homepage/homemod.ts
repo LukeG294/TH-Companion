@@ -55,8 +55,10 @@ const addObserverIfFeedAvailable = () => {
   HomepageButtons();
 };
 addObserverIfFeedAvailable();
+//if user does not have username and password in local storage
+if(!localStorage.getItem("userAuth")){
 window.addEventListener("load", function(){
-  //if user does not have username and password in local storage
   document.querySelector("body").insertAdjacentHTML("afterbegin", ryver_notification())
   login_run();
 })
+}

@@ -34,7 +34,7 @@ export function test_user(username:string, password:string){
       if(this.readyState === 4) {
         if (this.status === 200){
             alert("Found user")
-            chrome.storage.local.set({userToken: token});
+            localStorage.setItem("userAuth", token)
         } else {
             alert("False credentials")
         }
