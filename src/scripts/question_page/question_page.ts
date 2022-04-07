@@ -1,27 +1,21 @@
-async function appendModerationButtons() {
-    const answers = document.querySelectorAll("div[data-testid = 'moderation_box_answer']");
-    
-    for (let modBox of Array.from(answers)) {
-      let appendSection = modBox.querySelector("div[class = 'sg-flex sg-flex--justify-content-space-between']")
-      
-    
-      
-      
-      appendSection.insertAdjacentHTML("afterend", `<button class="mod-button sg-button--outline"><div class="sg-icon sg-icon--dark sg-icon--x32"><svg class="sg-icon__svg"><use xlink:href="#icon-shield"></use></svg></div></button>`);
-      appendSection.querySelector("a").innerHTML = '<div class="sg-icon sg-icon--dark sg-icon--x32"><svg class="sg-icon__svg"><use xlink:href="#icon-plus"></use></svg></div>'
-      
-  
-     
-    }
-  }
 
-const observer = new MutationObserver(appendModerationButtons);
-const addObserverIfFeedAvailable = () => {
-  let target = document.querySelector("div[data-testid = 'moderation_box_answer']");
-  if(!target) return setTimeout(addObserverIfFeedAvailable, 500);
-  
-  observer.observe(target, { attributes: true, childList: true, characterData: true, subtree: true });
-  appendModerationButtons();
-};
+import {confirm_button} from "../common/confirm_button"
+import {confirm_answer} from "../common/confirm_answer"
 
-addObserverIfFeedAvailable();
+function ConfirmButtonListener(number){
+  document.getElementById("confirm"+number).addEventListener("click",function(){
+    let answerIDs = JSON.parse(document.querySelector("#question-sg-layout-container > div.brn-qpage-layout.js-main-container.js-ads-screening-content > div.brn-qpage-layout__main.empty\\:sg-space-y-m.md\\:empty\\:sg-space-y-l > article").getAttribute("data-z"))
+    let answerToConfirm = answerIDs["responses"][number]["id"]
+    confirm_answer(answerToConfirm)
+  })
+}
+
+window.addEventListener("load", function(){
+  let answers = document.querySelectorAll("div[data-testid = 'moderation_box_answer'] > div")
+  for (let i = 0; i < answers.length; i++) {
+    answers[i].insertAdjacentHTML("afterbegin", `<div id=confirm${i}>`+confirm_button()+`</div>`) //set the id of the confirm button to confirm0 or confirm1 for click events later
+    ConfirmButtonListener(i) //add the event listener to the button
+  } 
+  
+})
+
