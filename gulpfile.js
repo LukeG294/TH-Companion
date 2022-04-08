@@ -16,6 +16,11 @@ gulp.task('sass', function(done){
         .pipe(concat("old_profile.css"))
         .pipe(gulp.dest("dist/content-scripts/css/"));
     done();
+    gulp.src('src/scss/content_page.scss')
+        .pipe(sass({ outputStyle: "compressed" }).on("error", sass.logError))
+        .pipe(concat("content_page.css"))
+        .pipe(gulp.dest("dist/content-scripts/css/"));
+    done();
 });
 gulp.task("manifest", function(done){
     gulp.src("manifest.json")
