@@ -2,6 +2,7 @@ export function add_del_menu(){
     return /*html*/`
         <div class="modal_back">
             <div class="modal-accdel">
+                <div class="spinner-container"><div class="sg-spinner sg-spinner--gray-900 sg-spinner--small"></div></div>
             <div class = "modal_close">
                 <div class="sg-icon sg-icon--dark sg-icon--x32">
                     <svg class="sg-icon__svg"><use xlink:href="#icon-close"></use></svg>
@@ -43,14 +44,16 @@ function sendmsg(){
     location.reload()
 }
 export function deletion_listener(){
-    document.querySelector(".modal-accdel .delete-acc").addEventListener("click", function(){
-        let uid = window.location.href.replace("https://brainly.com/profile", "").replace("/solved", "").split("-")[1];
-        delete_user(uid);
-        sendmsg()
+    document.querySelector(".modal-accdel .delete-acc").addEventListener("click", async function(){
+        let uid = document.querySelector("#main-left > div.personal_info > div.header > div.info > div.info_top > span.ranking > h2 > a").getAttribute("href").split("-")[1]
+        document.querySelector(".modal-accdel .spinner-container").classList.add("show");
+        await delete_user(uid);
+        sendmsg();
+        document.querySelector(".modal-accdel .spinner-container").classList.remove("show");
     })
 }
-function delete_user(uid){
-    fetch("https://brainly.com/admin/users/delete/"+uid, {
+async function delete_user(uid){
+    await fetch("https://brainly.com/admin/users/delete/"+uid, {
     headers: {
         Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
         "Content-Type": "application/x-www-form-urlencoded",

@@ -24,6 +24,20 @@ span.pseudolink.show-form{display:none;}
     flex-direction: column;
     border-radius: 10px;
     position:relative;
+    .spinner-container{
+        position:absolute;
+        height:100%;
+        width:100%;
+        top:0;
+        left:0;
+        background:rgba(255,255,255,0.6);
+        display:none;
+        justify-content: center;
+        align-items:center;
+        &.show{
+            display:flex!important;
+        }
+    }
     >h1{
         font-size:1.5rem;
         line-height:2rem;
