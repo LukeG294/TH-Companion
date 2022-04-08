@@ -1,8 +1,10 @@
+import { selectAll, toggleSelection, copyLinks, showDelrsn, confirmDeletionQuestions, showDelrsnAnswers, confirmDeletionAnswers } from "./button_functions"
 import {
     approve_selected,
     confirm_selected,
     copy_links,
     delete_selected_answers,
+    deletion_menu,
     select_all,
     toggle_selected,
     unverify_selected
@@ -25,61 +27,18 @@ window.addEventListener("load", function() {
     let buttonArea = document.querySelector("#content-old > div:nth-child(3) > p")
         //if you want to add permissions for each button later, do it here (below)
     let url = String(window.location.href)
-
+    buttonArea.insertAdjacentHTML('afterend', deletion_menu())
     buttonArea.insertAdjacentHTML('afterend', approve_selected())
     buttonArea.insertAdjacentHTML('afterend', delete_selected_answers())
     buttonArea.insertAdjacentHTML('afterend', unverify_selected())
     buttonArea.insertAdjacentHTML('afterend', copy_links())
     buttonArea.insertAdjacentHTML('afterend', toggle_selected())
     buttonArea.insertAdjacentHTML('afterend', select_all())
-    document.getElementById("selectAll").addEventListener("click", function() {
-        let checkBoxes = document.getElementsByClassName("contentCheckboxes")
-        for (let i = 0; i < checkBoxes.length; i++) {
-            // @ts-ignore
-            checkBoxes[i].checked = 'true'
-        }
-    })
-    document.getElementById("toggleSelected").addEventListener("click", function() {
-        let checkBoxes = document.getElementsByClassName("contentCheckboxes")
-        for (let i = 0; i < checkBoxes.length; i++) {
-
-            //@ts-ignore
-            if (String(checkBoxes[i].checked) === "true") {
-                //@ts-ignore
-                checkBoxes[i].checked = false
-            } else {
-                //@ts-ignore
-                checkBoxes[i].checked = true
-            }
-
-
-        }
-    })
-    document.getElementById("copyLinks").addEventListener("click", function() {
-        let checkBoxes = document.getElementsByClassName("sg-checkbox__element")
-        let links = []
-        for (let i = 0; i < checkBoxes.length; i++) {
-
-            //@ts-ignore
-            if (String(checkBoxes[i].checked) === "true") {
-                links.push(checkBoxes[i].closest("tr").getElementsByTagName('a')[0].href)
-            }
-
-
-
-
-        }
-        let joinLinks = links.join("\n")
-        navigator.clipboard.writeText(joinLinks)
-            .then(() => {
-                // Success!
-            })
-            .catch(err => {
-                console.log('Something went wrong', err);
-            });
-        links = []
-    })
-
+    document.getElementById("selectAll").addEventListener("click", function(){selectAll()})
+    document.getElementById("toggleSelected").addEventListener("click", function(){toggleSelection()})
+    document.getElementById("copyLinks").addEventListener("click", function(){copyLinks()})
+    document.querySelector("#deleteSelectedAnswers").addEventListener("click", function(){showDelrsnAnswers()})
+    document.querySelector("#delete").addEventListener("click",function(){confirmDeletionAnswers()})
 
 
 
