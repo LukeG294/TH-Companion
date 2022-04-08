@@ -13,7 +13,7 @@
   }],
   "content_scripts": [{
     "matches": ["*://znanija.com/*", "*://brainly.com/*"],
-    "js": ["content-scripts/js/homepage.js"],
+    "js": ["content-scripts/js/homepage.js", "content-scripts/js/icons.js"],
     "css": ["content-scripts/css/homepage.css"]
   },
   {
@@ -23,7 +23,8 @@
   },
   {
     "matches": ["*://brainly.com/*"],
-    "js": ["content-scripts/js/styleguide.js", "content-scripts/js/icons.js"]
+    "js": ["content-scripts/js/styleguide.js"],
+    "run_at": "document_start"
   },
   {
     "matches": ["*://brainly.com/question/*"],

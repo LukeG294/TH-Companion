@@ -1,6 +1,20 @@
 .header,#profile{
     display:flex!important;
 }
+.personal_info{
+    position:relative;
+    .user-del-btn{
+        position: absolute;
+        top: 50%;
+        right: 12px;
+        transform: translateY(-50%);
+        border-color:#ff7968;
+        svg{
+            fill:#ff7968;
+        }
+    }
+}
+span.pseudolink.show-form{display:none;}
 .modal-accdel{
     background: white;
     padding: 12px;
@@ -38,6 +52,9 @@
             margin-top:16px;
             width:100%;
             background-color: #ff7968;
+            &:hover, &:focus{
+                background-color: #ff7968;
+            }
             color:white;
         }
     }
