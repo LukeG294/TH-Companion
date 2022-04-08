@@ -6,7 +6,6 @@ export function login_form(){
         <h1 class="sg-text-bit sg-text-bit--mint-primary">ryver login</h1>
             <div class="sg-flex sg-flex--column sg-flex--margin-right-l">
                 <input type="text" placeholder="username" class="sg-input username">
-                <br>
                 <input type="text" placeholder="password" class="sg-input password">
             </div>
             <button class="sg-button sg-button--m sg-button--outline check-user"><span class="sg-button__text">login</span></button>

@@ -412,6 +412,9 @@ div.brn-placeholder__animation{
       flex: 1;
       align-items: center;
       justify-content: space-evenly;
+      .password{
+        margin-top:8px;
+      }
       >.spinner-container{
         display:none;
         position: absolute;

@@ -33,10 +33,13 @@ export function test_user(username:string, password:string){
     xhr.addEventListener("readystatechange", function() {
       if(this.readyState === 4) {
         if (this.status === 200){
-            alert("Found user")
             localStorage.setItem("userAuth", token)
+            location.reload()
         } else {
-            alert("False credentials")
+          (<HTMLInputElement>document.querySelector(".ryv-notif .username")).value = '';
+          (<HTMLInputElement>document.querySelector(".ryv-notif .password")).value = '';
+          document.querySelector(".ryv-notif .username").classList.add("sg-input--invalid");
+          document.querySelector(".ryv-notif .password").classList.add("sg-input--invalid");
         }
       }
     });
