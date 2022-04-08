@@ -217,3 +217,51 @@ export async function confirmDeletionAnswers(){
   
   
 }
+export async function showDelrsnAnswers(){
+    //open ticket, get response, close it
+    let id = document.querySelector("tbody a").getAttribute("href").replace("/question/","");
+    let res = await fetch(`https://brainly.com/api/28/moderation_new/get_content`, { method: "POST",body: (`{"model_type_id":1,"model_id":${id},"schema":"moderation.content.get"}`)}).then(data => data.json());
+    await fetch(`https://brainly.com/api/28/moderate_tickets/expire`,{method: "POST", body:`{"model_id":${id},"model_type_id":1,"schema":"moderation.ticket.expire"}`})
+
+    let del_reasons = res.data.delete_reasons.response;
+   
+    //inserting primary deletion reasons
+
+    for(let i = 0; i < del_reasons.length; i++){
+      document.querySelector(".primary-items").insertAdjacentHTML("beforeend",/*html*/`
+        <label class="sg-radio sg-radio--xxs" for="${del_reasons[i].id}">
+          <input type="radio" class="sg-radio__element" name="group1" id="${del_reasons[i].id}$" index = "${i}">
+          <span class="sg-radio__ghost" aria-hidden="true"></span>
+          <span class="sg-text sg-text--small sg-text--bold sg-radio__label">${del_reasons[i].text}</span>
+        </label>`
+      )
+    }
+    
+      document.querySelector(".delmenu").classList.toggle("show");
+    
+    //detect selection of primary deletion reason
+    document.querySelector(".primary-items").addEventListener("change", async function(){
+      
+      document.querySelector(".delmenu").classList.add("secondary");
+      let selected_index = document.querySelector(".primary-items input:checked").getAttribute("index");
+      let selected_subcats = del_reasons[selected_index].subcategories;
+      console.log(selected_subcats);
+      document.querySelector(".secondary-items").innerHTML = '';
+      //inserting secondary deletion reasons
+      for(let i = 0; i < selected_subcats.length; i++){
+        document.querySelector(".secondary-items").insertAdjacentHTML("beforeend",/*html*/`
+          <label class="sg-radio sg-radio--xxs" for="${selected_subcats[i].id}">
+            <input type="radio" class="sg-radio__element" name="group2" id="${selected_subcats[i].id}}" index = "${i}">
+            <span class="sg-radio__ghost" aria-hidden="true"></span>
+            <span class="sg-text sg-text--small sg-text--bold sg-radio__label">${selected_subcats[i].title}</span>
+          </label>`
+        )
+      }
+      //show deletion reason in textarea
+      document.querySelector(".secondary-items").addEventListener("change", function(){
+        let selected_reason = selected_subcats[document.querySelector(".secondary-items input:checked").getAttribute("index")]
+        console.log(selected_reason);
+        (<HTMLInputElement>document.querySelector("textarea.deletion-reason")).value = selected_reason.text;
+      });
+    });
+  }
