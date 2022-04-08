@@ -1,0 +1,26 @@
+.deletion-reason{
+    width: 100%;
+    margin-top: 2%;
+    margin-bottom: 1%;
+}
+.delmenu.show{
+    display:block !important;
+}
+.delmenu{
+    display:none;
+}
+.primary-items, .secondary-items, .warnpts{ 
+    margin-top:8px;
+    padding: 8px 0px;
+    border-bottom: 1px solid #c3d1dd;
+    > label{
+      padding:0px 8px;
+      > span:last-child{
+        margin-left:8px;
+      }
+    }
+  }
+.confirmdel{
+    margin-top: 2%;
+    margin-left: 0% !important;
+}
