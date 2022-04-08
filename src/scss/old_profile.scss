@@ -34,8 +34,10 @@ span.pseudolink.show-form{display:none;}
         display:none;
         justify-content: center;
         align-items:center;
+        border-radius:10px;
         &.show{
             display:flex!important;
+            z-index:999;
         }
     }
     >h1{
