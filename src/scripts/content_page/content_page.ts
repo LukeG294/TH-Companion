@@ -56,14 +56,14 @@ window.addEventListener("load", function(){
     buttonArea.insertAdjacentHTML('afterend',toggle_selected())
     buttonArea.insertAdjacentHTML('afterend',select_all())
     document.getElementById("selectAll").addEventListener("click",function(){
-        let checkBoxes = document.getElementsByClassName("sg-checkbox__element")
+        let checkBoxes = document.getElementsByClassName("contentCheckboxes")
         for (let i = 0; i < checkBoxes.length; i++) {
             // @ts-ignore
             checkBoxes[i].checked = 'true'
         } 
     })
     document.getElementById("toggleSelected").addEventListener("click",function(){
-        let checkBoxes = document.getElementsByClassName("sg-checkbox__element")
+        let checkBoxes = document.getElementsByClassName("contentCheckboxes")
         for (let i = 0; i < checkBoxes.length; i++) {
             
                 //@ts-ignore
