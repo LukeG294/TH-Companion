@@ -1,4 +1,4 @@
-import {academicIntegrityReasons, approve_selected, confirm_selected, copy_links, delete_selected, deletion_menu, improperQuestionReasons, miscellaneousReasons, select_all, toggle_selected, unclearReasons, unverify_selected} from "../common/content_page_buttons"
+import {academicIntegrityReasons, approve_selected, confirm_selected, copy_links, delete_selected, question_deletion_menu, improperQuestionReasons, miscellaneousReasons, select_all, toggle_selected, unclearReasons, unverify_selected, answer_deletion_menu, improperAnswerReasons, incompleteAnswerReasons, miscellaneousAnswerReasons, plagiarismAnswerReasons} from "../common/content_page_buttons"
 import {find, runtime} from "webextension-polyfill";
 
 window.addEventListener("load", function(){
@@ -10,7 +10,9 @@ window.addEventListener("load", function(){
             return "response"
         } else if (type === "comments_tr"){
             return "comment"
-        } 
+        } else {
+            return "task"
+        }
     }
     let content = document.querySelectorAll("#content-old > div:nth-child(2) > div:nth-child(25) > table > tbody > tr")
     
@@ -27,18 +29,24 @@ window.addEventListener("load", function(){
     let buttonArea = document.querySelector("#content-old > div:nth-child(3) > p")
     //if you want to add permissions for each button later, do it here (below)
     let url = String(window.location.href)
-    buttonArea.insertAdjacentHTML('afterend',deletion_menu())
+    
     if (url.includes("tasks") === true){
+        buttonArea.insertAdjacentHTML('afterend',question_deletion_menu())
         buttonArea.insertAdjacentHTML('afterend',confirm_selected())
         buttonArea.insertAdjacentHTML('afterend',delete_selected())
+        
     } else if (url.includes("responses") === true){
+        buttonArea.insertAdjacentHTML('afterend',answer_deletion_menu())
         buttonArea.insertAdjacentHTML('afterend',approve_selected())
         buttonArea.insertAdjacentHTML('afterend',delete_selected())
         buttonArea.insertAdjacentHTML('afterend',unverify_selected())
+        
     } else if (url.includes("comments_tr") === true){
         buttonArea.insertAdjacentHTML('afterend',delete_selected())
     } else {
-        window.location.href += "/tasks"
+        buttonArea.insertAdjacentHTML('afterend',question_deletion_menu())
+        buttonArea.insertAdjacentHTML('afterend',confirm_selected())
+        buttonArea.insertAdjacentHTML('afterend',delete_selected())
     }
     
     
@@ -104,7 +112,7 @@ window.addEventListener("load", function(){
         }
         
     })
-    async function getReasonText(){
+    async function getQReasonText(){
         //@ts-ignore
         let res = await fetch(`https://brainly.com/api/28/moderation_new/get_content`, { method: "POST",body: (`{"model_type_id":1,"model_id":${document.querySelector("#content-old > div:nth-child(2) > div:nth-child(25) > table > tbody > tr:nth-child(1) > td:nth-child(2) > a").href.split('/')[4]},"schema":"moderation.content.get"}`)}).then(data => data.json())
         
@@ -140,7 +148,47 @@ window.addEventListener("load", function(){
              
          });
     }
-    getReasonText()
+    getQReasonText()
+
+    async function getAReasonText(){
+        //@ts-ignore
+        let res = await fetch(`https://brainly.com/api/28/moderation_new/get_content`, { method: "POST",body: (`{"model_type_id":1,"model_id":${document.querySelector("#content-old > div:nth-child(2) > div:nth-child(25) > table > tbody > tr:nth-child(1) > td:nth-child(2) > a").href.split('/')[4]},"schema":"moderation.content.get"}`)}).then(data => data.json())
+        
+        function getSubreasons(num){
+            let subReasons = res.data.delete_reasons[getPageType()][num]["subcategories"]
+            
+            for (let i = 0; i < subReasons.length; i++) {
+             
+             let idToFind = document.getElementById("secondary-reason"+String(subReasons[i]["id"]))
+             
+             idToFind.addEventListener("click",function(){
+                 //@ts-ignore
+                 document.querySelector(".deletion-reason").innerText = subReasons[i]["text"]
+             })
+         }
+        }
+        document.querySelector("#miscellaneousAnswer").addEventListener("click", function(){
+            document.querySelector(".secondary-items").innerHTML = miscellaneousAnswerReasons()
+            getSubreasons(0)
+           
+         });
+         document.querySelector("#improperAnswer").addEventListener("click", function(){
+             document.querySelector(".secondary-items").innerHTML = improperAnswerReasons()
+             getSubreasons(1)
+          });
+         document.querySelector("#incompleteAnswer").addEventListener("click", function(){
+             document.querySelector(".secondary-items").innerHTML = incompleteAnswerReasons()
+             getSubreasons(2)
+         });
+         document.querySelector("#plagiarismAnswer").addEventListener("click", function(){
+             document.querySelector(".secondary-items").innerHTML = plagiarismAnswerReasons()
+             getSubreasons(3)
+             
+         });
+    }
+    getAReasonText()
+
+
     
         
    
@@ -172,33 +220,94 @@ window.addEventListener("load", function(){
             let warn = document.getElementById("warnUser").checked
             //@ts-ignore
             let take_point = document.getElementById("takePoints").checked
-            if(type === "task") {model_type_id = 1;}
-            if(type === "response") {model_type_id = 2;}
-            
-            async function f(){
-                await fetch(`https://brainly.com/api/28/moderation_new/delete_${type}_content`, {
-                method: "POST",
-                body:JSON.stringify({
-                  "reason_id":2,
-                  "reason":reason,
-                  "give_warning":warn,
-                  "take_points": take_point,
-                  "schema":`moderation.${type}.delete`,
-                  "model_type_id":model_type_id,
-                  "model_id":ids[i],
-                })
-              })
-              countDeletions+=1
+            let modelid = ids[i]
+            //@ts-ignore
+            if (document.getElementById("selectQuestion").checked === true){
+                type = "task"
+                //@ts-ignore
+            } else if (document.getElementById("selectAnswer").checked === true){
+                type = "response"
+            } else {
+                alert("You need to choose between deleting the answer or question it belongs to.")
+                type = "none"
             }
-            f()
             
-            let x = document.createElement("div")
-            document.getElementById("flash-msg").appendChild(x)
-                            x.outerHTML = `<div aria-live="assertive" class="sg-flash" role="alert">
-                                            <div class="sg-flash__message sg-flash__message--error">
-                                            <div class="sg-text sg-text--small sg-text--bold sg-text--to-center">Deleted ${i+1} questions.</div>
-                                            </div>
-                                        </div>`
+            if(type === "task") {model_type_id = 1; 
+                async function f(){
+                    await fetch(`https://brainly.com/api/28/moderation_new/delete_${type}_content`, {
+                    method: "POST",
+                    body:JSON.stringify({
+                      "reason_id":2,
+                      "reason":reason,
+                      "give_warning":warn,
+                      "take_points": take_point,
+                      "schema":`moderation.${type}.delete`,
+                      "model_type_id":model_type_id,
+                      "model_id":modelid,
+                    })
+                  })
+                  countDeletions+=1
+                }
+                f()}
+            //get the answer id to delete it 
+            if(type === "response") {
+                model_type_id = 2; 
+                
+                
+                var xhr = new XMLHttpRequest();
+
+                xhr.addEventListener("readystatechange", function() {
+                if(this.readyState === 4) {
+                    let firstAnswer = JSON.parse(this.responseText)["data"]["responses"][0];
+                    let secondAnswer = JSON.parse(this.responseText)["data"]["responses"][1];
+                    let currentUser = window.location.href.split("/")[5]
+                    if (String(currentUser) === String(firstAnswer["user_id"])){
+                        let answerID = firstAnswer["id"]
+                        async function f(){
+                            await fetch(`https://brainly.com/api/28/moderation_new/delete_${type}_content`, {
+                                method: "POST",
+                                body:JSON.stringify({
+                                "reason_id":2,
+                                "reason":reason,
+                                "give_warning":warn,
+                                "take_points": take_point,
+                                "schema":`moderation.${type}.delete`,
+                                "model_type_id":model_type_id,
+                                "model_id":answerID,
+                                })
+                            })
+                        }
+                        f()
+                    } else if (String(currentUser) === String(secondAnswer["user_id"])){
+                        let answerID = secondAnswer["id"]
+                        async function f(){
+                            await fetch(`https://brainly.com/api/28/moderation_new/delete_${type}_content`, {
+                                method: "POST",
+                                body:JSON.stringify({
+                                "reason_id":2,
+                                "reason":reason,
+                                "give_warning":warn,
+                                "take_points": take_point,
+                                "schema":`moderation.${type}.delete`,
+                                "model_type_id":model_type_id,
+                                "model_id":answerID,
+                                })
+                            })
+                        }
+                        f()
+                    }
+                }
+                });
+
+                xhr.open("POST", `https://brainly.com/api/28/api_tasks/main_view/${ids[i]}?accept=application/json`);
+
+                xhr.send();
+
+            }
+            
+           
+            
+           
           }
                
         
