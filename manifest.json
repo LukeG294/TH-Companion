@@ -32,10 +32,20 @@
    
   },
   {
-    "matches": ["*://brainly.com/users/user_content*"],
-    "js": ["content-scripts/js/content_page.js"]
+    "matches": ["*://brainly.com/users/user_content*/tasks"],
+    "js": ["content-scripts/js/tasks.js"]
+   
+  },
+  {
+    "matches": ["*://brainly.com/users/user_content*/responses"],
+    "js": ["content-scripts/js/responses.js"]
+   
+  },{
+    "matches": ["*://brainly.com/users/user_content*/comments_tr"],
+    "js": ["content-scripts/js/comments.js"]
    
   }
+
   
 ]
 }
