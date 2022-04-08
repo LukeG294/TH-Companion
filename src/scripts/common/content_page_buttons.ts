@@ -84,7 +84,7 @@ export function unverify_selected(){
     `)
 }
 
-export function deletion_menu(){
+export function question_deletion_menu(){
     return(/*html*/`<div class="delmenu">
 
     <div class="primary-items" style="margin-top:20px;">
@@ -260,6 +260,188 @@ export function academicIntegrityReasons(){
           <span class="sg-text sg-text--small sg-text--bold sg-radio__label">Content Prohibited</span>
         </label>
                     
+                     
+    `)
+}
+
+export function answer_deletion_menu(){
+    return(/*html*/`<div class="delmenu">
+
+    <div class="primary-items">
+      <label class="sg-radio sg-radio--xxs" for="2323200155">
+        <input type="radio" class="sg-radio__element" name="group1" id="miscellaneousAnswer" index="0">
+        <span class="sg-radio__ghost" aria-hidden="true"></span>
+        <span class="sg-text sg-text--small sg-text--bold sg-radio__label">Miscellaneous</span>
+      </label>
+      <label class="sg-radio sg-radio--xxs" for="3823200155">
+        <input type="radio" class="sg-radio__element" name="group1" id="improperAnswer" index="1">
+        <span class="sg-radio__ghost" aria-hidden="true"></span>
+        <span class="sg-text sg-text--small sg-text--bold sg-radio__label">Improper Answer</span>
+      </label>
+      <label class="sg-radio sg-radio--xxs" for="3923200155">
+        <input type="radio" class="sg-radio__element" name="group1" id="incompleteAnswer" index="2">
+        <span class="sg-radio__ghost" aria-hidden="true"></span>
+        <span class="sg-text sg-text--small sg-text--bold sg-radio__label">Incomplete Answer</span>
+      </label>
+      <label class="sg-radio sg-radio--xxs" for="4023200155">
+        <input type="radio" class="sg-radio__element" name="group1" id="plagiarismAnswer" index="3">
+        <span class="sg-radio__ghost" aria-hidden="true"></span>
+        <span class="sg-text sg-text--small sg-text--bold sg-radio__label">Plagiarism</span>
+      </label></div>
+      <div class="secondary-items">
+        </div>
+        
+    <div class="qa">
+    <label class="sg-radio sg-radio--xxs" for="selectQuestion">
+        <input type="radio" class="sg-radio__element" name="group3" id="selectQuestion" index="4">
+        <span class="sg-radio__ghost" aria-hidden="true"></span>
+        <span class="sg-text sg-text--small sg-text--bold sg-radio__label">Question</span>
+      </label>
+      <label class="sg-radio sg-radio--xxs" for="selectAnswer">
+        <input type="radio" class="sg-radio__element" name="group3" id="selectAnswer" index="4">
+        <span class="sg-radio__ghost" aria-hidden="true"></span>
+        <span class="sg-text sg-text--small sg-text--bold sg-radio__label">Answer</span>
+      </label>
+    </div>
+    <textarea placeholder="Reason" class=" deletion-reason sg-textarea sg-textarea--tall"></textarea>
+    
+    <div class="sg-space-x-m del-options">
+      <div class="warnpts">
+        <label class="sg-checkbox" for="warn">
+          <input type="checkbox" id="warnUser" class="sg-checkbox__element" id="warn">
+          <div class="sg-checkbox__ghost" aria-hidden="true">
+            <div class="sg-icon sg-icon--adaptive sg-icon--x16"><svg class="sg-icon__svg"><use xlink:href="#icon-check"></use></svg></div>
+          </div>
+          <span class="sg-text sg-text--small sg-text--bold sg-checkbox__label">warn user</span>
+        </label>
+
+        <label class="sg-checkbox takePts"  for="pts">
+          <input type="checkbox" class="sg-checkbox__element" id="takePoints">
+          <div class="sg-checkbox__ghost" aria-hidden="true">
+            <div class="sg-icon sg-icon--adaptive sg-icon--x16"><svg class="sg-icon__svg"><use xlink:href="#icon-check"></use></svg></div>
+          </div>
+          <span class="sg-text sg-text--small sg-text--bold sg-checkbox__label">take points</span>
+        </label>
+
+        
+      </div>
+      <div class="confirmdel">
+      <button class="sg-button sg-button--m sg-button--solid-light sg-button--solid-light-toggle-peach modButtons" id="confirmDeletion"><span class="sg-button__icon sg-button__icon--m">
+                            <div class="sg-icon sg-icon--adaptive sg-icon--x24"><svg class="sg-icon__svg" role="img"  focusable="false"><text id="title-add_more-9qmrbd" hidden="">trash filled</text>
+                                <use xlink:href="#icon-trash" aria-hidden="true"></use>
+                              </svg></div>
+                          </span><span class="sg-button__text">Delete</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>`)
+}
+
+export function miscellaneousAnswerReasons(){
+    return(/*html*/`
+    <label class="sg-radio sg-radio--xxs" for="2123200133">
+    <input type="radio" class="sg-radio__element" name="group2" id="secondary-reason21" index="0">
+    <span class="sg-radio__ghost" aria-hidden="true"></span>
+    <span class="sg-text sg-text--small sg-text--bold sg-radio__label">Not English</span>
+  </label>
+  <label class="sg-radio sg-radio--xxs" for="2223200133">
+    <input type="radio" class="sg-radio__element" name="group2" id="secondary-reason22" index="1">
+    <span class="sg-radio__ghost" aria-hidden="true"></span>
+    <span class="sg-text sg-text--small sg-text--bold sg-radio__label">Please Be Nice to Other Users</span>
+  </label>
+  <label class="sg-radio sg-radio--xxs" for="5723200133">
+    <input type="radio" class="sg-radio__element" name="group2" id="secondary-reason57" index="2">
+    <span class="sg-radio__ghost" aria-hidden="true"></span>
+    <span class="sg-text sg-text--small sg-text--bold sg-radio__label">Default</span>
+  </label>
+  <label class="sg-radio sg-radio--xxs" for="7323200133">
+    <input type="radio" class="sg-radio__element" name="group2" id="secondary-reason73" index="3">
+    <span class="sg-radio__ghost" aria-hidden="true"></span>
+    <span class="sg-text sg-text--small sg-text--bold sg-radio__label">Self Harm</span>
+  </label>
+  <label class="sg-radio sg-radio--xxs" for="8423200133">
+    <input type="radio" class="sg-radio__element" name="group2" id="secondary-reason84" index="4">
+    <span class="sg-radio__ghost" aria-hidden="true"></span>
+    <span class="sg-text sg-text--small sg-text--bold sg-radio__label">Inappropriate Content</span>
+  </label>
+  <label class="sg-radio sg-radio--xxs" for="8523200133">
+    <input type="radio" class="sg-radio__element" name="group2" id="secondary-reason85" index="5">
+    <span class="sg-radio__ghost" aria-hidden="true"></span>
+    <span class="sg-text sg-text--small sg-text--bold sg-radio__label">Personal Information</span>
+  </label>
+                    
+                     
+    `)
+}
+
+export function improperAnswerReasons(){
+    return(/*html*/`
+    <label class="sg-radio sg-radio--xxs" for="3223200133">
+          <input type="radio" class="sg-radio__element" name="group2" id="secondary-reason32" index="0">
+          <span class="sg-radio__ghost" aria-hidden="true"></span>
+          <span class="sg-text sg-text--small sg-text--bold sg-radio__label">Question about Question</span>
+        </label>
+        <label class="sg-radio sg-radio--xxs" for="3523200133">
+          <input type="radio" class="sg-radio__element" name="group2"id="secondary-reason35" index="1">
+          <span class="sg-radio__ghost" aria-hidden="true"></span>
+          <span class="sg-text sg-text--small sg-text--bold sg-radio__label">IDK Answer </span>
+        </label>
+        <label class="sg-radio sg-radio--xxs" for="4823200133">
+          <input type="radio" class="sg-radio__element" name="group2"id="secondary-reason48" index="2">
+          <span class="sg-radio__ghost" aria-hidden="true"></span>
+          <span class="sg-text sg-text--small sg-text--bold sg-radio__label">Mistakes in Answer</span>
+        </label>
+        <label class="sg-radio sg-radio--xxs" for="5523200133">
+          <input type="radio" class="sg-radio__element" name="group2" id="secondary-reason55" index="3">
+          <span class="sg-radio__ghost" aria-hidden="true"></span>
+          <span class="sg-text sg-text--small sg-text--bold sg-radio__label">Spam Answer</span>
+        </label>
+                    
+                     
+    `)
+}
+
+export function incompleteAnswerReasons(){
+    return(/*html*/`
+    <label class="sg-radio sg-radio--xxs" for="1323200133">
+    <input type="radio" class="sg-radio__element" name="group2" id="secondary-reason13"index="0">
+    <span class="sg-radio__ghost" aria-hidden="true"></span>
+    <span class="sg-text sg-text--small sg-text--bold sg-radio__label">Not Clear</span>
+  </label>
+  <label class="sg-radio sg-radio--xxs" for="2023200133">
+    <input type="radio" class="sg-radio__element" name="group2" id="secondary-reason20" index="1">
+    <span class="sg-radio__ghost" aria-hidden="true"></span>
+    <span class="sg-text sg-text--small sg-text--bold sg-radio__label">Incomplete Answer</span>
+  </label>
+  <label class="sg-radio sg-radio--xxs" for="3323200133">
+    <input type="radio" class="sg-radio__element" name="group2" id="secondary-reason33" index="2">
+    <span class="sg-radio__ghost" aria-hidden="true"></span>
+    <span class="sg-text sg-text--small sg-text--bold sg-radio__label">No Calculations (STEM Only)</span>
+  </label>
+                    
+                     
+    `)
+}
+
+export function plagiarismAnswerReasons(){
+    return(/*html*/`
+    <label class="sg-radio sg-radio--xxs" for="723200133">
+    <input type="radio" class="sg-radio__element" name="group2" id="secondary-reason7" index="0">
+    <span class="sg-radio__ghost" aria-hidden="true"></span>
+    <span class="sg-text sg-text--small sg-text--bold sg-radio__label">Copied From Another Source</span>
+  </label>
+  <label class="sg-radio sg-radio--xxs" for="823200133">
+    <input type="radio" class="sg-radio__element" name="group2" id="secondary-reason8" index="1">
+    <span class="sg-radio__ghost" aria-hidden="true"></span>
+    <span class="sg-text sg-text--small sg-text--bold sg-radio__label">Link in Answer</span>
+  </label>
+  <label class="sg-radio sg-radio--xxs" for="8323200133">
+    <input type="radio" class="sg-radio__element" name="group2" id="secondary-reason83" index="2">
+    <span class="sg-radio__ghost" aria-hidden="true"></span>
+    <span class="sg-text sg-text--small sg-text--bold sg-radio__label">Copied from Another User </span>
+  </label>      
                      
     `)
 }
