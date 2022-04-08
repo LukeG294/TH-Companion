@@ -199,7 +199,7 @@ export async function confirmDeletionAnswers(){
                 <div class="sg-text sg-text--small sg-text--bold sg-text--to-center">${success} removed, ${fail} had an error. Make sure they weren't already deleted.</div>
                 </div>
             </div>`
-    banner.addEventListener("click",function(){
+    document.querySelector(".sg-flash").addEventListener("click",function(){
       this.remove();
     })
   } else {
@@ -210,7 +210,7 @@ export async function confirmDeletionAnswers(){
                 <div class="sg-text sg-text--small sg-text--bold sg-text--to-center">${success} removed successfully!</div>
                 </div>
             </div>`
-    banner.addEventListener("click",function(){
+    document.querySelector(".sg-flash").addEventListener("click",function(){
       this.remove();
     })
   }
