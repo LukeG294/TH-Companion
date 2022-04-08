@@ -152,14 +152,18 @@ window.addEventListener("load", function(){
             
                 //@ts-ignore
                 if (String(checkBoxes[i].checked) === "true"){
-                  console.log(checkBoxes[i])
+                 
                   let link = checkBoxes[i].closest("tr").getElementsByTagName('a')[0].href
                   let id = link.split("/")[4]
                   ids.push(id)
                 } 
         } 
-        let i = 0;
-        for (i < ids.length; i++;) {
+        
+        
+        let countDeletions = 0
+        
+        for (let i = 0; i < ids.length; i++) {
+           
             let type = getPageType()
             let model_type_id = 1;
             //@ts-ignore
@@ -170,6 +174,7 @@ window.addEventListener("load", function(){
             let take_point = document.getElementById("takePoints").checked
             if(type === "task") {model_type_id = 1;}
             if(type === "response") {model_type_id = 2;}
+            
             async function f(){
                 await fetch(`https://brainly.com/api/28/moderation_new/delete_${type}_content`, {
                 method: "POST",
@@ -183,17 +188,20 @@ window.addEventListener("load", function(){
                   "model_id":ids[i],
                 })
               })
+              countDeletions+=1
             }
             f()
+            
+            let x = document.createElement("div")
+            document.getElementById("flash-msg").appendChild(x)
+                            x.outerHTML = `<div aria-live="assertive" class="sg-flash" role="alert">
+                                            <div class="sg-flash__message sg-flash__message--error">
+                                            <div class="sg-text sg-text--small sg-text--bold sg-text--to-center">Deleted ${i+1} questions.</div>
+                                            </div>
+                                        </div>`
           }
                
-          let x = document.createElement("div")
-                document.getElementById("flash-msg").appendChild(x)
-                                x.outerHTML = `<div aria-live="assertive" class="sg-flash" role="alert">
-                                                <div class="sg-flash__message sg-flash__message--error">
-                                                <div class="sg-text sg-text--small sg-text--bold sg-text--to-center">Deleted ${i} questions.</div>
-                                                </div>
-                                            </div>`
+        
      
         
     })
