@@ -3,11 +3,8 @@
     margin-top: 2%;
     margin-bottom: 1%;
 }
-.delmenu.show{
-    display:block !important;
-}
-.delmenu{
-    display:none;
+.warnpts{
+  border-bottom:none!important;
 }
 .primary-items, .secondary-items, .warnpts{ 
     margin-top:8px;
@@ -23,4 +20,8 @@
 .confirmdel{
     margin-top: 2%;
     margin-left: 0% !important;
+}
+.modButtons{
+  margin-right:8px;
+  margin-bottom:8px;
 }

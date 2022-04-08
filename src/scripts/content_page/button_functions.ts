@@ -38,10 +38,18 @@ export function toggleSelection(){
     }
 }
 export async function showDelrsn(){
+    if(document.querySelector(".delmenu").classList.contains("show")){
+      document.querySelector(".delmenu").classList.remove("show");
+      
+    }else{
     //open ticket, get response, close it
+    document.querySelector(".primary-items").innerHTML = '';
     let id = document.querySelector("tbody a").getAttribute("href").replace("/question/","");
+    document.querySelector("#deleteSelectedQuestions .spinner-container").classList.add("show");
     let res = await fetch(`https://brainly.com/api/28/moderation_new/get_content`, { method: "POST",body: (`{"model_type_id":1,"model_id":${id},"schema":"moderation.content.get"}`)}).then(data => data.json());
-    await fetch(`https://brainly.com/api/28/moderate_tickets/expire`,{method: "POST", body:`{"model_id":${id},"model_type_id":1,"schema":"moderation.ticket.expire"}`})
+    document.querySelector("#deleteSelectedQuestions .spinner-container").classList.remove("show");
+    document.querySelector(".delmenu").classList.toggle("show");
+    fetch(`https://brainly.com/api/28/moderate_tickets/expire`,{method: "POST", body:`{"model_id":${id},"model_type_id":1,"schema":"moderation.ticket.expire"}`})
 
     let del_reasons = res.data.delete_reasons.task;
     console.log(del_reasons)
@@ -49,15 +57,13 @@ export async function showDelrsn(){
 
     for(let i = 0; i < del_reasons.length; i++){
       document.querySelector(".primary-items").insertAdjacentHTML("beforeend",/*html*/`
-        <label class="sg-radio sg-radio--xxs" for="${del_reasons[i].id}">
-          <input type="radio" class="sg-radio__element" name="group1" id="${del_reasons[i].id}$" index = "${i}">
+        <label class="sg-radio sg-radio--xxs" for="r${del_reasons[i].id}">
+          <input type="radio" class="sg-radio__element" name="group1" id="r${del_reasons[i].id}" index = "${i}">
           <span class="sg-radio__ghost" aria-hidden="true"></span>
           <span class="sg-text sg-text--small sg-text--bold sg-radio__label">${del_reasons[i].text}</span>
         </label>`
       )
     }
-    
-      document.querySelector(".delmenu").classList.toggle("show");
     
     //detect selection of primary deletion reason
     document.querySelector(".primary-items").addEventListener("change", async function(){
@@ -70,8 +76,8 @@ export async function showDelrsn(){
       //inserting secondary deletion reasons
       for(let i = 0; i < selected_subcats.length; i++){
         document.querySelector(".secondary-items").insertAdjacentHTML("beforeend",/*html*/`
-          <label class="sg-radio sg-radio--xxs" for="${selected_subcats[i].id}">
-            <input type="radio" class="sg-radio__element" name="group2" id="${selected_subcats[i].id}}" index = "${i}">
+          <label class="sg-radio sg-radio--xxs" for="s${selected_subcats[i].id}">
+            <input type="radio" class="sg-radio__element" name="group2" id="s${selected_subcats[i].id}" index = "${i}">
             <span class="sg-radio__ghost" aria-hidden="true"></span>
             <span class="sg-text sg-text--small sg-text--bold sg-radio__label">${selected_subcats[i].title}</span>
           </label>`
@@ -85,6 +91,7 @@ export async function showDelrsn(){
       });
     });
   }
+}
 
 export async function confirmDeletionQuestions(){
   let checkBoxes = document.getElementsByClassName("contentCheckboxes")

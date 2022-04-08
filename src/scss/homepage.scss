@@ -15,7 +15,7 @@ div.brn-placeholder__animation{
 #moderate-functions-panel .icon, div[data-testid = 'game_box_badges']{
   display:none!important;
 }*/
-#html .mint{
+#html .mint,input, button, select, textarea{
   font-family: "ProximaNova","Helvetica","Arial",sans-serif!important;
 }
 #html h1, #html h2{
@@ -197,56 +197,6 @@ div.brn-placeholder__animation{
           border-radius: 10px;
         }
       }
-      .delmenu{
-        display:none;
-        .secondary-items, .deletion-reason{
-          display:none;
-        }
-        &.show{
-          display:flex;
-          flex-direction:column;
-        }
-        &.secondary{
-          .secondary-items, .deletion-reason{
-            display:block;
-          }
-          .del-options{
-            display:flex;
-          }
-        }
-        .primary-items, .secondary-items{ 
-          margin-top:8px;
-          padding: 8px 0px;
-          border-bottom: 1px solid #c3d1dd;
-          > label{
-            padding:0px 8px;
-            > span:last-child{
-              margin-left:8px;
-            }
-          }
-        }
-        .deletion-reason{
-          margin-top:8px;
-        }
-        .del-options{
-          display:none;
-          align-items: center;
-          margin-top: 8px;
-          justify-content: space-between;
-          button{
-            height: 36px;
-            padding: 0.2rem 1rem;
-          }
-          .warnpts{
-            label{
-              margin-right:8px;
-              span{
-                margin-left:4px!important;
-              }
-            }
-          }
-        }
-      }
       .attachment-tools{
         position: absolute;
         right: 8px;
@@ -415,19 +365,6 @@ div.brn-placeholder__animation{
       .password{
         margin-top:8px;
       }
-      >.spinner-container{
-        display:none;
-        position: absolute;
-        height: 100%;
-        width: 100%;
-        background: rgba(255,255,255,0.6);
-        z-index: 999;
-        justify-content: center;
-        align-items: center;
-        &.show{
-          display:flex!important;
-        }
-      }
       >div{
         width: 100%;
         margin-right: 0px;
@@ -450,4 +387,67 @@ div.brn-placeholder__animation{
       color:#323c45;
       font-size:2rem;
     }
+}
+.spinner-container{
+  display:none;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: rgba(255,255,255,0.6);
+  z-index: 999;
+  justify-content: center;
+  align-items: center;
+  &.show{
+    display:flex!important;
+  }
+}
+.delmenu{
+  display:none;
+  .secondary-items, .deletion-reason{
+    display:none;
+  }
+  &.show{
+    display:flex;
+    flex-direction:column;
+  }
+  &.secondary{
+    .secondary-items, .deletion-reason{
+      display:block;
+    }
+    .del-options{
+      display:flex;
+    }
+  }
+  .primary-items, .secondary-items{ 
+    margin-top:8px;
+    padding: 8px 0px;
+    border-bottom: 1px solid #c3d1dd;
+    > label{
+      padding:0px 8px;
+      > span:last-child{
+        margin-left:8px;
+      }
+    }
+  }
+  .deletion-reason{
+    margin-top:8px;
+  }
+  .del-options{
+    display:none;
+    align-items: center;
+    margin-top: 8px;
+    justify-content: space-between;
+    button{
+      height: 36px;
+      padding: 0.2rem 1rem;
+    }
+    .warnpts{
+      label{
+        margin-right:8px;
+        span{
+          margin-left:4px!important;
+        }
+      }
+    }
+  }
 }

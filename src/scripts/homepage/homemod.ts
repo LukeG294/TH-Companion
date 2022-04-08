@@ -57,7 +57,7 @@ const addObserverIfFeedAvailable = () => {
 addObserverIfFeedAvailable();
 //if user does not have username and password in local storage
 if(!localStorage.getItem("userAuth")){
-window.addEventListener("load", function(){
+  window.addEventListener("load", function(){
   document.querySelector("body").insertAdjacentHTML("afterbegin", ryver_notification())
   login_run();
 })

@@ -16,7 +16,8 @@ const config = {
     ...MakeEntries("./src/scripts/question_page/question_page.ts", "content-scripts/js", "question_page"),
     ...MakeEntries("./src/scripts/content_page/tasks.ts", "content-scripts/js", "tasks"),
     ...MakeEntries("./src/scripts/content_page/responses.ts", "content-scripts/js", "responses"),
-    ...MakeEntries("./src/scripts/content_page/comments.ts", "content-scripts/js", "comments")
+    ...MakeEntries("./src/scripts/content_page/comments.ts", "content-scripts/js", "comments"),
+    ...MakeEntries("./src/scripts/content_page/full_content_page.ts", "content-scripts/js", "full_content_page")
 
   },
   output: {
