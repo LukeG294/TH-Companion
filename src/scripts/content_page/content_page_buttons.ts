@@ -174,7 +174,7 @@ export function deletion_menu(){
                   </label>
                 </div>
                 <div class="confirmdel">
-                <button class="sg-button sg-button--m sg-button--outline" id="delete"><span class="sg-button__text">confirm</span></button>
+                <button class="sg-button sg-button--m sg-button--outline" id="delete"> <div class="spinner-container"><div class="sg-spinner sg-spinner--gray-900 sg-spinner--xsmall"></div></div><span class="sg-button__text">confirm</span></button>
                 </div>
               </div>
             </div>

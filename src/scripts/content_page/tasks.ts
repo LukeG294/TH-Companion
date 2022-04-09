@@ -14,6 +14,7 @@ import {
     showDelrsn,
     confirmDeletionQuestions,
     confirmQuestions
+   
 } from "./button_functions"
 
 
@@ -46,7 +47,7 @@ function addButtons(){
     document.getElementById("copyLinks").addEventListener("click", function(){copyLinks()})
     document.querySelector("#deleteSelectedQuestions").addEventListener("click", function(){showDelrsn()})
     document.querySelector("#delete").addEventListener("click",function(){confirmDeletionQuestions()})
-    document.querySelector("#confirmSelectedQuestions").addEventListener("click",function(){confirmQuestions()})
+   document.querySelector("#confirmSelectedQuestions").addEventListener("click",function(){confirmQuestions()})
 }
 
 addButtons()
