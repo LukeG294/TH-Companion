@@ -147,7 +147,7 @@ export async function confirmDeletionQuestions(){
     document.querySelector("#flash-msg").appendChild(banner)
     banner.outerHTML = `<div aria-live="assertive" class="sg-flash" role="alert">
                 <div class="sg-flash__message sg-flash__message--error">
-                <div class="sg-text sg-text--small sg-text--bold sg-text--to-center">${success} questions removed, ${fail} had an error. Make sure they weren't already deleted.</div>
+                <div class="sg-text sg-text--small sg-text--bold sg-text--to-center">${success} question(s) removed, ${fail} had an error. Make sure they weren't already deleted.</div>
                 </div>
             </div>`
     document.querySelector(".sg-flash").addEventListener("click",function(){
@@ -158,7 +158,7 @@ export async function confirmDeletionQuestions(){
     document.querySelector("#flash-msg").appendChild(banner)
     banner.outerHTML = `<div aria-live="assertive" class="sg-flash" role="alert">
                 <div class="sg-flash__message sg-flash__message--success">
-                <div class="sg-text sg-text--small sg-text--bold sg-text--to-center">${success} questions removed successfully!</div>
+                <div class="sg-text sg-text--small sg-text--bold sg-text--to-center">${success} question(s) removed successfully!</div>
                 </div>
             </div>`
     document.querySelector(".sg-flash").addEventListener("click",function(){
@@ -234,7 +234,7 @@ export async function confirmDeletionAnswers(){
     document.querySelector("#flash-msg").appendChild(banner)
     banner.outerHTML = `<div aria-live="assertive" class="sg-flash" role="alert">
                 <div class="sg-flash__message sg-flash__message--error">
-                <div class="sg-text sg-text--small sg-text--bold sg-text--to-center">${success} answers removed, ${fail} had an error. Make sure they weren't already deleted.</div>
+                <div class="sg-text sg-text--small sg-text--bold sg-text--to-center">${success} answer(s) removed, ${fail} had an error. Make sure they weren't already deleted or the ticket isn't reserved.</div>
                 </div>
             </div>`
     document.querySelector(".sg-flash").addEventListener("click",function(){
@@ -245,7 +245,7 @@ export async function confirmDeletionAnswers(){
     document.querySelector("#flash-msg").appendChild(banner)
     banner.outerHTML = `<div aria-live="assertive" class="sg-flash" role="alert">
                 <div class="sg-flash__message sg-flash__message--success">
-                <div class="sg-text sg-text--small sg-text--bold sg-text--to-center">${success} answers removed successfully!</div>
+                <div class="sg-text sg-text--small sg-text--bold sg-text--to-center">${success} answer(s) removed successfully!</div>
                 </div>
             </div>`
     document.querySelector(".sg-flash").addEventListener("click",function(){
