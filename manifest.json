@@ -3,6 +3,9 @@
   "description": "__MSG_description__",
   "manifest_version": 3,
   "version":"1.0.0",
+  "icons": {
+    "128": "resources/icon.png"
+  },
   "host_permissions": [
     "*://brainly.com/*"
   ],

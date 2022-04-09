@@ -30,6 +30,8 @@ gulp.task("manifest", function(done){
 gulp.task("resources", function(done){
     gulp.src("resources/*/*.svg")
         .pipe(gulp.dest("dist/resources/"));
+    gulp.src("resources/icon.png")
+        .pipe(gulp.dest("dist/resources/"));
     done();
 });
 //watching while development
