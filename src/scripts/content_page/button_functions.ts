@@ -220,7 +220,9 @@ export async function confirmDeletionAnswers(){
 export async function showDelrsnAnswers(){
     //open ticket, get response, close it
     let id = document.querySelector("tbody a").getAttribute("href").replace("/question/","");
+    document.querySelector("#deleteSelectedAnswers .spinner-container").classList.add("show");
     let res = await fetch(`https://brainly.com/api/28/moderation_new/get_content`, { method: "POST",body: (`{"model_type_id":1,"model_id":${id},"schema":"moderation.content.get"}`)}).then(data => data.json());
+    document.querySelector("#deleteSelectedAnswers .spinner-container").classList.remove("show");
     await fetch(`https://brainly.com/api/28/moderate_tickets/expire`,{method: "POST", body:`{"model_id":${id},"model_type_id":1,"schema":"moderation.ticket.expire"}`})
 
     let del_reasons = res.data.delete_reasons.response;
