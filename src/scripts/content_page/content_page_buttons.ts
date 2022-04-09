@@ -105,9 +105,9 @@ export function approve_selected(){
     `)
 }
 
-export function confirm_selected(){
+export function confirm_selected_questions(){
     return(/*html*/`
-    <button class="sg-button sg-button--m sg-button--solid-blue modButtons" id="confirmSelected">
+    <button class="sg-button sg-button--m sg-button--solid-blue modButtons" id="confirmSelectedQuestions">
     <div class="spinner-container"><div class="sg-spinner sg-spinner--gray-900 sg-spinner--xsmall"></div></div>
       <span class="sg-button__icon sg-button__icon--m">
         <div class="sg-icon sg-icon--adaptive sg-icon--x24"><svg class="sg-icon__svg" role="img"  focusable="false"><text id="title-add_more-9qmrbd" hidden="">star outlined</text>
@@ -118,6 +118,20 @@ export function confirm_selected(){
                     
                      
     `)
+}
+export function confirm_selected_answers(){
+  return(/*html*/`
+  <button class="sg-button sg-button--m sg-button--solid-blue modButtons" id="confirmSelectedAnswers">
+  <div class="spinner-container"><div class="sg-spinner sg-spinner--gray-900 sg-spinner--xsmall"></div></div>
+    <span class="sg-button__icon sg-button__icon--m">
+      <div class="sg-icon sg-icon--adaptive sg-icon--x24"><svg class="sg-icon__svg" role="img"  focusable="false"><text id="title-add_more-9qmrbd" hidden="">star outlined</text>
+          <use xlink:href="#icon-star" aria-hidden="true"></use>
+        </svg></div>
+    </span><span class="sg-button__text">Confirm</span>
+  </button>
+                  
+                   
+  `)
 }
 
 export function unverify_selected(){
