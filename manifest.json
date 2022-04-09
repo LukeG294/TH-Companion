@@ -35,7 +35,7 @@
    
   },
   {
-    "matches": ["*://brainly.com/users/user_content/*/tasks","*://brainly.com/users/user_content/*/tasks"],
+    "matches": ["*://brainly.com/users/user_content/*/tasks","*://brainly.com/users/user_content/*/tasks","*://brainly.com/users/user_content/*"],
     "js": ["content-scripts/js/tasks.js"],
     "exclude_globs":["responses", "comments_tr"],
     "css": ["content-scripts/css/content_page.css"]
@@ -50,13 +50,7 @@
     "js": ["content-scripts/js/comments.js"],
     "css": ["content-scripts/css/content_page.css"]
    
-  },{
-    "matches": ["*://brainly.com/users/user_content*"],
-    "js": ["content-scripts/js/full_content_page.js"]
-   
-   
   }
-
   
 ]
 }
