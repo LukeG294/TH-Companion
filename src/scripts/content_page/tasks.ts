@@ -52,5 +52,5 @@ function addButtons(){
 if(window.location.href.includes("task") || (!window.location.href.includes("responses") && !window.location.href.includes("comments_ts"))){
     setTimeout(() => {
         addButtons()
-    }, 800);
+    }, 1000);
 }
