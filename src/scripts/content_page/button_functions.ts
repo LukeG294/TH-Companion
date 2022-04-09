@@ -111,9 +111,10 @@ export async function confirmDeletionQuestions(){
           idsToDelete.push(id)
       } 
   }
-  
+  let success = 0
+  let fail = 0
   for (let i = 0; i < idsToDelete.length; i++) {
-   
+    
       let model_type_id = 1;
       let type = "task"
       //@ts-expect-error
@@ -122,7 +123,7 @@ export async function confirmDeletionQuestions(){
       let warn = document.querySelector("#warn").checked
       //@ts-expect-error
       let take_point = document.querySelector("#pts").checked
-      await fetch(`https://brainly.com/api/28/moderation_new/delete_${type}_content`, {
+      let response = await fetch(`https://brainly.com/api/28/moderation_new/delete_${type}_content`, {
           method: "POST",
           body:JSON.stringify({
             "reason_id":2,
@@ -133,9 +134,38 @@ export async function confirmDeletionQuestions(){
             "model_type_id":model_type_id,
             "model_id":idsToDelete[i],
           })
-        })
+        }).then(data => data.json());
+        if (response["success"] === true){
+          success+=1
+        } else {
+          fail +=1
+        }
   
   }
+  if (fail > 0){
+    let banner = document.createElement('div')
+    document.querySelector("#flash-msg").appendChild(banner)
+    banner.outerHTML = `<div aria-live="assertive" class="sg-flash" role="alert">
+                <div class="sg-flash__message sg-flash__message--error">
+                <div class="sg-text sg-text--small sg-text--bold sg-text--to-center">${success} questions removed, ${fail} had an error. Make sure they weren't already deleted.</div>
+                </div>
+            </div>`
+    document.querySelector(".sg-flash").addEventListener("click",function(){
+      this.remove();
+    })
+  } else {
+    let banner = document.createElement('div')
+    document.querySelector("#flash-msg").appendChild(banner)
+    banner.outerHTML = `<div aria-live="assertive" class="sg-flash" role="alert">
+                <div class="sg-flash__message sg-flash__message--success">
+                <div class="sg-text sg-text--small sg-text--bold sg-text--to-center">${success} questions removed successfully!</div>
+                </div>
+            </div>`
+    document.querySelector(".sg-flash").addEventListener("click",function(){
+      this.remove();
+    })
+  }
+
   document.querySelector("#delete  .spinner-container").classList.remove("show");
 }
 
@@ -204,7 +234,7 @@ export async function confirmDeletionAnswers(){
     document.querySelector("#flash-msg").appendChild(banner)
     banner.outerHTML = `<div aria-live="assertive" class="sg-flash" role="alert">
                 <div class="sg-flash__message sg-flash__message--error">
-                <div class="sg-text sg-text--small sg-text--bold sg-text--to-center">${success} removed, ${fail} had an error. Make sure they weren't already deleted.</div>
+                <div class="sg-text sg-text--small sg-text--bold sg-text--to-center">${success} answers removed, ${fail} had an error. Make sure they weren't already deleted.</div>
                 </div>
             </div>`
     document.querySelector(".sg-flash").addEventListener("click",function(){
@@ -215,7 +245,7 @@ export async function confirmDeletionAnswers(){
     document.querySelector("#flash-msg").appendChild(banner)
     banner.outerHTML = `<div aria-live="assertive" class="sg-flash" role="alert">
                 <div class="sg-flash__message sg-flash__message--success">
-                <div class="sg-text sg-text--small sg-text--bold sg-text--to-center">${success} removed successfully!</div>
+                <div class="sg-text sg-text--small sg-text--bold sg-text--to-center">${success} answers removed successfully!</div>
                 </div>
             </div>`
     document.querySelector(".sg-flash").addEventListener("click",function(){
