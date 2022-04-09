@@ -28,6 +28,7 @@ window.addEventListener("load", function() {
         //if you want to add permissions for each button later, do it here (below)
     let url = String(window.location.href)
     buttonArea.insertAdjacentHTML('afterend', deletion_menu())
+    buttonArea.insertAdjacentHTML('afterend', confirm_selected())
     buttonArea.insertAdjacentHTML('afterend', approve_selected())
     buttonArea.insertAdjacentHTML('afterend', delete_selected_answers())
     buttonArea.insertAdjacentHTML('afterend', unverify_selected())
