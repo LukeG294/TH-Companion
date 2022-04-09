@@ -1,6 +1,6 @@
 import {
     approve_selected,
-    confirm_selected,
+    
     copy_links,
     delete_selected_comments,
     select_all,
