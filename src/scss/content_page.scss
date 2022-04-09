@@ -64,15 +64,42 @@ div#content-old{
     color:#f0f2f5!important;
   }
 }
+.contenticon{
+  height: 30px;
+  fill: white;
+  padding: 5px;
+  margin-right: 10px;
+  border-radius: 100%;
+  width: 30px;
+  flex:none;
+}
+.contenticon.report{
+  background:#ff7968;
+}
+.contenticon.attach{
+  background:black;
+}
+.contenticon.approve{
+  background:#60D399;
+  fill:white;
+}
+.contenticon.shield{
+  background:transparent;
+  fill:#323c45;
+}
+.contenticon.crown{
+  background:#fbbe2e;
+  fill:white;
+}
 div#content-old a{
   color:#08c!important;
 }
-.iconcell > div{
-   width:4%;
-    margin-right: 15px;
-    display:block;
-    float:left;
-}
-.report{
-  fill:red;
+.iconcell{ 
+  display:flex;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  > div{
+    display:flex;
+  }
 }

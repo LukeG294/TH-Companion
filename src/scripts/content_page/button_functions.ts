@@ -37,7 +37,7 @@ export function toggleSelection(){
         }
     }
 }
-export async function showDelrsn(){
+export async function showDelrsn(type:string){
     if(document.querySelector(".delmenu").classList.contains("show")){
       document.querySelector(".delmenu").classList.remove("show");
       
@@ -45,13 +45,18 @@ export async function showDelrsn(){
     //open ticket, get response, close it
     document.querySelector(".primary-items").innerHTML = '';
     let id = document.querySelector("tbody a").getAttribute("href").replace("/question/","");
-    document.querySelector("#deleteSelectedQuestions .spinner-container").classList.add("show");
+    document.querySelector("#deleteSelected .spinner-container").classList.add("show");
     let res = await fetch(`https://brainly.com/api/28/moderation_new/get_content`, { method: "POST",body: (`{"model_type_id":1,"model_id":${id},"schema":"moderation.content.get"}`)}).then(data => data.json());
-    document.querySelector("#deleteSelectedQuestions .spinner-container").classList.remove("show");
+    document.querySelector("#deleteSelected .spinner-container").classList.remove("show");
     document.querySelector(".delmenu").classList.toggle("show");
     fetch(`https://brainly.com/api/28/moderate_tickets/expire`,{method: "POST", body:`{"model_id":${id},"model_type_id":1,"schema":"moderation.ticket.expire"}`})
-
-    let del_reasons = res.data.delete_reasons.task;
+    let del_reasons;
+    if(type === "questions"){
+      del_reasons = res.data.delete_reasons.task;
+    }
+    else if(type === "answers"){
+      del_reasons = res.data.delete_reasons.response;
+    }
     
     //inserting primary deletion reasons
 
@@ -221,56 +226,6 @@ export async function confirmDeletionAnswers(){
   document.querySelector("#delete  .spinner-container").classList.remove("show");
 }
 
-export async function showDelrsnAnswers(){
-    //open ticket, get response, close it
-    let id = document.querySelector("tbody a").getAttribute("href").replace("/question/","");
-    document.querySelector("#deleteSelectedAnswers .spinner-container").classList.add("show");
-    let res = await fetch(`https://brainly.com/api/28/moderation_new/get_content`, { method: "POST",body: (`{"model_type_id":1,"model_id":${id},"schema":"moderation.content.get"}`)}).then(data => data.json());
-    document.querySelector("#deleteSelectedAnswers .spinner-container").classList.remove("show");
-    await fetch(`https://brainly.com/api/28/moderate_tickets/expire`,{method: "POST", body:`{"model_id":${id},"model_type_id":1,"schema":"moderation.ticket.expire"}`})
-
-    let del_reasons = res.data.delete_reasons.response;
-   
-    //inserting primary deletion reasons
-
-    for(let i = 0; i < del_reasons.length; i++){
-      document.querySelector(".primary-items").insertAdjacentHTML("beforeend",/*html*/`
-        <label class="sg-radio sg-radio--xxs" for="${del_reasons[i].id}">
-          <input type="radio" class="sg-radio__element" name="group1" id="${del_reasons[i].id}$" index = "${i}">
-          <span class="sg-radio__ghost" aria-hidden="true"></span>
-          <span class="sg-text sg-text--small sg-text--bold sg-radio__label">${del_reasons[i].text}</span>
-        </label>`
-      )
-    }
-    
-      document.querySelector(".delmenu").classList.toggle("show");
-    
-    //detect selection of primary deletion reason
-    document.querySelector(".primary-items").addEventListener("change", async function(){
-      
-      document.querySelector(".delmenu").classList.add("secondary");
-      let selected_index = document.querySelector(".primary-items input:checked").getAttribute("index");
-      let selected_subcats = del_reasons[selected_index].subcategories;
-      console.log(selected_subcats);
-      document.querySelector(".secondary-items").innerHTML = '';
-      //inserting secondary deletion reasons
-      for(let i = 0; i < selected_subcats.length; i++){
-        document.querySelector(".secondary-items").insertAdjacentHTML("beforeend",/*html*/`
-          <label class="sg-radio sg-radio--xxs" for="${selected_subcats[i].id}">
-            <input type="radio" class="sg-radio__element" name="group2" id="${selected_subcats[i].id}}" index = "${i}">
-            <span class="sg-radio__ghost" aria-hidden="true"></span>
-            <span class="sg-text sg-text--small sg-text--bold sg-radio__label">${selected_subcats[i].title}</span>
-          </label>`
-        )
-      }
-      //show deletion reason in textarea
-      document.querySelector(".secondary-items").addEventListener("change", function(){
-        let selected_reason = selected_subcats[document.querySelector(".secondary-items input:checked").getAttribute("index")]
-        console.log(selected_reason);
-        (<HTMLInputElement>document.querySelector("textarea.deletion-reason")).value = selected_reason.text;
-      });
-    });
-  }
 export async function unverifyAnswers(){
   document.querySelector("#unverify  .spinner-container").classList.add("show");
   let checkBoxes = document.getElementsByClassName("contentCheckboxes")
@@ -476,9 +431,6 @@ export async function unverifyAnswers(){
     }
     document.querySelector("#approveSelected  .spinner-container").classList.remove("show");
     }
-
-
-
 
 export async function confirmAnswers(){
   document.querySelector("#confirmSelectedAnswers  .spinner-container").classList.add("show");

@@ -1,4 +1,4 @@
-import { selectAll, toggleSelection, copyLinks, showDelrsnAnswers, confirmDeletionAnswers, unverifyAnswers, approveAnswers, confirmAnswers } from "./button_functions"
+import { selectAll, toggleSelection, copyLinks, showDelrsn, confirmDeletionAnswers, unverifyAnswers, approveAnswers, confirmAnswers } from "./button_functions"
 import {
     approve_selected,
     copy_links,
@@ -39,7 +39,7 @@ window.addEventListener("load", function() {
     document.getElementById("selectAll").addEventListener("click", function(){selectAll()})
     document.getElementById("toggleSelected").addEventListener("click", function(){toggleSelection()})
     document.getElementById("copyLinks").addEventListener("click", function(){copyLinks()})
-    document.querySelector("#deleteSelectedAnswers").addEventListener("click", function(){showDelrsnAnswers()})
+    document.querySelector("#deleteSelected").addEventListener("click", function(){showDelrsn("answers")})
     document.querySelector("#delete").addEventListener("click",function(){confirmDeletionAnswers()})
     document.querySelector("#unverify").addEventListener("click",function(){unverifyAnswers()})
     document.querySelector("#approveSelected").addEventListener("click",function(){approveAnswers()})

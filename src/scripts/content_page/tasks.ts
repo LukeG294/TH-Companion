@@ -45,7 +45,7 @@ function addButtons(){
     document.getElementById("selectAll").addEventListener("click", function(){selectAll()})
     document.getElementById("toggleSelected").addEventListener("click", function(){toggleSelection()})
     document.getElementById("copyLinks").addEventListener("click", function(){copyLinks()})
-    document.querySelector("#deleteSelectedQuestions").addEventListener("click", function(){showDelrsn()})
+    document.querySelector("#deleteSelected").addEventListener("click", function(){showDelrsn("questions")})
     document.querySelector("#delete").addEventListener("click",function(){confirmDeletionQuestions()})
    document.querySelector("#confirmSelectedQuestions").addEventListener("click",function(){confirmQuestions()})
 }
