@@ -267,3 +267,74 @@ export async function showDelrsnAnswers(){
       });
     });
   }
+export async function confirmQuestions(){
+    let checkBoxes = document.getElementsByClassName("contentCheckboxes")
+    let idsToConfirm = []
+    for (let i = 0; i < checkBoxes.length; i++) {
+        //@ts-ignore
+        if (String(checkBoxes[i].checked) === "true") {
+            //@ts-ignore
+            let link = checkBoxes[i].closest("tr").getElementsByTagName('a')[0].href
+            let id = link.split("/")[4]
+            idsToConfirm.push(id)
+        } 
+    }
+    let questionFormat = ""
+    let continueProcess = null
+    if (idsToConfirm.length > 1){
+      questionFormat = "questions"
+      continueProcess = true
+    } else if (idsToConfirm.length === 1){
+      questionFormat = "question"
+      continueProcess = true
+    } else {
+      continueProcess = false
+    }
+    function getCookie(cname) {
+      let name = cname + "=";
+      let decodedCookie = decodeURIComponent(document.cookie);
+      let ca = decodedCookie.split(';');
+      for(let i = 0; i <ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+          c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+          return c.substring(name.length, c.length);
+        }
+      }
+      return "";
+    }
+    let myToken = getCookie("Zadanepl_cookie[Token][Long]")
+    if (continueProcess === true){
+      let confirmConfirmation = confirm(`Are you sure you want to remove reports from (confirm) ${idsToConfirm.length} ${questionFormat}?`)
+      if (confirmConfirmation === true){
+        for (let i = 0; i < idsToConfirm.length; i++) {
+          
+          fetch("https://brainly.com/graphql/us", {
+          "headers": {
+            "accept": "*/*",
+            "accept-language": "en-US,en;q=0.9",
+            "content-type": "application/json",
+            "sec-ch-ua": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"100\", \"Google Chrome\";v=\"100\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"macOS\"",
+            "sec-fetch-dest": "empty",
+            "sec-fetch-mode": "cors",
+            "sec-fetch-site": "same-origin",
+            "x-b-token-long": myToken
+          },
+          "referrer": "https://brainly.com/tools/moderation?classificationSource=ABUSE_REPORT&pageSize=60",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "body": `{\"operationName\":\"AcceptModerationReportContent\",\"variables\":{\"input\":{\"contentType\":\"Question\",\"contentId\":${idsToConfirm[i]}}},\"query\":\"mutation AcceptModerationReportContent($input: AcceptModerationReportContentInput!) {\\n  acceptModerationReportContent(input: $input) {\\n    validationErrors {\\n      error\\n      __typename\\n    }\\n    __typename\\n  }\\n}\\n\"}`,
+          "method": "POST",
+          "mode": "cors",
+          "credentials": "include"
+        });
+      
+        }
+        window.location.reload()
+      }
+      }
+    
+  }
