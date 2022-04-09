@@ -1,14 +1,14 @@
-import { selectAll, toggleSelection, copyLinks, showDelrsn, confirmDeletionQuestions, showDelrsnAnswers, confirmDeletionAnswers } from "./button_functions"
+import { selectAll, toggleSelection, copyLinks, showDelrsnAnswers, confirmDeletionAnswers } from "./button_functions"
 import {
     approve_selected,
-    confirm_selected,
     copy_links,
     delete_selected_answers,
     deletion_menu,
     select_all,
     toggle_selected,
     unverify_selected,
-    add_icons
+    add_icons,
+    confirm_selected_answers
 } from "./content_page_buttons"
 
 window.addEventListener("load", function() {
@@ -29,7 +29,7 @@ window.addEventListener("load", function() {
         //if you want to add permissions for each button later, do it here (below)
     let url = String(window.location.href)
     buttonArea.insertAdjacentHTML('afterend', deletion_menu())
-    buttonArea.insertAdjacentHTML('afterend', confirm_selected())
+    buttonArea.insertAdjacentHTML('afterend', confirm_selected_answers())
     buttonArea.insertAdjacentHTML('afterend', approve_selected())
     buttonArea.insertAdjacentHTML('afterend', delete_selected_answers())
     buttonArea.insertAdjacentHTML('afterend', unverify_selected())
@@ -41,7 +41,7 @@ window.addEventListener("load", function() {
     document.getElementById("copyLinks").addEventListener("click", function(){copyLinks()})
     document.querySelector("#deleteSelectedAnswers").addEventListener("click", function(){showDelrsnAnswers()})
     document.querySelector("#delete").addEventListener("click",function(){confirmDeletionAnswers()})
-
+   
 
 
 })
