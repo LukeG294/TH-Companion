@@ -32,18 +32,18 @@
    
   },
   {
-    "matches": ["*://brainly.com/users/user_content/*/tasks"],
+    "matches": ["*://brainly.com/users/user_content/*/tasks/*"],
     "js": ["content-scripts/js/tasks.js"],
     "exclude_globs":["responses", "comments_tr"],
     "css": ["content-scripts/css/content_page.css"]
   },
   {
-    "matches": ["*://brainly.com/users/user_content*/responses"],
+    "matches": ["*://brainly.com/users/user_content/*/responses/*"],
     "js": ["content-scripts/js/responses.js"],
     "css": ["content-scripts/css/content_page.css"]
    
   },{
-    "matches": ["*://brainly.com/users/user_content*/comments_tr"],
+    "matches": ["*://brainly.com/users/user_content/*/comments_tr/*"],
     "js": ["content-scripts/js/comments.js"],
     "css": ["content-scripts/css/content_page.css"]
    
