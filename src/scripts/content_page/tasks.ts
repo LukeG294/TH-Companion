@@ -49,7 +49,7 @@ function addButtons(){
     document.querySelector("#delete").addEventListener("click",function(){confirmDeletionQuestions()})
    document.querySelector("#confirmSelectedQuestions").addEventListener("click",function(){confirmQuestions()})
 }
-if(window.location.href.includes("task") || (!window.location.href.includes("responses") && !window.location.href.includes("comments_ts"))){
+if(window.location.href.includes("task") || (!window.location.href.includes("responses") && !window.location.href.includes("comments_tr"))){
     setTimeout(() => {
         addButtons()
     }, 1000);
