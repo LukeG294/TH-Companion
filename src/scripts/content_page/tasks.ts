@@ -1,4 +1,5 @@
 import {
+    add_icons,
     confirm_selected,
     copy_links,
     delete_selected_questions,
@@ -28,7 +29,7 @@ function addButtons(){
         </div>
         </label></div>
     `)}
-
+    add_icons()
     let buttonArea = document.querySelector("#content-old > div:nth-child(3) > p")
         //if you want to add permissions for each button later, do it here (below)
     let url = String(window.location.href)
