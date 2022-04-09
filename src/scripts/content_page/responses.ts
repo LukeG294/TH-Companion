@@ -11,7 +11,7 @@ import {
     confirm_selected_answers
 } from "./content_page_buttons"
 
-window.addEventListener("load", function() {
+function responses(){
     add_icons()
     let content = document.querySelectorAll("#content-old > div:nth-child(2) > div:nth-child(25) > table > tbody > tr")
 
@@ -44,4 +44,7 @@ window.addEventListener("load", function() {
     document.querySelector("#unverify").addEventListener("click",function(){unverifyAnswers()})
     document.querySelector("#approveSelected").addEventListener("click",function(){approveAnswers()})
     document.querySelector("#confirmSelectedAnswers").addEventListener("click",function(){confirmAnswers()})
-})
+}
+setTimeout(() => {
+    responses()
+}, 700);

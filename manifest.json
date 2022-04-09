@@ -16,7 +16,7 @@
   }],
   "content_scripts": [{
     "matches": ["*://znanija.com/*", "*://brainly.com/*"],
-    "js": ["content-scripts/js/homepage.js", "content-scripts/js/icons.js"],
+    "js": ["content-scripts/js/homepage.js"],
     "css": ["content-scripts/css/homepage.css"]
   },
   {
@@ -26,7 +26,7 @@
   },
   {
     "matches": ["*://brainly.com/*"],
-    "js": ["content-scripts/js/styleguide.js"],
+    "js": ["content-scripts/js/styleguide.js", "content-scripts/js/icons.js"],
     "run_at": "document_start"
   },
   {
@@ -35,15 +35,16 @@
    
   },
   {
-    "matches": ["*://brainly.com/users/user_content/*/tasks","*://brainly.com/users/user_content/*/tasks","*://brainly.com/users/user_content/*"],
+    "matches": ["*://brainly.com/users/user_content/*/*","*://brainly.com/users/user_content/*"],
     "js": ["content-scripts/js/tasks.js"],
-    "exclude_globs":["responses", "comments_tr"],
-    "css": ["content-scripts/css/content_page.css"]
+    "css": ["content-scripts/css/content_page.css"],
+    "run_at": "document_start"
   },
   {
     "matches": ["*://brainly.com/users/user_content/*/responses/*","*://brainly.com/users/user_content/*/responses"],
     "js": ["content-scripts/js/responses.js"],
-    "css": ["content-scripts/css/content_page.css"]
+    "css": ["content-scripts/css/content_page.css"],
+    "run_at":"document_start"
    
   },{
     "matches": ["*://brainly.com/users/user_content*/comments_tr","*://brainly.com/users/user_content/*/comments_tr"],

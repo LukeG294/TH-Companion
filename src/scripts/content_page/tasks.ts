@@ -19,6 +19,7 @@ import {
 
 
 function addButtons(){
+    add_icons()
     let content = document.querySelectorAll("#content-old > div:nth-child(2) > div:nth-child(25) > table > tbody > tr")
     for (let i = 0; i < content.length; i++) {
         content[i].insertAdjacentHTML('beforeend', `
@@ -31,7 +32,6 @@ function addButtons(){
         </div>
         </label></div>
     `)}
-    add_icons()
     let buttonArea = document.querySelector("#content-old > div:nth-child(3) > p")
         //if you want to add permissions for each button later, do it here (below)
     let url = String(window.location.href)
@@ -49,5 +49,8 @@ function addButtons(){
     document.querySelector("#delete").addEventListener("click",function(){confirmDeletionQuestions()})
    document.querySelector("#confirmSelectedQuestions").addEventListener("click",function(){confirmQuestions()})
 }
-
-addButtons()
+if(window.location.href.includes("task") || (!window.location.href.includes("responses") && !window.location.href.includes("comments_ts"))){
+    setTimeout(() => {
+        addButtons()
+    }, 700);
+}

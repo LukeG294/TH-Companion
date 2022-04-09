@@ -55,9 +55,7 @@ export function delete_selected_questions(){
             <use xlink:href="#icon-trash" aria-hidden="true"></use>
           </svg></div>
       </span><span class="sg-button__text">Delete</span>
-    </button>
-                    
-                     
+    </button>                   
     `)
 }
 export function delete_selected_answers(){
@@ -70,8 +68,6 @@ export function delete_selected_answers(){
         </svg></div>
     </span><span class="sg-button__text">Delete</span>
   </button>
-                  
-                   
   `)
 }
 export function delete_selected_comments(){
