@@ -26,7 +26,7 @@
   },
   {
     "matches": ["*://brainly.com/*"],
-    "js": ["content-scripts/js/styleguide.js", "content-scripts/js/icons.js"],
+    "js": ["content-scripts/js/styleguide.js","content-scripts/js/icons.js"],
     "run_at": "document_start"
   },
   {

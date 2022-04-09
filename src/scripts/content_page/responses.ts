@@ -47,4 +47,4 @@ function responses(){
 }
 setTimeout(() => {
     responses()
-}, 700);
+}, 800);
