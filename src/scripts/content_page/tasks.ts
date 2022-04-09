@@ -1,6 +1,6 @@
 import {
     add_icons,
-    confirm_selected,
+    confirm_selected_questions,
     copy_links,
     delete_selected_questions,
     deletion_menu,
@@ -12,7 +12,8 @@ import {
     copyLinks,
     toggleSelection,
     showDelrsn,
-    confirmDeletionQuestions
+    confirmDeletionQuestions,
+    confirmQuestions
 } from "./button_functions"
 
 
@@ -34,7 +35,7 @@ function addButtons(){
         //if you want to add permissions for each button later, do it here (below)
     let url = String(window.location.href)
     buttonArea.insertAdjacentHTML('afterend', deletion_menu())
-    buttonArea.insertAdjacentHTML('afterend', confirm_selected())
+    buttonArea.insertAdjacentHTML('afterend', confirm_selected_questions())
     buttonArea.insertAdjacentHTML('afterend', delete_selected_questions())
     buttonArea.insertAdjacentHTML('afterend', copy_links())
     buttonArea.insertAdjacentHTML('afterend', toggle_selected())
@@ -45,6 +46,7 @@ function addButtons(){
     document.getElementById("copyLinks").addEventListener("click", function(){copyLinks()})
     document.querySelector("#deleteSelectedQuestions").addEventListener("click", function(){showDelrsn()})
     document.querySelector("#delete").addEventListener("click",function(){confirmDeletionQuestions()})
+    document.querySelector("#confirmSelectedQuestions").addEventListener("click",function(){confirmQuestions()})
 }
 
 addButtons()
