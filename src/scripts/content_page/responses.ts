@@ -7,11 +7,12 @@ import {
     deletion_menu,
     select_all,
     toggle_selected,
-    unverify_selected
+    unverify_selected,
+    add_icons
 } from "./content_page_buttons"
 
 window.addEventListener("load", function() {
-    
+    add_icons()
     let content = document.querySelectorAll("#content-old > div:nth-child(2) > div:nth-child(25) > table > tbody > tr")
 
     for (let i = 0; i < content.length; i++) {
