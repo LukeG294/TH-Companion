@@ -586,3 +586,61 @@ export async function confirmAnswers(){
   document.querySelector("#confirmSelectedAnswers  .spinner-container").classList.remove("show");
   window.location.reload()
 }
+
+export async function confirmQuestions(){
+  document.querySelector("#confirmSelectedQuestions  .spinner-container").classList.add("show");
+  let checkBoxes = document.getElementsByClassName("contentCheckboxes")
+  let idsToConfirm = []
+  for (let i = 0; i < checkBoxes.length; i++) {
+      //@ts-ignore
+      if (String(checkBoxes[i].checked) === "true") {
+          //@ts-ignore
+          let link = checkBoxes[i].closest("tr").getElementsByTagName('a')[0].href
+          let id = link.split("/")[4]
+          idsToConfirm.push(id)
+      } 
+  }
+  function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+  let myToken = getCookie("Zadanepl_cookie[Token][Long]")
+  for (let i = 0; i < idsToConfirm.length; i++) {
+   
+    await fetch("https://brainly.com/api/28/moderation_new/accept", {
+      "headers": {
+        "accept": "application/json, text/javascript, */*; q=0.01",
+        "accept-language": "en-US,en;q=0.9",
+        "content-type": "application/json",
+        "sec-ch-ua": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"100\", \"Google Chrome\";v=\"100\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"macOS\"",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-origin",
+        "x-b-token-long": myToken,
+        "x-requested-with": "XMLHttpRequest"
+      },
+      "referrer": "https://brainly.com/tasks/archive_mod",
+      "referrerPolicy": "strict-origin-when-cross-origin",
+      "body": `{\"model_type_id\":1,\"model_id\":${idsToConfirm[i]},\"schema\":\"moderation.content.ok\"}`,
+      "method": "POST",
+      "mode": "cors",
+      "credentials": "include"
+    });
+  
+  }
+  document.querySelector("#confirmSelectedQuestions  .spinner-container").classList.remove("show");
+  window.location.reload();
+}
