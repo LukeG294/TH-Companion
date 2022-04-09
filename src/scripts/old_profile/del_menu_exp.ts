@@ -48,7 +48,7 @@ export function deletion_listener(){
         let uid = document.querySelector("#main-left > div.personal_info > div.header > div.info > div.info_top > span.ranking > h2 > a").getAttribute("href").split("-")[1]
         document.querySelector(".modal-accdel .spinner-container").classList.add("show");
         let status = await delete_user(uid);
-        if(status ===200){sendmsg();}
+        if(status ===200){await sendmsg();}
         document.querySelector(".modal-accdel .spinner-container").classList.remove("show");
     })
 }
