@@ -35,7 +35,7 @@ div#content-old{
       }
     }
     > div:nth-child(2){
-      h1 > a{
+      h1 > div{
         font-size:2rem;
         font-weight:900;
       }
@@ -51,8 +51,8 @@ div#content-old{
       border-top: 1px solid #c3d1dd;
       border-bottom: 1px solid #c3d1dd;
     }
-    a{
-      font-size:13px!important;
+    div{
+      font-size:11px!important;
     }
   }
 }
@@ -91,9 +91,12 @@ div#content-old{
   background:#fbbe2e;
   fill:white;
 }
-div#content-old a{
+div#content-old div, div#content-old a{
   color:#08c!important;
+  cursor: pointer;
+  font-weight: 700;
 }
+
 .iconcell{ 
   display:flex;
   height: 40px;
