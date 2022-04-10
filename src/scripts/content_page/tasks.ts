@@ -13,7 +13,8 @@ import {
     toggleSelection,
     showDelrsn,
     confirmDeletionQuestions,
-    confirmQuestions
+    confirmQuestions,
+    content_page_ticket
    
 } from "./button_functions"
 
@@ -31,7 +32,11 @@ function addButtons(){
             </div>
         </div>
         </label></div>
-    `)}
+        
+    `)
+    
+    }
+   
     let buttonArea = document.querySelector("#content-old > div:nth-child(3) > p")
         //if you want to add permissions for each button later, do it here (below)
     let url = String(window.location.href)
@@ -47,7 +52,8 @@ function addButtons(){
     document.getElementById("copyLinks").addEventListener("click", function(){copyLinks()})
     document.querySelector("#deleteSelected").addEventListener("click", function(){showDelrsn("questions")})
     document.querySelector("#delete").addEventListener("click",function(){confirmDeletionQuestions()})
-   document.querySelector("#confirmSelectedQuestions").addEventListener("click",function(){confirmQuestions()})
+    document.querySelector("#confirmSelectedQuestions").addEventListener("click",function(){confirmQuestions()})
+    content_page_ticket()
 }
 if(window.location.href.includes("task") || (!window.location.href.includes("responses") && !window.location.href.includes("comments_tr"))){
     setTimeout(() => {
