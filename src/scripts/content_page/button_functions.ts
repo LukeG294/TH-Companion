@@ -626,3 +626,33 @@ export async function confirmQuestions(){
   document.querySelector("#confirmSelectedQuestions  .spinner-container").classList.remove("show");
   window.location.reload();
 }
+export async function content_page_ticket(){
+  let allLinks = document.querySelectorAll(".iconcell > a")
+  for (let i = 0; i < allLinks.length; i++) {
+    
+      var d = document.createElement('div');
+      d.innerHTML = allLinks[i].innerHTML;
+     
+      
+      //@ts-expect-error
+      d.id = allLinks[i].href.split("/")[4] 
+     
+      allLinks[i].parentElement.appendChild(d)
+      allLinks[i].remove()
+     
+      
+      d.addEventListener("click",function(){
+          document.body.insertAdjacentHTML("beforeend", <string>ticket())
+          let qid = d.id
+          insertdata_ticket(qid)
+          document.querySelector(".modal_close").addEventListener("click", async function(){
+              document.querySelector(".modal_back").remove()
+              await fetch(`https://brainly.com/api/28/moderate_tickets/expire`,{method: "POST", body:`{"model_id":${qid},"model_type_id":1,"schema":"moderation.ticket.expire"}`})
+            });
+          
+      })
+     
+ 
+  
+  }
+}
