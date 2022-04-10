@@ -1,3 +1,5 @@
+import { insertdata_ticket } from "../homepage/ticket_functions"
+import { ticket } from "../homepage/ticket_exp"
 export function selectAll(){
     let checkBoxes = document.getElementsByClassName("contentCheckboxes")
     for (let i = 0; i < checkBoxes.length; i++) {
