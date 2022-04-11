@@ -1,5 +1,3 @@
-import { insertdata_ticket } from "../homepage/ticket_functions"
-import { ticket } from "../homepage/ticket_exp"
 export function selectAll(){
     let checkBoxes = document.getElementsByClassName("contentCheckboxes")
     for (let i = 0; i < checkBoxes.length; i++) {
@@ -113,10 +111,9 @@ export async function confirmDeletionQuestions(){
           idsToDelete.push(id)
       } 
   }
-  let success = 0
-  let fail = 0
+  
   for (let i = 0; i < idsToDelete.length; i++) {
-    
+   
       let model_type_id = 1;
       let type = "task"
       //@ts-expect-error
@@ -125,7 +122,7 @@ export async function confirmDeletionQuestions(){
       let warn = document.querySelector("#warn").checked
       //@ts-expect-error
       let take_point = document.querySelector("#pts").checked
-      let response = await fetch(`https://brainly.com/api/28/moderation_new/delete_${type}_content`, {
+      await fetch(`https://brainly.com/api/28/moderation_new/delete_${type}_content`, {
           method: "POST",
           body:JSON.stringify({
             "reason_id":2,
@@ -136,38 +133,9 @@ export async function confirmDeletionQuestions(){
             "model_type_id":model_type_id,
             "model_id":idsToDelete[i],
           })
-        }).then(data => data.json());
-        if (response["success"] === true){
-          success+=1
-        } else {
-          fail +=1
-        }
+        })
   
   }
-  if (fail > 0){
-    let banner = document.createElement('div')
-    document.querySelector("#flash-msg").appendChild(banner)
-    banner.outerHTML = `<div aria-live="assertive" class="sg-flash" role="alert">
-                <div class="sg-flash__message sg-flash__message--error">
-                <div class="sg-text sg-text--small sg-text--bold sg-text--to-center">${success} question(s) removed, ${fail} had an error. Make sure they weren't already deleted.</div>
-                </div>
-            </div>`
-    document.querySelector(".sg-flash").addEventListener("click",function(){
-      this.remove();
-    })
-  } else {
-    let banner = document.createElement('div')
-    document.querySelector("#flash-msg").appendChild(banner)
-    banner.outerHTML = `<div aria-live="assertive" class="sg-flash" role="alert">
-                <div class="sg-flash__message sg-flash__message--success">
-                <div class="sg-text sg-text--small sg-text--bold sg-text--to-center">${success} question(s) removed successfully!</div>
-                </div>
-            </div>`
-    document.querySelector(".sg-flash").addEventListener("click",function(){
-      this.remove();
-    })
-  }
-
   document.querySelector("#delete  .spinner-container").classList.remove("show");
 }
 
@@ -236,7 +204,7 @@ export async function confirmDeletionAnswers(){
     document.querySelector("#flash-msg").appendChild(banner)
     banner.outerHTML = `<div aria-live="assertive" class="sg-flash" role="alert">
                 <div class="sg-flash__message sg-flash__message--error">
-                <div class="sg-text sg-text--small sg-text--bold sg-text--to-center">${success} answer(s) removed, ${fail} had an error. Make sure they weren't already deleted or the ticket isn't reserved.</div>
+                <div class="sg-text sg-text--small sg-text--bold sg-text--to-center">${success} removed, ${fail} had an error. Make sure they weren't already deleted.</div>
                 </div>
             </div>`
     document.querySelector(".sg-flash").addEventListener("click",function(){
@@ -247,7 +215,7 @@ export async function confirmDeletionAnswers(){
     document.querySelector("#flash-msg").appendChild(banner)
     banner.outerHTML = `<div aria-live="assertive" class="sg-flash" role="alert">
                 <div class="sg-flash__message sg-flash__message--success">
-                <div class="sg-text sg-text--small sg-text--bold sg-text--to-center">${success} answer(s) removed successfully!</div>
+                <div class="sg-text sg-text--small sg-text--bold sg-text--to-center">${success} removed successfully!</div>
                 </div>
             </div>`
     document.querySelector(".sg-flash").addEventListener("click",function(){
@@ -627,34 +595,4 @@ export async function confirmQuestions(){
   }
   document.querySelector("#confirmSelectedQuestions  .spinner-container").classList.remove("show");
   window.location.reload();
-}
-export async function content_page_ticket(){
-  let allLinks = document.querySelectorAll(".iconcell > a")
-  for (let i = 0; i < allLinks.length; i++) {
-    
-      var d = document.createElement('div');
-      d.innerHTML = allLinks[i].innerHTML;
-     
-      
-      //@ts-expect-error
-      d.id = allLinks[i].href.split("/")[4] 
-     
-      allLinks[i].parentElement.appendChild(d)
-      allLinks[i].remove()
-     
-      
-      d.addEventListener("click",function(){
-          document.body.insertAdjacentHTML("beforeend", <string>ticket())
-          let qid = d.id
-          insertdata_ticket(qid)
-          document.querySelector(".modal_close").addEventListener("click", async function(){
-              document.querySelector(".modal_back").remove()
-              await fetch(`https://brainly.com/api/28/moderate_tickets/expire`,{method: "POST", body:`{"model_id":${qid},"model_type_id":1,"schema":"moderation.ticket.expire"}`})
-            });
-          
-      })
-     
- 
-  
-  }
 }
