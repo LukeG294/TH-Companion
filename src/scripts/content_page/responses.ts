@@ -1,4 +1,4 @@
-import { selectAll, toggleSelection, copyLinks, showDelrsn, confirmDeletionAnswers, unverifyAnswers, approveAnswers, confirmAnswers, content_page_ticket } from "./button_functions"
+import { selectAll, toggleSelection, copyLinks, showDelrsn, confirmDeletionAnswers, unverifyAnswers, approveAnswers, confirmAnswers } from "./button_functions"
 import {
     approve_selected,
     copy_links,
@@ -44,7 +44,6 @@ function responses(){
     document.querySelector("#unverify").addEventListener("click",function(){unverifyAnswers()})
     document.querySelector("#approveSelected").addEventListener("click",function(){approveAnswers()})
     document.querySelector("#confirmSelectedAnswers").addEventListener("click",function(){confirmAnswers()})
-    content_page_ticket()
 }
 setTimeout(() => {
     responses()
