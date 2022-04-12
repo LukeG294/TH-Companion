@@ -17,7 +17,7 @@ import {
 } from "./button_functions"
 
 
-function addButtons(){
+export function addTaskButtons(){
     add_icons()
     let content = document.querySelectorAll("#content-old > div:nth-child(2) > div:nth-child(25) > table > tbody > tr")
     for (let i = 0; i < content.length; i++) {
@@ -51,9 +51,4 @@ function addButtons(){
     document.querySelector("#delete").addEventListener("click",function(){confirmDeletionQuestions()})
     document.querySelector("#confirmSelectedQuestions").addEventListener("click",function(){confirmQuestions()})
     
-}
-if(window.location.href.includes("task") || (!window.location.href.includes("responses") && !window.location.href.includes("comments_tr"))){
-    setTimeout(() => {
-        addButtons()
-    }, 1000);
 }

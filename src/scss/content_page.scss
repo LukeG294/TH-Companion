@@ -84,8 +84,11 @@ div#content-old{
   fill:white;
 }
 .contenticon.shield{
-  background:transparent;
+  cursor:pointer;
   fill:#323c45;
+  &:hover{
+    background:#f0f2f5;
+  }
 }
 .contenticon.crown{
   background:#fbbe2e;

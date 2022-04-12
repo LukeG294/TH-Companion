@@ -1,7 +1,7 @@
-import {insertdata_ticket} from "./ticket_functions"
-import {ticket} from "./ticket_exp"
-import {ryver_notification} from "../common/ryver_modal"
-import {login_run} from "../common/ryver_login"
+import {insertdata_ticket} from "../common/Mod Ticket/ticket_functions"
+import {ticket} from "../common/Mod Ticket/ticket_exp"
+import {ryver_notification} from "../common/Ryver/ryver_modal"
+import {login_run} from "../common/Ryver/ryver_login"
 import {subscribe} from "./livemod"
 import chrome from "webextension-polyfill";
 import {add_admin} from "./homepage_admin"

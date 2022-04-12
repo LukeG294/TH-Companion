@@ -1,3 +1,6 @@
+import {insertdata_ticket} from "../common/Mod Ticket/ticket_functions"
+import {ticket} from "../common/Mod Ticket/ticket_exp"
+
 export function selectAll(){
     let checkBoxes = document.getElementsByClassName("contentCheckboxes")
     for (let i = 0; i < checkBoxes.length; i++) {
@@ -139,7 +142,31 @@ export async function confirmDeletionQuestions(){
   }
   document.querySelector("#delete  .spinner-container").classList.remove("show");
 }
+export function addticket(){
+    let n_content = document.querySelector("tbody");
+    for(let i = 0; i < n_content.childElementCount; i++){ 
+        let row = document.querySelector("tbody").children[i];
+        let cell = row.children[1];
+        let qid = row.querySelector("a").getAttribute("href").replace("/question/","");
+        cell.insertAdjacentHTML("afterbegin",/*html*/`
+        <div class="contenticon shield">
+            <svg viewBox="0 0 512 512" style="overflow: visible" id="icon-shield" xmlns="http://www.w3.org/2000/svg">
+                <title>Moderate</title>
+                <path fill-rule="evenodd" d="M256 448c-32 0-192-16-192-192V96c0-11 6-32 32-32h320c11 0 32 6 32 32v176c0 160-160 176-192 176zm128-320H256v256c102 0 128-85 128-128V128z" clip-rule="evenodd"/>
+            </svg>
+        </div>
+        `); 
+        row.querySelector(".contenticon.shield").addEventListener("click", function(){
+            document.body.insertAdjacentHTML("beforeend", <string>ticket())
+            insertdata_ticket(qid)
 
+            document.querySelector(".modal_close").addEventListener("click", async function(){
+              document.querySelector(".modal_back").remove()
+              await fetch(`https://brainly.com/api/28/moderate_tickets/expire`,{method: "POST", body:`{"model_id":${qid},"model_type_id":1,"schema":"moderation.ticket.expire"}`})
+            });
+        });
+    } 
+}
 export async function confirmDeletionAnswers(){
   document.querySelector("#delete  .spinner-container").classList.add("show");
   let checkBoxes = document.getElementsByClassName("contentCheckboxes")

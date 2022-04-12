@@ -1,4 +1,4 @@
-import {login_form} from "../common/ryver_modal"
+import {login_form} from "./ryver_modal"
 import chrome from "webextension-polyfill"
 function log_deletion(authToken:string){
     fetch("https://brainlyus.ryver.com/api/1/odata.svc/workrooms(1000125)/Chat.PostMessage()", {

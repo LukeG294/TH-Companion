@@ -11,8 +11,8 @@ import {
     confirm_selected_answers
 } from "./content_page_buttons"
 
-function responses(){
-    add_icons()
+export function addResponseButtons(){
+    add_icons();
     let content = document.querySelectorAll("#content-old > div:nth-child(2) > div:nth-child(25) > table > tbody > tr")
 
     for (let i = 0; i < content.length; i++) {
@@ -22,7 +22,7 @@ function responses(){
            <use xlink:href="#icon-check" aria-hidden="true"></use>
          </svg></div>
      </div>
-   </label></div>`)
+        </label></div>`)
     }
 
     let buttonArea = document.querySelector("#content-old > div:nth-child(3) > p")
@@ -45,6 +45,3 @@ function responses(){
     document.querySelector("#approveSelected").addEventListener("click",function(){approveAnswers()})
     document.querySelector("#confirmSelectedAnswers").addEventListener("click",function(){confirmAnswers()})
 }
-setTimeout(() => {
-    responses()
-}, 1000);

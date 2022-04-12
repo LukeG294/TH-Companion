@@ -189,8 +189,7 @@ export function add_icons(){
         xhr.withCredentials = true;
   
         contentlink.children[1].classList.add("iconcell");
-        //@ts-expect-error
-        let qid = contentlink.children[1].children[0].href.replace("https://brainly.com/question/", "");
+        let qid = contentlink.querySelector("a").href.replace("https://brainly.com/question/", "");
   
         let boxthing = document.createElement("div");
         contentlink.children[1].prepend(boxthing)
@@ -229,8 +228,7 @@ export function add_icons(){
         xhr.withCredentials = true;
   
         contentlink.children[1].classList.add("iconcell");
-        //@ts-expect-error
-        let qid = contentlink.children[1].children[0].href.replace("https://brainly.com/question/", "");
+        let qid = contentlink.children[1].querySelector("a").href.replace("https://brainly.com/question/", "");
         let userId = window.location.href.replace("https://brainly.com/users/user_content/","").split("/")[0]
         let boxthing = document.createElement("div");
         contentlink.children[1].prepend(boxthing)
