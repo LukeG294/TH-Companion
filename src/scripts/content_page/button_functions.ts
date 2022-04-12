@@ -59,6 +59,7 @@ export async function showDelrsn(type:string){
     else if(type === "answers"){
       del_reasons = res.data.delete_reasons.response;
     }
+    console.log(JSON.stringify(res.data.delete_reasons))
     
     //inserting primary deletion reasons
 

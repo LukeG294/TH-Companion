@@ -39,7 +39,6 @@ function addButtons(){
    
     let buttonArea = document.querySelector("#content-old > div:nth-child(3) > p")
         //if you want to add permissions for each button later, do it here (below)
-    let url = String(window.location.href)
     buttonArea.insertAdjacentHTML('afterend', deletion_menu())
     buttonArea.insertAdjacentHTML('afterend', confirm_selected_questions())
     buttonArea.insertAdjacentHTML('afterend', delete_selected_questions())
