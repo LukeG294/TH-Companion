@@ -115,8 +115,11 @@ function add_attachments(item, elem){
     if(item.attachments.length > 1){
       for(let i = 0; i < item.attachments.length; i++){
         elem.querySelector(".attach-list").insertAdjacentHTML("beforeend",/*html*/`
-          <img src=${JSON.stringify(item.attachments[i].thumbnail)} id = "img${i}" onclick = 'document.querySelector(".attachments > img").setAttribute("src", "${item.attachments[i].full}")'>
+          <img class = "${i}attachimg" src=${JSON.stringify(item.attachments[i].thumbnail)} id = "img${i}">
         `)
+        elem.querySelector(`img.${i}attachimg`).addEventListener("click", function(){
+          elem.querySelector(".attachments > img").setAttribute("src", `${item.attachments[i].full}`)
+        })
       }
     }
   }
