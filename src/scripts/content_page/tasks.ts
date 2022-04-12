@@ -14,7 +14,7 @@ import {
     showDelrsn,
     confirmDeletionQuestions,
     confirmQuestions,
-    content_page_ticket
+    
    
 } from "./button_functions"
 
@@ -52,7 +52,7 @@ function addButtons(){
     document.querySelector("#deleteSelected").addEventListener("click", function(){showDelrsn("questions")})
     document.querySelector("#delete").addEventListener("click",function(){confirmDeletionQuestions()})
     document.querySelector("#confirmSelectedQuestions").addEventListener("click",function(){confirmQuestions()})
-    content_page_ticket()
+    
 }
 if(window.location.href.includes("task") || (!window.location.href.includes("responses") && !window.location.href.includes("comments_tr"))){
     setTimeout(() => {
