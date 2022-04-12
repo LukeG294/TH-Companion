@@ -20,6 +20,7 @@ export function add_del_menu(){
 function sendmsg(){
     let token = localStorage.getItem("userAuth");
     let del_reason = (<HTMLInputElement>document.querySelector(".modal-accdel .del-rsn")).value;
+    if(del_reason === ''){del_reason = "Not Provided"};
     let mod_name = document.querySelector(".menu-element.profile.styled > a > span:nth-child(2)").innerHTML
     fetch('https://brainlyus.ryver.com/api/1/odata.svc/workrooms(1291498)/Chat.PostMessage()', {
         method: 'POST',
