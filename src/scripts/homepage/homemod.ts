@@ -1,9 +1,7 @@
-import {insertdata_ticket} from "../common/Mod Ticket/ticket_functions"
-import {ticket} from "../common/Mod Ticket/ticket_exp"
 import {ryver_notification} from "../common/Ryver/ryver_modal"
 import {login_run} from "../common/Ryver/ryver_login"
+import {show_ticket} from "../common/mod_functions"
 import {subscribe} from "./livemod"
-import chrome from "webextension-polyfill";
 import {add_admin} from "./homepage_admin"
 
 async function HomepageButtons() {
@@ -32,13 +30,7 @@ async function HomepageButtons() {
 
     //mod ticket event listeners
     questionBox.querySelector(" .mod-button").addEventListener("click", async function(){
-      document.body.insertAdjacentHTML("beforeend", <string>ticket())
-      insertdata_ticket(qid)
-
-      document.querySelector(".modal_close").addEventListener("click", async function(){
-        document.querySelector(".modal_back").remove()
-        await fetch(`https://brainly.com/api/28/moderate_tickets/expire`,{method: "POST", body:`{"model_id":${qid},"model_type_id":1,"schema":"moderation.ticket.expire"}`})
-      });
+      show_ticket(qid)
     });
     //livemod call
     //questionBox.querySelector(".brn-feed-item").setAttribute("task-id", qid);

@@ -1,4 +1,16 @@
-export function confirm_answer(answerToConfirm){
+import {insertdata_ticket} from "../common/Mod Ticket/ticket_functions"
+import {ticket} from "../common/Mod Ticket/ticket_exp"
+
+export function show_ticket(qid:string){
+    document.body.insertAdjacentHTML("beforeend", <string>ticket())
+      insertdata_ticket(qid)
+
+      document.querySelector(".modal_close").addEventListener("click", async function(){
+        document.querySelector(".modal_back").remove()
+        await fetch(`https://brainly.com/api/28/moderate_tickets/expire`,{method: "POST", body:`{"model_id":${qid},"model_type_id":1,"schema":"moderation.ticket.expire"}`})
+      });
+}
+export function confirm_answer(answerToConfirm:string){
     var data = JSON.stringify({
         "operationName": "AcceptModerationReportContent",
         "variables": {

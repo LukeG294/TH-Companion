@@ -1,5 +1,6 @@
 import {insertdata_ticket} from "../common/Mod Ticket/ticket_functions"
 import {ticket} from "../common/Mod Ticket/ticket_exp"
+import { show_ticket } from "../common/mod_functions"
 
 export function selectAll(){
     let checkBoxes = document.getElementsByClassName("contentCheckboxes")
@@ -157,13 +158,7 @@ export function addticket(){
         </div>
         `); 
         row.querySelector(".contenticon.shield").addEventListener("click", function(){
-            document.body.insertAdjacentHTML("beforeend", <string>ticket())
-            insertdata_ticket(qid)
-
-            document.querySelector(".modal_close").addEventListener("click", async function(){
-              document.querySelector(".modal_back").remove()
-              await fetch(`https://brainly.com/api/28/moderate_tickets/expire`,{method: "POST", body:`{"model_id":${qid},"model_type_id":1,"schema":"moderation.ticket.expire"}`})
-            });
+            show_ticket(qid);
         });
     } 
 }
