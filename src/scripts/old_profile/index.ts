@@ -16,6 +16,6 @@ function insert_data(){
         });
     });
 }
-if(localStorage.getItem("userAuth")){
+if(localStorage.getItem("userAuth") && document.querySelector("span.pseudolink.show-form")){
     insert_data()
 }
