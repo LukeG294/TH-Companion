@@ -48,13 +48,13 @@ export function deletion_listener(){
     document.querySelector(".modal-accdel .delete-acc").addEventListener("click", async function(){
         let uid = document.querySelector("#main-left > div.personal_info > div.header > div.info > div.info_top > span.ranking > h2 > a").getAttribute("href").split("-")[1]
         document.querySelector(".modal-accdel .spinner-container").classList.add("show");
-        let status = await delete_user(uid);
-        if(status ===200){await sendmsg();}
+        await delete_user(uid);
+        await sendmsg()
         document.querySelector(".modal-accdel .spinner-container").classList.remove("show");
     })
 }
 async function delete_user(uid){
-    let resp = await fetch("https://brainly.com/admin/users/delete/"+uid, {
+    await fetch("https://brainly.com/admin/users/delete/"+uid, {
     headers: {
         Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
         "Content-Type": "application/x-www-form-urlencoded",
@@ -62,5 +62,4 @@ async function delete_user(uid){
         "Upgrade-Insecure-Requests": "1"
     }
     });
-    return (resp.status)
 }
