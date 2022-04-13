@@ -1,6 +1,6 @@
 
 import {confirm_button} from "../common/confirm_button"
-import {confirm_answer} from "../common/confirm_answer"
+import {confirm_answer} from "../common/mod_functions"
 
 function ConfirmButtonListener(number){
   document.getElementById("confirm"+number).addEventListener("click",function(){
