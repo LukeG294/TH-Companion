@@ -1,3 +1,4 @@
+import { delete_user } from "../common/mod_functions";
 export function add_del_menu(){
     return /*html*/`
         <div class="modal_back">
@@ -11,6 +12,9 @@ export function add_del_menu(){
             <h1 class="sg-text-bit--gray-secondary sg-headline sg-headline--xlarge sg-headline--extra-bold" style = "color:#323c45; margin-bottom:8px;">Delete User</h1>
             <div class="content">
                 <textarea placeholder="Add Reason Here" class="sg-textarea sg-textarea--tall del-rsn"></textarea>
+                <div class="sg-flex sg-flex--margin-top-xxs sg-flex--margin-right-s sg-flex--margin-left-s">
+                  <div class="sg-text sg-text--xsmall sg-text--peach-dark">An error occurred, Please try again</div>
+                </div>
                 <button class="sg-button sg-button--m sg-button--solid-light delete-acc"><span class="sg-button__text">Delete!</span></button>
             </div>
             </div>
@@ -44,7 +48,7 @@ async function sendmsg(){
     });
     location.reload()
 }
-function check_deletion(uid){
+function check_deletion(uid:string):any{
     var xhr = new XMLHttpRequest();
     xhr.withCredentials = false;
     xhr.addEventListener("readystatechange", async function() {
@@ -53,7 +57,10 @@ function check_deletion(uid){
               var parser = new DOMParser();
               var htmldoc = parser.parseFromString(response, "text/xml")
               if(htmldoc.querySelector("title").innerHTML.split("-")[1] === " User's profile :deleted"){
-                  await sendmsg();
+                  return true;
+              }
+              else{
+                  return false;
               }
           }
         });
@@ -65,18 +72,14 @@ export function deletion_listener(){
         let uid = document.querySelector("#main-left > div.personal_info > div.header > div.info > div.info_top > span.ranking > h2 > a").getAttribute("href").split("-")[1]
         document.querySelector(".modal-accdel .spinner-container").classList.add("show");
         await delete_user(uid);
-        check_deletion(uid);
-        //await sendmsg()
+        if(check_deletion(uid)){
+            await sendmsg();
+        }
+        else{
+            console.log("user not deleted");
+            document.querySelector(".modal-accdel .content").classList.add("errormsg");
+            document.querySelector(".modal-accdel .content textarea").classList.add("sg-textarea--invalid");
+        }
         document.querySelector(".modal-accdel .spinner-container").classList.remove("show");
     })
-}
-async function delete_user(uid){
-    await fetch("https://brainly.com/admin/users/delete/"+uid, {
-    headers: {
-        Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
-        "Content-Type": "application/x-www-form-urlencoded",
-        "Sec-Fetch-User": "?1",
-        "Upgrade-Insecure-Requests": "1"
-    }
-    });
 }

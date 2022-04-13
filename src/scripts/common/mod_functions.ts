@@ -54,3 +54,13 @@ export function confirm_answer(answerToConfirm:string){
 
     xhr.send(data);
 }
+export async function delete_user(uid:string){
+    await fetch("https://brainly.com/admin/users/delete/"+uid, {
+    headers: {
+        Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Sec-Fetch-User": "?1",
+        "Upgrade-Insecure-Requests": "1"
+    }
+    });
+}
