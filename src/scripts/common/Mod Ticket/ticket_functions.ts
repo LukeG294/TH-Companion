@@ -139,7 +139,7 @@ function user_content_data(user, elem, item){
   elem.querySelector(".text-user .rank").setAttribute("style", `color: ${user.ranks.color}`)
   elem.querySelector(".content").innerHTML = item.content;
 }
-function add_answer(ans,res,a){
+function add_answer(ans,res,a, basic_data){
   let answerer = res.users_data.find(({id}) => id === ans.user.id);
   let answer_elem = /*html*/`
   <div class = "content-item answer${a}">
@@ -164,8 +164,7 @@ function add_answer(ans,res,a){
             <div class="rank sg-text sg-text--small">Ambitious</div>
           </div>
           <div class="text-subj">
-            <div class = "sg-text sg-text--xsmall rightdot">Subject</div>
-            <div class = "sg-text sg-text--xsmall">Middle School</div>
+            <div class = "sg-text sg-text--xsmall">ansnum</div>
           </div>
         </div>
       </div>
@@ -220,12 +219,15 @@ function add_answer(ans,res,a){
   document.querySelector(".answers").insertAdjacentHTML("beforeend",answer_elem);
   let this_ans = document.querySelector(`.answer${a}`);
   let a_del_rsn = res.data.delete_reasons.response;
-  let answer_id = res.data.responses[a].id
-
+  let answer_id = res.data.responses[a].id;
+  if(basic_data.approved.approver !== null){
+    this_ans.classList.add("approved");
+  }
+  this_ans.querySelector(".text-subj > div").innerHTML =  `${answerer.stats.answers} Answers`
   user_content_data(answerer, this_ans, ans);
   add_attachments(ans, this_ans);
-  add_report(res,ans,this_ans)
-  add_deletion(a_del_rsn, this_ans, answer_id, "response")
+  add_report(res,ans,this_ans);
+  add_deletion(a_del_rsn, this_ans, answer_id, "response");
 }
 function add_question_data(res, d_reference){
   let q_data = res.data.task;
@@ -263,7 +265,8 @@ export async function insertdata_ticket(id){
       document.querySelector(".answers").innerHTML = '';
     }
     for(let a = 0; a < res.data.responses.length; a++){
-      add_answer(res.data.responses[a],res, a);
+      let this_ans_data = basic_data.data.responses[a];
+      add_answer(res.data.responses[a],res, a, this_ans_data);
     }
     add_log(log);
   }

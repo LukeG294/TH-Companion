@@ -59,7 +59,7 @@ div.brn-placeholder__animation{
         padding: 8px;
         top:-50px;
       }
-      >svg{
+      svg{
         fill:#323c45;
       }
     }
@@ -122,6 +122,13 @@ div.brn-placeholder__animation{
           }
           .qdata{
             border-color:#ff7968!important;
+          }
+        }
+        &.approved{
+          border: 2px solid #60d399;
+          background: #f0faf5;
+          .actions{
+            display:none!important;
           }
         }
         .actions{
