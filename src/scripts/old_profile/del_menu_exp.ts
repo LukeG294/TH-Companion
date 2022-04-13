@@ -44,12 +44,29 @@ async function sendmsg(){
     });
     location.reload()
 }
+function check_deletion(uid){
+    var xhr = new XMLHttpRequest();
+    xhr.withCredentials = false;
+    xhr.addEventListener("readystatechange", async function() {
+          if(this.readyState === 4) {
+              let response = this.responseText;
+              var parser = new DOMParser();
+              var htmldoc = parser.parseFromString(response, "text/xml")
+              if(htmldoc.querySelector("title").innerHTML.split("-")[1] === " User's profile :deleted"){
+                  await sendmsg();
+              }
+          }
+        });
+    xhr.open("GET","https://brainly.com/profile/user-"+uid);
+    xhr.send()
+}
 export function deletion_listener(){
     document.querySelector(".modal-accdel .delete-acc").addEventListener("click", async function(){
         let uid = document.querySelector("#main-left > div.personal_info > div.header > div.info > div.info_top > span.ranking > h2 > a").getAttribute("href").split("-")[1]
         document.querySelector(".modal-accdel .spinner-container").classList.add("show");
         await delete_user(uid);
-        await sendmsg()
+        check_deletion(uid);
+        //await sendmsg()
         document.querySelector(".modal-accdel .spinner-container").classList.remove("show");
     })
 }

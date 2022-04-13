@@ -1,23 +1,5 @@
 import {login_form} from "./ryver_modal"
 import chrome from "webextension-polyfill"
-function log_deletion(authToken:string){
-    fetch("https://brainlyus.ryver.com/api/1/odata.svc/workrooms(1000125)/Chat.PostMessage()", {
-        body: `
-        {
-            "createSource": {
-            "avatar": "https://pbs.twimg.com/profile_images/825987046992814080/7VZkFQA9_400x400.jpg",
-            "displayName": "Brainly Companion"
-            },
-            "body": " "
-        }`,
-        headers: {
-          Accept: "application/json",
-          Authorization: `Basic ${authToken}`,
-          "Content-Type": "application/json"
-        },
-        method: "POST"
-    })
-}
 function encodeUser(username:string, password:string){    
     let userString = `${username}:${password}`
     var encodedStringBtoA = btoa(userString);
