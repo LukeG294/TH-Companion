@@ -55,13 +55,8 @@ function check_deletion(uid:string):any{
           if(this.readyState === 4) {
               let response = this.responseText;
               var parser = new DOMParser();
-              var htmldoc = parser.parseFromString(response, "text/xml")
-              if(htmldoc.querySelector("title").innerHTML.split("-")[1] === " User's profile :deleted"){
-                  return true;
-              }
-              else{
-                  return false;
-              }
+              var htmldoc = parser.parseFromString(response, "text/xml");
+              return (htmldoc.querySelector("title").innerHTML.split("-")[1] === " User's profile :deleted" ? true : false)
           }
         });
     xhr.open("GET","https://brainly.com/profile/user-"+uid);

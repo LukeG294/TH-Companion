@@ -1,20 +1,32 @@
 .header,#profile{
     display:flex!important;
 }
-.personal_info{
+.helped_info{display:none!important;}
+.mod-profile-panel{
     position:relative;
     .user-del-btn{
-        position: absolute;
-        top: 50%;
-        right: 12px;
-        transform: translateY(-50%);
         border-color:#ff7968;
+        padding: 0px 16px;
+        width: 175px!important;
+        display: flex;
+        margin-top: 4px;
+        position: absolute;
+        right: 0;
+        bottom: 115%;
+        height: 35px;
+        align-items: center;
+        justify-content: space-evenly;
         svg{
             fill:#ff7968;
         }
+        >span{
+            display: flex;
+            align-items: center;
+            width: 100%;
+            justify-content: center;
+        }
     }
 }
-
 span.ranking a,span.rank > h3 > span, span.rank > h3 > a{
     font-weight:900!important;
 }
