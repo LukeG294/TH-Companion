@@ -1,8 +1,8 @@
 {
   "name": "Brainly Companion (Beta)",
-  "description": "A tool in it's beta version to help Brainly Volunteers perform moderation actions more efficiently.",
+  "description": "A tool in it's beta version to help Brainly Volunteers perform their tasks actions more efficiently.",
   "manifest_version": 3,
-  "version":"1.0.3",
+  "version":"1.0.45",
   "icons": {
     "128": "resources/icon.png"
   },
