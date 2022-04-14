@@ -2,22 +2,7 @@ import { delete_user } from "../common/mod_functions";
 export function add_del_menu(){
     return /*html*/`
         <div class="modal_back">
-            <div class="modal-accdel">
-                <div class="spinner-container"><div class="sg-spinner sg-spinner--gray-900 sg-spinner--small"></div></div>
-            <div class = "modal_close">
-                <div class="sg-icon sg-icon--dark sg-icon--x32">
-                    <svg class="sg-icon__svg"><use xlink:href="#icon-close"></use></svg>
-                </div>
-            </div>
-            <h1 class="sg-text-bit--gray-secondary sg-headline sg-headline--xlarge sg-headline--extra-bold" style = "color:#323c45; margin-bottom:8px;">Delete User</h1>
-            <div class="content">
-                <textarea placeholder="Add Reason Here" class="sg-textarea sg-textarea--tall del-rsn"></textarea>
-                <div class="sg-flex sg-flex--margin-top-xxs sg-flex--margin-right-s sg-flex--margin-left-s">
-                  <div class="sg-text sg-text--xsmall sg-text--peach-dark">An error occurred, Please try again</div>
-                </div>
-                <button class="sg-button sg-button--m sg-button--solid-light delete-acc"><span class="sg-button__text">Delete!</span></button>
-            </div>
-            </div>
+            ${this.innerHTML = document.querySelector("#DelUserAddForm").outerHTML}
         </div>
     `
 }
